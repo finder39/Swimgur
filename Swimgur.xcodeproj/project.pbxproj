@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
+		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
 		D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
 		D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB2199070470062E3E6 /* ViewController.swift */; };
 		D8AE2DB6199070470062E3E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8AE2DB4199070470062E3E6 /* Main.storyboard */; };
 		D8AE2DB8199070470062E3E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8AE2DB7199070470062E3E6 /* Images.xcassets */; };
 		D8AE2DC4199070470062E3E6 /* SwimgurTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */; };
+		D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DCE199088FC0062E3E6 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AE2DAF199070470062E3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AE2DB0199070470062E3E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -34,6 +39,7 @@
 		D8AE2DBD199070470062E3E6 /* SwimgurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwimgurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AE2DC2199070470062E3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimgurTests.swift; sourceTree = "<group>"; };
+		D8AE2DCE199088FC0062E3E6 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D89920C31991CBD50064C50A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D89920C51991CC0E0064C50A /* UIColorExt.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		D8AE2DA2199070470062E3E6 = {
 			isa = PBXGroup;
 			children = (
@@ -75,8 +89,11 @@
 		D8AE2DAD199070470062E3E6 /* Swimgur */ = {
 			isa = PBXGroup;
 			children = (
+				D89920C31991CBD50064C50A /* Extensions */,
+				D8AE2DCD1990882F0062E3E6 /* Data */,
 				D8AE2DB0199070470062E3E6 /* AppDelegate.swift */,
 				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
+				D89920C11991B6530064C50A /* Constants.swift */,
 				D8AE2DB4199070470062E3E6 /* Main.storyboard */,
 				D8AE2DB7199070470062E3E6 /* Images.xcassets */,
 				D8AE2DAE199070470062E3E6 /* Supporting Files */,
@@ -107,6 +124,14 @@
 				D8AE2DC2199070470062E3E6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D8AE2DCD1990882F0062E3E6 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				D8AE2DCE199088FC0062E3E6 /* DataManager.swift */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,7 +234,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
+				D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
+				D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */,
+				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +423,7 @@
 				D8AE2DC9199070470062E3E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8AE2DCA199070470062E3E6 /* Build configuration list for PBXNativeTarget "SwimgurTests" */ = {
 			isa = XCConfigurationList;
@@ -403,6 +432,7 @@
 				D8AE2DCC199070470062E3E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
