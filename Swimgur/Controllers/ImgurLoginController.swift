@@ -7,3 +7,19 @@
 //
 
 import UIKit
+
+// Type of authentication
+public enum ImgurLoginAuthType {
+  case ImgurLoginAuthTypeToken
+  case ImgurLoginAuthTypePin
+  case ImgurLoginAuthTypeCode
+}
+
+class ImgurLoginController {
+  
+  var authorizationClosure:DMBlockBool?
+  
+  func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBlockBool) {
+    authorizationClosure = completionBlock
+  }
+}

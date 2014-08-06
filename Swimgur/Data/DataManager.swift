@@ -16,15 +16,7 @@ enum DMEngineMode {
   case Query
 }
 
-// Type of authentication
-enum VWWImgurControllerAuthType {
-  case VWWImgurControllerAuthTypeToken
-  case VWWImgurControllerAuthTypePin
-  case VWWImgurControllerAuthTypeCode
-}
-
 class DataManager {
-  var authorizationClosure:DMBlockBool?
   
   class var sharedInstance:DataManager {
     struct Static {
@@ -38,8 +30,4 @@ class DataManager {
   }
   
   let session = NSURLSession.sharedSession()
-  
-  class func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBlockBool) {
-    sharedInstance.authorizationClosure = completionBlock
-  }
 }
