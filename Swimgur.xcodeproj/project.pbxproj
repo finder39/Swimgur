@@ -15,6 +15,7 @@
 		D8AE2DB8199070470062E3E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8AE2DB7199070470062E3E6 /* Images.xcassets */; };
 		D8AE2DC4199070470062E3E6 /* SwimgurTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */; };
 		D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DCE199088FC0062E3E6 /* DataManager.swift */; };
+		D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,13 +34,14 @@
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AE2DAF199070470062E3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AE2DB0199070470062E3E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D8AE2DB2199070470062E3E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D8AE2DB2199070470062E3E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Controllers/ViewController.swift; sourceTree = "<group>"; };
 		D8AE2DB5199070470062E3E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8AE2DB7199070470062E3E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D8AE2DBD199070470062E3E6 /* SwimgurTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwimgurTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AE2DC2199070470062E3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimgurTests.swift; sourceTree = "<group>"; };
 		D8AE2DCE199088FC0062E3E6 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
+		D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgurLoginController.swift; path = Controllers/ImgurLoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +94,7 @@
 				D89920C31991CBD50064C50A /* Extensions */,
 				D8AE2DCD1990882F0062E3E6 /* Data */,
 				D8AE2DB0199070470062E3E6 /* AppDelegate.swift */,
-				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
+				D8DF2A731991D1C700397EE2 /* Controllers */,
 				D89920C11991B6530064C50A /* Constants.swift */,
 				D8AE2DB4199070470062E3E6 /* Main.storyboard */,
 				D8AE2DB7199070470062E3E6 /* Images.xcassets */,
@@ -132,6 +134,15 @@
 				D8AE2DCE199088FC0062E3E6 /* DataManager.swift */,
 			);
 			name = Data;
+			sourceTree = "<group>";
+		};
+		D8DF2A731991D1C700397EE2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
+				D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +244,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */,
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
 				D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
