@@ -16,12 +16,11 @@ enum DMEngineMode {
   case Query
 }
 
-internal var restConfig = RestConfig()
-
 class DataManager {
   
+  var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
-  var apiPath:NSString = restConfig.serviceAuthorize
+  var apiPath:NSString = DataManager.sharedInstance.restConfig.serviceAuthorize
   
   class var sharedInstance:DataManager {
     struct Static {
