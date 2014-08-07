@@ -16,7 +16,12 @@ enum DMEngineMode {
   case Query
 }
 
+internal var restConfig = RestConfig()
+
 class DataManager {
+  
+  let session = NSURLSession.sharedSession()
+  var apiPath:NSString = restConfig.serviceAuthorize
   
   class var sharedInstance:DataManager {
     struct Static {
@@ -29,5 +34,12 @@ class DataManager {
     
   }
   
-  let session = NSURLSession.sharedSession()
+  func setMode(mode:DMEngineMode) {
+    switch(mode) {
+      case .Authentication:
+        self.apiPath = restConfig.serviceAuthorize
+      case .Query:
+        self.apiPath = restConfig.serviceQuery
+    }
+  }
 }
