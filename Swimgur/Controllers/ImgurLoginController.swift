@@ -57,7 +57,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   private func webView(webView:UIWebView, didAuthenticateWithRedirectURLString redirectURLString:String) {
     let responseDictionary = parseQuery(redirectURLString)
     let code = responseDictionary["code"]
-    // TODO: setCode [VWWUserDefaults setCode:code];
+    SIUserDefaults().code = code
     // TODO: getTokensFromCode [self getTokensFromCode:code];
   }
   

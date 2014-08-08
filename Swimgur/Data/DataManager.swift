@@ -20,7 +20,7 @@ class DataManager {
   
   var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
-  var apiPath:NSString = ""
+  var apiPath: NSString = ""
   
   class var sharedInstance:DataManager {
     struct Static {
