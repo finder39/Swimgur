@@ -86,19 +86,13 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   private func getAccount() {
     DataManager.sharedInstance.getAccountWithCompletion({ (account) -> () in
       if account != nil {
-        println("Retrieved account information: \(account.description)")
+        //println("Retrieved account information: \(account.description)")
         
-        // TODO: Need to figure out what's useful to keep aroudn. For now let's just get
+        // TODO: Need to figure out what's useful to keep arounf. For now let's just get
         // the user name and stick it in non-volatile memory
         
-        let data: Dictionary<String, AnyObject>? = account["data"] as AnyObject? as Dictionary<String, AnyObject>?
-        let username: String? = data?["url"] as AnyObject? as String?
-        if (data != nil && username != nil) {
-          SIUserDefaults().username = username
-          self.authorizationSucceeded(true)
-        } else {
-          self.authorizationSucceeded(false)
-        }
+        SIUserDefaults().username = account.username
+        self.authorizationSucceeded(true)
       } else {
         self.authorizationSucceeded(false)
       }

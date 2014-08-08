@@ -11,6 +11,7 @@ import UIKit
 
 public typealias DMBlockBool = (success:Bool)->()
 public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
+public typealias DMAccountBlock = (account:Account)->()
 public typealias DMErrorStringBlock = (error:NSError, desciption:String)->()
 public typealias DMTokenBlock = (token:Token)->()
 
@@ -49,7 +50,8 @@ class DataManager {
     // TODO:
   }
   
-  func getAccountWithCompletion(onCompletion:DMDictionaryBlock, onError:DMErrorStringBlock) {
+  func getAccountWithCompletion(onCompletion:DMAccountBlock, onError:DMErrorStringBlock) {
     // TODO:
+    //let data: Dictionary<String, AnyObject>? = account["data"] as AnyObject? as Dictionary<String, AnyObject>?
   }
 }
