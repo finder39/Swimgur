@@ -10,6 +10,9 @@ import UIKit
 
 
 public typealias DMBlockBool = (success:Bool)->()
+public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
+public typealias DMErrorStringBlock = (error:NSError, desciption:String)->()
+public typealias DMTokenBlock = (token:Token)->()
 
 enum DMEngineMode {
   case Authentication
@@ -40,5 +43,13 @@ class DataManager {
       case .Query:
         apiPath = restConfig.serviceQuery
     }
+  }
+  
+  func getTokensWithForm(form:CodeForm, onCompletion:DMTokenBlock, onError:DMErrorStringBlock) {
+    // TODO:
+  }
+  
+  func getAccountWithCompletion(onCompletion:DMDictionaryBlock, onError:DMErrorStringBlock) {
+    // TODO:
   }
 }

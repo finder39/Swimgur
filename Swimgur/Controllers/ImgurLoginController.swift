@@ -42,6 +42,20 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     viewController.presentViewController(imgurLoginViewController, animated: true, completion: nil)
   }
   
+  // TODO: verifyStoredAccountWithCompletionBlock
+  
+  private func authorizationSucceeded(success:Bool) {
+    // remove webview from view controller
+    webView.removeFromSuperview()
+    webView = UIWebView() // reinitiate
+    
+    // fire completion block
+    if let authorizationClosureUnwrapped = authorizationClosure {
+      authorizationClosureUnwrapped(success: success)
+      authorizationClosure = nil;
+    }
+  }
+  
   private func parseQuery(string:String) -> Dictionary<String, String> {
     let components:[String] = string.componentsSeparatedByString("&")
     var recievedDict:Dictionary<String, String> = Dictionary()
@@ -54,11 +68,51 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     return recievedDict
   }
   
+  private func getTokensFromCode(code:String) {
+    var form = CodeForm()
+    form.code = code
+    form.clientID = Constants().ImgurControllerConfigClientID
+    form.clientSecret = Constants().ImgurControllerConfigSecret
+    form.grantType = "authorization_code"
+    DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
+      SIUserDefaults().token = token.accessToken
+      DataManager.sharedInstance.setMode(DMEngineMode.Query)
+      self.getAccount()
+    }) { (error, desciption) -> () in
+      self.authorizationSucceeded(false)
+    }
+  }
+  
+  private func getAccount() {
+    DataManager.sharedInstance.getAccountWithCompletion({ (account) -> () in
+      if account != nil {
+        println("Retrieved account information: \(account.description)")
+        
+        // TODO: Need to figure out what's useful to keep aroudn. For now let's just get
+        // the user name and stick it in non-volatile memory
+        
+        let data: Dictionary<String, AnyObject>? = account["data"] as AnyObject? as Dictionary<String, AnyObject>?
+        let username: String? = data?["url"] as AnyObject? as String?
+        if (data != nil && username != nil) {
+          SIUserDefaults().username = username
+          self.authorizationSucceeded(true)
+        } else {
+          self.authorizationSucceeded(false)
+        }
+      } else {
+        self.authorizationSucceeded(false)
+      }
+    }, onError: { (error, desciption) -> () in
+      println("Failed to retrieve account information")
+      self.authorizationSucceeded(false)
+    })
+  }
+  
   private func webView(webView:UIWebView, didAuthenticateWithRedirectURLString redirectURLString:String) {
     let responseDictionary = parseQuery(redirectURLString)
     let code = responseDictionary["code"]
     SIUserDefaults().code = code
-    // TODO: getTokensFromCode [self getTokensFromCode:code];
+    self.getTokensFromCode(code!) // TODO: check it can explicitly unwrap
   }
   
   // MARK: UIWebViewDelegate
@@ -78,6 +132,6 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   }
   
   func webView(webView: UIWebView!, didFailLoadWithError error: NSError!) {
-    
+    self.authorizationSucceeded(false)
   }
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+  
+  let imgurLoginController = ImgurLoginController()
                             
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,6 +21,20 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    self.authenticateAndGetAccount()
+  }
+  
+  func authenticateAndGetAccount() {
+    imgurLoginController.authorizeWithViewController(self) { (success) -> () in
+      if success {
+        // TODO: Move on
+      } else {
+        // TODO: Give error
+      }
+    }
+  }
 }
 

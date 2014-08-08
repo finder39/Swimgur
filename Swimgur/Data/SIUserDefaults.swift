@@ -16,7 +16,7 @@ public enum SIDefault: String {
 }
 
 public class SIUserDefaults {
-  var accountKey: Dictionary<String, String>? {
+  var account: Dictionary<String, String>? {
     get {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.toRaw()) as AnyObject? as Dictionary<String, String>?
     }
@@ -26,7 +26,7 @@ public class SIUserDefaults {
     }
   }
   
-  var tokenKey: String? {
+  var token: String? {
     get {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as String?
     }
