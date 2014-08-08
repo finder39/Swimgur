@@ -32,7 +32,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     
     // https://api.imgur.com/oauth2/authorize?client_id=49fe065e4663928&response_type=code&state=auth
     
-    let urlString = "\(DataManager.sharedInstance.restConfig.serviceEndpointAuthorize)/\(DataManager.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
+    let urlString = "\(DataManager.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(DataManager.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
     
     println(urlString)
     
@@ -76,6 +76,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     form.grantType = "authorization_code"
     DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       SIUserDefaults().token = token.accessToken
+      println(token.accessToken)
       self.getAccount()
     }) { (error, desciption) -> () in
       self.authorizationSucceeded(false)

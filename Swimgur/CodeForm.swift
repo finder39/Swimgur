@@ -28,7 +28,7 @@ class CodeForm {
     if let codeUnwrapped = code { dictionary[codeFormCodeKey] = codeUnwrapped }
     if let clientIDUnwrapped = clientID { dictionary[codeFormClientIDKey] = clientIDUnwrapped }
     if let clientSecretUnwrapped = code { dictionary[codeFormClientSecretKey] = clientSecretUnwrapped }
-    if let grantTypeUnwrapped = code { dictionary[codeFormGrantTypeKey] = grantTypeUnwrapped }
+    if let grantTypeUnwrapped = grantType { dictionary[codeFormGrantTypeKey] = grantTypeUnwrapped }
     return dictionary
   }
   

@@ -13,9 +13,9 @@ class RestConfig {
   let serviceSecure = true
   
   private let serviceAuthorize = "oauth2"
-  var serviceEndpointAuthorize = ""
+  var serviceAuthorizeEndpoint = ""
   private let serviceQuery = "3"
-  var serviceEndpointQuery = ""
+  var serviceQueryEndpoint = ""
   
   let accountURI = "account"
   let accountMeURI = "account/me"
@@ -27,8 +27,8 @@ class RestConfig {
   let tokenURI = "token"
   
   init() { // required for initiliaze in self
-    serviceEndpointAuthorize = serviceSecure ? "https://\(server)/\(serviceAuthorize)" : "http://\(server)/\(serviceAuthorize)"
-    serviceEndpointQuery = serviceSecure ? "https://\(server)/\(serviceQuery)" : "http://\(server)/\(serviceQuery)"
+    serviceAuthorizeEndpoint = serviceSecure ? "https://\(server)/\(serviceAuthorize)" : "http://\(server)/\(serviceAuthorize)"
+    serviceQueryEndpoint = serviceSecure ? "https://\(server)/\(serviceQuery)" : "http://\(server)/\(serviceQuery)"
   }
   
   func configureAuthorizeMode() {
