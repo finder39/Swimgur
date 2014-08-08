@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D888B40619948B5F00179D0C /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
 		D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				D89920C51991CC0E0064C50A /* UIColorExt.swift */,
+				D888B40519948B5F00179D0C /* StringExt.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +252,7 @@
 			files = (
 				D8DF2A79199436C600397EE2 /* RestConfig.swift in Sources */,
 				D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */,
+				D888B40619948B5F00179D0C /* StringExt.swift in Sources */,
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
 				D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,

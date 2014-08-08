@@ -20,7 +20,7 @@ class DataManager {
   
   var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
-  var apiPath:NSString = DataManager.sharedInstance.restConfig.serviceAuthorize
+  var apiPath:NSString = ""
   
   class var sharedInstance:DataManager {
     struct Static {
@@ -30,15 +30,15 @@ class DataManager {
   }
   
   init() {
-    
+    apiPath = restConfig.serviceAuthorize
   }
   
   func setMode(mode:DMEngineMode) {
     switch(mode) {
       case .Authentication:
-        self.apiPath = restConfig.serviceAuthorize
+        apiPath = restConfig.serviceAuthorize
       case .Query:
-        self.apiPath = restConfig.serviceQuery
+        apiPath = restConfig.serviceQuery
     }
   }
 }
