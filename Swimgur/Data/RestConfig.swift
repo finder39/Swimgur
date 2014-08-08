@@ -12,9 +12,10 @@ class RestConfig {
   var server = "api.imgur.com"
   let serviceSecure = true
   
-  var serviceEndpoint = ""
-  let serviceAuthorize = "oauth2"
-  let serviceQuery = "3"
+  private let serviceAuthorize = "oauth2"
+  var serviceEndpointAuthorize = ""
+  private let serviceQuery = "3"
+  var serviceEndpointQuery = ""
   
   let accountURI = "account"
   let accountMeURI = "account/me"
@@ -26,18 +27,11 @@ class RestConfig {
   let tokenURI = "token"
   
   init() { // required for initiliaze in self
-    serviceEndpoint = server
+    serviceEndpointAuthorize = serviceSecure ? "https://\(server)/\(serviceAuthorize)" : "http://\(server)/\(serviceAuthorize)"
+    serviceEndpointQuery = serviceSecure ? "https://\(server)/\(serviceQuery)" : "http://\(server)/\(serviceQuery)"
   }
   
   func configureAuthorizeMode() {
     server = "api.imgur.com"
-  }
-  
-  func configureQueryMods() {
-    serviceEndpoint = "\(server)/\(serviceAuthorize)"
-  }
-  
-  func serviceURLString() -> String {
-    return serviceSecure ? "https://\(serviceEndpoint)" : "http://\(serviceEndpoint)"
   }
 }

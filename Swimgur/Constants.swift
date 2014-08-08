@@ -10,6 +10,6 @@ import Foundation
 import UIKit
 
 struct Constants {
-  let ImgurControllerConfigClientID = "49fe065e4663928"
-  let ImgurControllerConfigSecret = "053118b6fedf4a6019bad1ad49b1b8263da616af"
+  let ImgurControllerConfigClientID = "541fb8cc243d820"
+  let ImgurControllerConfigSecret = "57f58dd18f68946a6310e17d9cc3093740338676"
 }
