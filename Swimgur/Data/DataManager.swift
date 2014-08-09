@@ -15,6 +15,18 @@ public typealias DMAccountBlock = (account:Account)->()
 public typealias DMErrorStringBlock = (error:NSError, desciption:String)->()
 public typealias DMTokenBlock = (token:Token)->()
 
+public enum Method: String {
+  case OPTIONS = "OPTIONS"
+  case GET = "GET"
+  case HEAD = "HEAD"
+  case POST = "POST"
+  case PUT = "PUT"
+  case PATCH = "PATCH"
+  case DELETE = "DELETE"
+  case TRACE = "TRACE"
+  case CONNECT = "CONNECT"
+}
+
 class DataManager {
   
   var restConfig = RestConfig()
@@ -47,10 +59,15 @@ class DataManager {
     // TODO:
     let url = NSURL(string: self.createAuthenticationEndpointFor(self.restConfig.tokenURI))
     var request = NSMutableURLRequest(URL: url)
-    for (key, value) in form.httpParametersDictionary() { // TODO: This needs to be the body, not headers
-      request.setValue(value, forHTTPHeaderField: key)
+    request.HTTPMethod = Method.POST.toRaw()
+    
+    // set HTTPBody
+    var err: NSError?
+    if let data = NSJSONSerialization.dataWithJSONObject(form.httpParametersDictionary(), options: nil, error: &err) {
+      let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+      request.setValue("application/json; charset=\(charset)", forHTTPHeaderField: "Content-Type")
+      request.HTTPBody = data
     }
-    println(request)
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
       if error {
         println(error.localizedDescription)
@@ -77,8 +94,9 @@ class DataManager {
     
     let url = NSURL(string: self.createQueryEndpointFor(self.restConfig.accountMeURI))
     var request = NSMutableURLRequest(URL: url)
-    request.setValue("Bearer \(SIUserDefaults().token)", forHTTPHeaderField: "Authorization")
-    println(request)
+    if let token = SIUserDefaults().token {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
       if error {
         println(error.localizedDescription)

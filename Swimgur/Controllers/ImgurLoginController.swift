@@ -30,11 +30,9 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBlockBool) {
     authorizationClosure = completionBlock
     
-    // https://api.imgur.com/oauth2/authorize?client_id=49fe065e4663928&response_type=code&state=auth
+    // https://api.imgur.com/oauth2/authorize?client_id=541fb8cc243d820&response_type=code&state=auth
     
     let urlString = "\(DataManager.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(DataManager.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
-    
-    println(urlString)
     
     webView.delegate = self
     webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)))
@@ -76,7 +74,6 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     form.grantType = "authorization_code"
     DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       SIUserDefaults().token = token.accessToken
-      println(token.accessToken)
       self.getAccount()
     }) { (error, desciption) -> () in
       self.authorizationSucceeded(false)
