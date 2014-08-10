@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
 		D888B40619948B5F00179D0C /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
 		D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B4071995414000179D0C /* SIUserDefaults.swift */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
 		D888B4071995414000179D0C /* SIUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SIUserDefaults.swift; path = Data/SIUserDefaults.swift; sourceTree = "<group>"; };
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D86CD79B19973B8D00DD7489 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				D86CD79C19973BA600DD7489 /* SpringTransition.swift */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
 		D89920C31991CBD50064C50A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 				D8AE2DB0199070470062E3E6 /* AppDelegate.swift */,
 				D8DF2A731991D1C700397EE2 /* Controllers */,
 				D89920C11991B6530064C50A /* Constants.swift */,
+				D86CD79B19973B8D00DD7489 /* Transitions */,
 				D8AE2DB4199070470062E3E6 /* Main.storyboard */,
 				D8AE2DB7199070470062E3E6 /* Images.xcassets */,
 				D8AE2DAE199070470062E3E6 /* Supporting Files */,
@@ -283,6 +294,7 @@
 				D888B40619948B5F00179D0C /* StringExt.swift in Sources */,
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
 				D8BB7C1A19954BAC0084EAB8 /* CodeForm.swift in Sources */,
+				D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */,
 				D8BB7C1F199575540084EAB8 /* Account.swift in Sources */,
 				D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */,
 				D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */,

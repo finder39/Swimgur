@@ -8,9 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
   
+  @IBOutlet weak var buttonLogin: UIButton!
   let imgurLoginController = ImgurLoginController()
+  let springAnimationController = SpringTransition()
+  var hasAppeared = false
                             
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,7 +27,23 @@ class ViewController: UIViewController {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    self.authenticateAndGetAccount()
+    if hasAppeared {
+      self.buttonLogin.hidden = false
+    } else {
+      hasAppeared = true
+      self.checkForExistingSession()
+    }
+  }
+  
+  func checkForExistingSession() {
+    self.buttonLogin.hidden = true
+    imgurLoginController.verifyStoredAccount { (success) -> () in
+      if success {
+        // TODO: next
+      } else {
+        self.buttonLogin.hidden = false
+      }
+    }
   }
   
   func authenticateAndGetAccount() {
@@ -35,6 +54,16 @@ class ViewController: UIViewController {
         // TODO: Give error
       }
     }
+  }
+  
+  @IBAction func login(sender: AnyObject) {
+    self.authenticateAndGetAccount()
+  }
+  
+  // MARK: UIViewControllerTransitioningDelegate
+  
+  func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+    return self.springAnimationController
   }
 }
 

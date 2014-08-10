@@ -42,10 +42,21 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   // TODO: verifyStoredAccountWithCompletionBlock
   
+  func verifyStoredAccount(#onCompletion:DMBlockBool) {
+    self.authorizationClosure = onCompletion
+    
+    let code:String? = SIUserDefaults().code
+    if let code = code {
+      self.getTokensFromCode(code)
+    } else {
+      onCompletion(success: false)
+    }
+  }
+  
   private func authorizationSucceeded(success:Bool) {
     // remove webview from view controller
-    webView.removeFromSuperview()
-    webView = UIWebView() // reinitiate
+    //webView.removeFromSuperview()
+    //webView = UIWebView() // reinitiate
     
     // fire completion block
     if let authorizationClosureUnwrapped = authorizationClosure {
@@ -73,7 +84,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     form.clientSecret = Constants().ImgurControllerConfigSecret
     form.grantType = "authorization_code"
     DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
-      SIUserDefaults().token = token.accessToken
+      SIUserDefaults().token = token.accessToken // TODO: store the whole token
       self.getAccount()
     }) { (error, desciption) -> () in
       self.authorizationSucceeded(false)
@@ -85,10 +96,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
       if account != nil {
         //println("Retrieved account information: \(account.description)")
         
-        // TODO: Need to figure out what's useful to keep arounf. For now let's just get
-        // the user name and stick it in non-volatile memory
-        
-        SIUserDefaults().username = account.username
+        SIUserDefaults().username = account.username // TODO: store the whole account
         self.authorizationSucceeded(true)
       } else {
         self.authorizationSucceeded(false)
