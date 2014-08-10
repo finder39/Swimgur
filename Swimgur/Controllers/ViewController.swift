@@ -8,6 +8,8 @@
 
 import UIKit
 
+let SegueWelcomeToMaster = "SegueWelcomeToMaster"
+
 class ViewController: UIViewController, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
   
   @IBOutlet weak var buttonLogin: UIButton!
@@ -39,7 +41,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, U
     self.buttonLogin.hidden = true
     imgurLoginController.verifyStoredAccount { (success) -> () in
       if success {
-        // TODO: next
+        self.performSegueWithIdentifier(SegueWelcomeToMaster, sender:self)
       } else {
         self.buttonLogin.hidden = false
       }
@@ -49,7 +51,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, U
   func authenticateAndGetAccount() {
     imgurLoginController.authorizeWithViewController(self) { (success) -> () in
       if success {
-        // TODO: Move on
+        self.performSegueWithIdentifier(SegueWelcomeToMaster, sender:self)
       } else {
         // TODO: Give error
       }

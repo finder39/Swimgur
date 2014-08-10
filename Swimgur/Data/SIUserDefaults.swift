@@ -26,12 +26,17 @@ public class SIUserDefaults {
     }
   }
   
-  var token: String? {
+  var token: Token? {
     get {
-      return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as String?
+      let tokenDict = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as Dictionary<String, AnyObject>?
+      if let tokenDict = tokenDict {
+        return Token(dictionary: tokenDict)
+      } else {
+        return nil
+      }
     }
     set {
-      NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.TokenKey.toRaw())
+      NSUserDefaults.standardUserDefaults().setObject(newValue?.asDictionary(), forKey: SIDefault.TokenKey.toRaw())
       NSUserDefaults.standardUserDefaults().synchronize()
     }
   }

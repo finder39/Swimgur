@@ -31,4 +31,15 @@ public class Token {
     scope = dictionary[tokenScopeKey] as AnyObject? as? String
     tokenType = dictionary[tokenTokenTypeKey] as AnyObject? as String?
   }
+  
+  func asDictionary() -> Dictionary<String, AnyObject> {
+    var dictionary:Dictionary<String, AnyObject> = Dictionary()
+    if let accessToken = accessToken { dictionary[tokenAccessTokenKey] = accessToken }
+    if let accountUsername = accountUsername { dictionary[tokenAccountUsernameKey] = accountUsername }
+    if let expiresIn = expiresIn { dictionary[tokenExpiresInKey] = expiresIn }
+    if let refreshToken = refreshToken { dictionary[tokenRefreshTokenKey] = refreshToken }
+    if let scope = scope { dictionary[tokenScopeKey] = scope }
+    if let tokenType = tokenType { dictionary[tokenTokenTypeKey] = tokenType }
+    return dictionary
+  }
 }
