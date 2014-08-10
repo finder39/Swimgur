@@ -49,7 +49,7 @@
                     <navigationItem key="navigationItem" title="Swimgur" id="JhZ-z4-3JM"/>
                     <connections>
                         <outlet property="buttonLogin" destination="fim-XA-d1r" id="AJa-4N-cxl"/>
-                        <segue destination="s5C-xn-xsm" kind="push" id="1Ek-v0-9aX"/>
+                        <segue destination="s5C-xn-xsm" kind="push" identifier="SegueWelcomeToMaster" id="1Ek-v0-9aX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
