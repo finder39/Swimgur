@@ -25,10 +25,10 @@ class CodeForm {
   
   func httpParametersDictionary() -> Dictionary<String, String> {
     var dictionary:Dictionary<String, String> = Dictionary()
-    if let codeUnwrapped = code { dictionary[codeFormCodeKey] = codeUnwrapped }
-    if let clientIDUnwrapped = clientID { dictionary[codeFormClientIDKey] = clientIDUnwrapped }
-    if let clientSecretUnwrapped = clientSecret { dictionary[codeFormClientSecretKey] = clientSecretUnwrapped }
-    if let grantTypeUnwrapped = grantType { dictionary[codeFormGrantTypeKey] = grantTypeUnwrapped }
+    if let code = code { dictionary[codeFormCodeKey] = code }
+    if let clientID = clientID { dictionary[codeFormClientIDKey] = clientID }
+    if let clientSecret = clientSecret { dictionary[codeFormClientSecretKey] = clientSecret }
+    if let grantType = grantType { dictionary[codeFormGrantTypeKey] = grantType }
     return dictionary
   }
   

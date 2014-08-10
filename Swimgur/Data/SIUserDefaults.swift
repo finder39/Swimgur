@@ -28,15 +28,26 @@ public class SIUserDefaults {
   
   var token: Token? {
     get {
-      let tokenDict = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as Dictionary<String, AnyObject>?
-      if let tokenDict = tokenDict {
-        return Token(dictionary: tokenDict)
+      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as NSData?
+      if let outData = outData {
+        let tokenDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as AnyObject? as Dictionary<String, AnyObject>?
+        if let tokenDict = tokenDict {
+          return Token(dictionary: tokenDict)
+        } else {
+          return nil
+        }
       } else {
         return nil
       }
     }
     set {
-      NSUserDefaults.standardUserDefaults().setObject(newValue?.asDictionary(), forKey: SIDefault.TokenKey.toRaw())
+      let tokenDict = newValue?.asDictionary()
+      if let tokenDict = tokenDict {
+        var data = NSKeyedArchiver.archivedDataWithRootObject(tokenDict)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: SIDefault.TokenKey.toRaw())
+      } else {
+        NSUserDefaults.standardUserDefaults().setObject(newValue?.asDictionary(), forKey: SIDefault.TokenKey.toRaw())
+      }
       NSUserDefaults.standardUserDefaults().synchronize()
     }
   }

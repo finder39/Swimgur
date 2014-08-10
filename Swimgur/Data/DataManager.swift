@@ -56,7 +56,38 @@ class DataManager {
   }
   
   func getTokensWithForm(form:CodeForm, onCompletion:DMTokenBlock, onError:DMErrorStringBlock) {
-    // TODO:
+    let url = NSURL(string: self.createAuthenticationEndpointFor(self.restConfig.tokenURI))
+    var request = NSMutableURLRequest(URL: url)
+    request.HTTPMethod = Method.POST.toRaw()
+    
+    // set HTTPBody
+    var err: NSError?
+    if let data = NSJSONSerialization.dataWithJSONObject(form.httpParametersDictionary(), options: nil, error: &err) {
+      let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+      request.setValue("application/json; charset=\(charset)", forHTTPHeaderField: "Content-Type")
+      request.HTTPBody = data
+    }
+    var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+      if error {
+        println(error.localizedDescription)
+      }
+      var err: NSError?
+      var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+      if err != nil {
+        println(err)
+        println("JSON Error \(err!.localizedDescription)")
+      }
+      var results: Dictionary = jsonResult! as Dictionary
+      // here is where I'd call the callback or delegate method
+      dispatch_async(dispatch_get_main_queue(), {
+        //doing main thread things
+        onCompletion(token: Token(dictionary: results))
+      })
+    })
+    task.resume()
+  }
+  
+  func getTokensWithForm(form:RefreshTokenForm, onCompletion:DMTokenBlock, onError:DMErrorStringBlock) {
     let url = NSURL(string: self.createAuthenticationEndpointFor(self.restConfig.tokenURI))
     var request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = Method.POST.toRaw()
@@ -89,12 +120,11 @@ class DataManager {
   }
   
   func getAccountWithCompletion(onCompletion:DMAccountBlock, onError:DMErrorStringBlock) {
-    // TODO:
     //let data: Dictionary<String, AnyObject>? = account["data"] as AnyObject? as Dictionary<String, AnyObject>?
     
     let url = NSURL(string: self.createQueryEndpointFor(self.restConfig.accountMeURI))
     var request = NSMutableURLRequest(URL: url)
-    if let token = SIUserDefaults().token {
+    if let token = SIUserDefaults().token?.accessToken {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in

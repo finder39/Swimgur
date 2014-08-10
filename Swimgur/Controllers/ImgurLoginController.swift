@@ -45,10 +45,10 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   func verifyStoredAccount(#onCompletion:DMBlockBool) {
     self.authorizationClosure = onCompletion
     
-    var code:String? = SIUserDefaults().code
+    var token:Token? = SIUserDefaults().token
     //if code == "" { code = nil }
-    if let code = code {
-      self.getTokensFromCode(code)
+    if let token = token {
+      self.getTokensFromRefresh(token)
     } else {
       onCompletion(success: false)
     }
@@ -89,6 +89,20 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
       self.getAccount()
     }) { (error, desciption) -> () in
       self.authorizationSucceeded(false)
+    }
+  }
+  
+  private func getTokensFromRefresh(token:Token) {
+    var form = RefreshTokenForm()
+    form.refreshToken = token.refreshToken
+    form.clientID = Constants().ImgurControllerConfigClientID
+    form.clientSecret = Constants().ImgurControllerConfigSecret
+    form.grantType = "refresh_token"
+    DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
+      SIUserDefaults().token = token // TODO: store the whole token
+      self.getAccount()
+      }) { (error, desciption) -> () in
+        self.authorizationSucceeded(false)
     }
   }
   
