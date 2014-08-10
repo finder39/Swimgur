@@ -146,6 +146,6 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   }
   
   func webView(webView: UIWebView!, didFailLoadWithError error: NSError!) {
-    self.authorizationSucceeded(false)
+    // self.authorizationSucceeded(false) // causing failure of login
   }
 }
