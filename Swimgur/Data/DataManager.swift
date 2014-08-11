@@ -187,7 +187,7 @@ class DataManager {
       println(jsonResult)
       
       dispatch_async(dispatch_get_main_queue(), {
-        onCompletion(array: []) // TODO:
+        onCompletion(array: data!) // TODO: make not optional
       })
     })
     task.resume()
