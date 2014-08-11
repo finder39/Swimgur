@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D857066519986AA7009D906E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066419986AA7009D906E /* GalleryViewController.swift */; };
 		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
 		D86CD79F199748DE00DD7489 /* RefreshTokenForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79E199748DE00DD7489 /* RefreshTokenForm.swift */; };
 		D888B40619948B5F00179D0C /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
 		D86CD79E199748DE00DD7489 /* RefreshTokenForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshTokenForm.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
+				D857066419986AA7009D906E /* GalleryViewController.swift */,
 				D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */,
 			);
 			name = Controllers;
@@ -304,6 +307,7 @@
 				D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */,
 				D8BB7C1D1995505E0084EAB8 /* Token.swift in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
+				D857066519986AA7009D906E /* GalleryViewController.swift in Sources */,
 				D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 			);

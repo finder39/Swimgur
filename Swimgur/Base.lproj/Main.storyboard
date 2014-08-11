@@ -59,7 +59,7 @@
         <!--Gallery-->
         <scene sceneID="Cnw-Hr-lRH">
             <objects>
-                <viewController id="s5C-xn-xsm" sceneMemberID="viewController">
+                <viewController id="s5C-xn-xsm" customClass="GalleryViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="q73-0A-Qy0"/>
                         <viewControllerLayoutGuide type="bottom" id="2Mt-Rr-OUr"/>
@@ -82,10 +82,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <size key="customSize" width="105" height="105"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

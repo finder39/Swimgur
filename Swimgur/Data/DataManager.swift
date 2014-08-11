@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+public typealias DMArrayBlock = (array:[AnyObject])->()
 public typealias DMBlockBool = (success:Bool)->()
 public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
 public typealias DMAccountBlock = (account:Account)->()
@@ -146,5 +146,9 @@ class DataManager {
       })
     })
     task.resume()
+  }
+  
+  func getGalleryImagesWithSection(section:String, sort:String, page:Int, window:String, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
+    
   }
 }
