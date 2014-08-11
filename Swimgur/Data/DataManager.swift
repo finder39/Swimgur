@@ -61,6 +61,19 @@ class DataManager {
   init() {
   }
   
+  func setImageView(imageView:UIImageView, withURL imageURL:String) {
+    let url = NSURL(string: imageURL)
+    var dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+      if !error {
+        dispatch_async(dispatch_get_main_queue(), {
+          let image = UIImage(data: data)
+          imageView.image = image
+        })
+      }
+    })
+    dataTask.resume()
+  }
+  
   /*func setupSession(#authorization:String?) {
     var config = NSURLSessionConfiguration.defaultSessionConfiguration()
     config.HTTPAdditionalHeaders = ["Authorization" : authorization!]

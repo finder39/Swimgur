@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let GalleryCollectionView = "GalleryCollectionView"
+let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
 
 /************************
 // (320-(.5*6)-2)/3 = 105
@@ -25,6 +25,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
   }
   
   override func didReceiveMemoryWarning() {
@@ -35,7 +36,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 1, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      println("Refreshing collectionGallery")
       self.galleryItems += newGalleryItems as [GalleryItem]
+      self.collectionGallery.reloadData()
     }) { (error, desciption) -> () in
       
     }
@@ -44,12 +47,26 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   // MARK: UICollectionViewDataSource
   
   func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return self.galleryItems.count
   }
   
-  func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
-    return nil
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+    return 1
   }
+  
+  
+  
+  func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+    var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
+    let galleryItem = self.galleryItems[indexPath.row]
+    if let galleryImage = galleryItem as? GalleryImage {
+      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryImage.link)
+    } else if let galleryAlbum = galleryItem as? GalleryAlbum {
+      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryAlbum.link)
+    }
+    return cell
+  }
+  
   
   // MARK: UICollectionViewDelegate
 }
