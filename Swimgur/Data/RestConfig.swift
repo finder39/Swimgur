@@ -25,6 +25,7 @@ class RestConfig {
   let albumsURI = "albums"
   let imagesURI = "images"
   let tokenURI = "token"
+  let galleryURI = "gallery"
   
   init() { // required for initiliaze in self
     serviceAuthorizeEndpoint = serviceSecure ? "https://\(server)/\(serviceAuthorize)" : "http://\(server)/\(serviceAuthorize)"

@@ -27,6 +27,25 @@ public enum Method: String {
   case CONNECT = "CONNECT"
 }
 
+public enum ImgurSection: String {
+  case Hot = "hot"
+  case Top = "top"
+  case User = "user"
+}
+
+public enum ImgurSort: String {
+  case Viral = "viral"
+  case Time = "time"
+}
+
+public enum ImgurWindow: String {
+  case Day = "day"
+  case Week = "week"
+  case Month = "month"
+  case Year = "year"
+  case All = "all"
+}
+
 class DataManager {
   
   var restConfig = RestConfig()
@@ -120,8 +139,6 @@ class DataManager {
   }
   
   func getAccountWithCompletion(onCompletion:DMAccountBlock, onError:DMErrorStringBlock) {
-    //let data: Dictionary<String, AnyObject>? = account["data"] as AnyObject? as Dictionary<String, AnyObject>?
-    
     let url = NSURL(string: self.createQueryEndpointFor(self.restConfig.accountMeURI))
     var request = NSMutableURLRequest(URL: url)
     if let token = SIUserDefaults().token?.accessToken {
@@ -148,7 +165,31 @@ class DataManager {
     task.resume()
   }
   
-  func getGalleryImagesWithSection(section:String, sort:String, page:Int, window:String, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
-    
+  func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
+    let urlSetup = "\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)"
+    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
+    var request = NSMutableURLRequest(URL: url)
+    if let token = SIUserDefaults().token?.accessToken {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+      if error {
+        println(error.localizedDescription)
+      }
+      var err: NSError?
+      var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+      if err != nil {
+        println(err)
+        println("JSON Error \(err!.localizedDescription)")
+      }
+      var results: Dictionary = jsonResult! as Dictionary
+      let data: [AnyObject]? = results["data"] as AnyObject? as [AnyObject]?
+      println(jsonResult)
+      
+      dispatch_async(dispatch_get_main_queue(), {
+        onCompletion(array: []) // TODO:
+      })
+    })
+    task.resume()
   }
 }
