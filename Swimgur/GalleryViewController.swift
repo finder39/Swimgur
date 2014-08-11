@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+let GalleryCollectionView = "GalleryCollectionView"
+
 /************************
 // (320-(.5*6)-2)/3 = 105
 
@@ -16,6 +18,9 @@ import UIKit
 ************************/
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+  @IBOutlet weak var collectionGallery: UICollectionView!
+  
+  var galleryItems:[GalleryItem] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,8 +34,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 1, showViral: true, onCompletion: { (array) -> () in
-      
+    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 1, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      self.galleryItems += newGalleryItems as [GalleryItem]
     }) { (error, desciption) -> () in
       
     }
