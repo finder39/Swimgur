@@ -178,16 +178,27 @@ class DataManager {
       }
       var err: NSError?
       var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+      //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
       if err != nil {
         println(err)
         println("JSON Error \(err!.localizedDescription)")
       }
       var results: Dictionary = jsonResult! as Dictionary
       let data: [AnyObject]? = results["data"] as AnyObject? as [AnyObject]?
-      println(jsonResult)
+      
+      var galleryItems:[GalleryItem] = []
+      if let data = data {
+        for galleryDict in data {
+          if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
+            galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+          } else {
+            galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
+          }
+        }
+      }
       
       dispatch_async(dispatch_get_main_queue(), {
-        onCompletion(array: data!) // TODO: make not optional
+        onCompletion(array: galleryItems) // TODO: make not optional
       })
     })
     task.resume()
