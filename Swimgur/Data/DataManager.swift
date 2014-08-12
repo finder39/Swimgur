@@ -87,6 +87,39 @@ class DataManager {
     return "\(self.restConfig.serviceAuthorizeEndpoint)/\(uri)"
   }
   
+  private func imgurResponseParser(#data:NSData, completionHandler:((data:AnyObject, error:NSError?, errorDescription:String?) -> ())) {
+    var err: NSError?
+    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+    //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
+    if let err = err {
+      completionHandler(data: "", error: err, errorDescription: err.localizedDescription)
+      return
+    }
+    if let jsonResult = jsonResult {
+      var results: Dictionary = jsonResult as Dictionary
+      if results["success"] as AnyObject? as? Int == 0 {
+        let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
+        let error = data!["error"] as AnyObject? as String?
+        if let error = error {
+          completionHandler(data: "", error: NSError(), errorDescription: error)
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            completionHandler(data: "", error: NSError(), errorDescription: "error")
+          })
+        }
+        return
+      }
+      let data: AnyObject? = results["data"] as AnyObject?
+      if let data: AnyObject = data {
+        completionHandler(data: data, error: nil, errorDescription: nil)
+      } else {
+        completionHandler(data: "", error: NSError(), errorDescription: "data is nil")
+      }
+    } else {
+      completionHandler(data: "", error: NSError(), errorDescription: "jsonResult is nil")
+    }
+  }
+  
   func getTokensWithForm(form:CodeForm, onCompletion:DMTokenBlock, onError:DMErrorStringBlock) {
     let url = NSURL(string: self.createAuthenticationEndpointFor(self.restConfig.tokenURI))
     var request = NSMutableURLRequest(URL: url)
@@ -158,9 +191,11 @@ class DataManager {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if error {
-        println(error.localizedDescription)
+      /*if error {
+        onError(error: error, description: error.localizedDescription)
+        return
       }
+      
       var err: NSError?
       var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
       if err != nil {
@@ -173,42 +208,26 @@ class DataManager {
       dispatch_async(dispatch_get_main_queue(), {
         //doing main thread things
         onCompletion(account: Account(dictionary: data!))
+      })*/
+      
+      if error {
+        onError(error: error, description: error.localizedDescription)
+        return
+      }
+      self.imgurResponseParser(data: data, completionHandler: { (data, error, errorDescription) -> () in
+        if errorDescription != nil {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error!, description: errorDescription!)
+          })
+        } else {
+          let data = data as Dictionary<String, AnyObject>
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(account: Account(dictionary: data))
+          })
+        }
       })
     })
     task.resume()
-  }
-  
-  private func imgurResponseParser(#data:NSData, completionHandler:((data:AnyObject, error:NSError?, errorDescription:String?) -> ())) {
-    var err: NSError?
-    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
-    //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
-    if let err = err {
-      completionHandler(data: "", error: err, errorDescription: err.localizedDescription)
-      return
-    }
-    if let jsonResult = jsonResult {
-      var results: Dictionary = jsonResult as Dictionary
-      if results["success"] as AnyObject? as? Int == 0 {
-        let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
-        let error = data!["error"] as AnyObject? as String?
-        if let error = error {
-          completionHandler(data: "", error: NSError(), errorDescription: error)
-        } else {
-          dispatch_async(dispatch_get_main_queue(), {
-            completionHandler(data: "", error: NSError(), errorDescription: "error")
-          })
-        }
-        return
-      }
-      let data: [AnyObject]? = results["data"] as AnyObject? as? [AnyObject]
-      if let data = data {
-        completionHandler(data: data, error: nil, errorDescription: nil)
-      } else {
-        completionHandler(data: "", error: NSError(), errorDescription: "data is nil")
-      }
-    } else {
-      completionHandler(data: "", error: NSError(), errorDescription: "jsonResult is nil")
-    }
   }
   
   func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
