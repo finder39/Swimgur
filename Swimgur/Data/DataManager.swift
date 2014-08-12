@@ -198,7 +198,23 @@ class DataManager {
         return
       }
       if let jsonResult = jsonResult {
-        let data: [AnyObject]? = (jsonResult as Dictionary)["data"] as AnyObject? as [AnyObject]?
+        var results: Dictionary = jsonResult as Dictionary
+        if results["success"] as AnyObject? as? Int == 0 {
+          let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
+          let error = data!["error"] as AnyObject? as String?
+          if let error = error {
+            dispatch_async(dispatch_get_main_queue(), {
+              onError(error: NSError(), description: error)
+            })
+          } else {
+            dispatch_async(dispatch_get_main_queue(), {
+              onError(error: NSError(), description: "error")
+            })
+          }
+          return
+        }
+        let data: [AnyObject]? = results["data"] as AnyObject? as? [AnyObject]
+        
         
         if let data = data {
           var galleryItems:[GalleryItem] = []
@@ -210,14 +226,18 @@ class DataManager {
             }
           }
           dispatch_async(dispatch_get_main_queue(), {
-            onCompletion(array: galleryItems) // TODO: make not optional
+            onCompletion(array: galleryItems)
           })
         } else {
-          onError(error: NSError(), description: "Data is nil")
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: NSError(), description: "Data is nil")
+          })
           return
         }
       } else {
-        onError(error: NSError(), description: "jsonResult is nil")
+        dispatch_async(dispatch_get_main_queue(), {
+          onError(error: NSError(), description: "jsonResult is nil")
+          })
         return
       }
     })
