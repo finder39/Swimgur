@@ -19,6 +19,16 @@ class GalleryItem {
   var description: String?
   var datetime: Int = 0
   var link: String = ""
+  var accountURL: String?
+  var accountID: Int?
+  var ups: Int = 0
+  var downs: Int = 0
+  var score: Int = 0
+  var isAlbum: Bool = false
+  var views: Int = 0
+  var favorite: Bool = false
+  var vote: String?
+  var nsfw: Bool?
   
   init() {
     

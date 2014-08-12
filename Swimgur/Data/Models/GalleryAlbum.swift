@@ -39,18 +39,8 @@ class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   let cover: String
   let coverWidth: Int
   let coverHeight: Int
-  let accountURL: String?
-  let accountID: Int?
   let privacy: String
   let layout: String
-  let views: Int
-  let ups: Int
-  let downs: Int
-  let score: Int
-  let isAlbum: Bool
-  let vote: String?
-  let favorite: Bool
-  let nsfw: Bool?
   let imagesCount: Int?
   let images: [AnyObject]?
   
@@ -58,18 +48,8 @@ class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     cover = dictionary["cover"] as AnyObject! as String!
     coverWidth = dictionary["cover_width"] as AnyObject! as Int!
     coverHeight = dictionary["cover_height"] as AnyObject! as Int!
-    accountURL = dictionary["account_url"] as AnyObject? as? String
-    accountID = dictionary["account_id"] as AnyObject? as? Int
     privacy = dictionary["privacy"] as AnyObject! as String!
     layout = dictionary["layout"] as AnyObject! as String!
-    views = dictionary["views"] as AnyObject! as Int!
-    ups = dictionary["ups"] as AnyObject! as Int!
-    downs = dictionary["downs"] as AnyObject! as Int!
-    score = dictionary["score"] as AnyObject! as Int!
-    isAlbum = dictionary["is_album"] as AnyObject! as Bool!
-    vote = dictionary["vote"] as AnyObject? as? String
-    favorite = dictionary["favorite"] as AnyObject! as Bool!
-    nsfw = dictionary["nsfw"] as AnyObject? as? Bool
     imagesCount = dictionary["images_count"] as AnyObject? as? Int
     images = []
     super.init()
@@ -78,6 +58,16 @@ class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     description = dictionary["description"] as AnyObject? as? String
     datetime = dictionary["datetime"] as AnyObject! as Int!
     link = dictionary["link"] as AnyObject! as String!
+    accountURL = dictionary["account_url"] as AnyObject? as? String
+    accountID = dictionary["account_id"] as AnyObject? as? Int
+    ups = dictionary["ups"] as AnyObject! as Int!
+    downs = dictionary["downs"] as AnyObject! as Int!
+    score = dictionary["score"] as AnyObject! as Int!
+    isAlbum = dictionary["is_album"] as AnyObject! as Bool!
+    views = dictionary["views"] as AnyObject! as Int!
+    favorite = dictionary["favorite"] as AnyObject! as Bool!
+    vote = dictionary["vote"] as AnyObject? as? String
+    nsfw = dictionary["nsfw"] as AnyObject? as? Bool
   }
   
   func squareThumbnailURIForSize(size: CGSize) -> String {
