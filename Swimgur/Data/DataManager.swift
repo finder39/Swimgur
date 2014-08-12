@@ -178,6 +178,39 @@ class DataManager {
     task.resume()
   }
   
+  private func imgurResponseParser(#data:NSData, completionHandler:((data:AnyObject, error:NSError?, errorDescription:String?) -> ())) {
+    var err: NSError?
+    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+    //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
+    if let err = err {
+      completionHandler(data: "", error: err, errorDescription: err.localizedDescription)
+      return
+    }
+    if let jsonResult = jsonResult {
+      var results: Dictionary = jsonResult as Dictionary
+      if results["success"] as AnyObject? as? Int == 0 {
+        let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
+        let error = data!["error"] as AnyObject? as String?
+        if let error = error {
+          completionHandler(data: "", error: NSError(), errorDescription: error)
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            completionHandler(data: "", error: NSError(), errorDescription: "error")
+          })
+        }
+        return
+      }
+      let data: [AnyObject]? = results["data"] as AnyObject? as? [AnyObject]
+      if let data = data {
+        completionHandler(data: data, error: nil, errorDescription: nil)
+      } else {
+        completionHandler(data: "", error: NSError(), errorDescription: "data is nil")
+      }
+    } else {
+      completionHandler(data: "", error: NSError(), errorDescription: "jsonResult is nil")
+    }
+  }
+  
   func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
     let urlSetup = "\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
@@ -190,33 +223,13 @@ class DataManager {
         onError(error: error, description: error.localizedDescription)
         return
       }
-      var err: NSError?
-      var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
-      //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
-      if let err = err {
-        onError(error: err, description: err.localizedDescription)
-        return
-      }
-      if let jsonResult = jsonResult {
-        var results: Dictionary = jsonResult as Dictionary
-        if results["success"] as AnyObject? as? Int == 0 {
-          let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
-          let error = data!["error"] as AnyObject? as String?
-          if let error = error {
-            dispatch_async(dispatch_get_main_queue(), {
-              onError(error: NSError(), description: error)
-            })
-          } else {
-            dispatch_async(dispatch_get_main_queue(), {
-              onError(error: NSError(), description: "error")
-            })
-          }
-          return
-        }
-        let data: [AnyObject]? = results["data"] as AnyObject? as? [AnyObject]
-        
-        
-        if let data = data {
+      self.imgurResponseParser(data: data, completionHandler: { (data, error, errorDescription) -> () in
+        if errorDescription != nil {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error!, description: errorDescription!)
+          })
+        } else {
+          let data = data as [AnyObject]
           var galleryItems:[GalleryItem] = []
           for galleryDict in data {
             if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
@@ -228,18 +241,8 @@ class DataManager {
           dispatch_async(dispatch_get_main_queue(), {
             onCompletion(array: galleryItems)
           })
-        } else {
-          dispatch_async(dispatch_get_main_queue(), {
-            onError(error: NSError(), description: "Data is nil")
-          })
-          return
         }
-      } else {
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: NSError(), description: "jsonResult is nil")
-          })
-        return
-      }
+      })
     })
     task.resume()
   }
