@@ -58,13 +58,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
     var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
+    cell.resetCell()
     let galleryItem = self.galleryItems[indexPath.row]
-    cell.imageView.image = nil // reset image
-    if let galleryImage = galleryItem as? GalleryImage {
-      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryImage.squareThumbnailURIForSize(cell.frame.size))
-    } else if let galleryAlbum = galleryItem as? GalleryAlbum {
-      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(cell.frame.size))
-    }
+    cell.gallery = galleryItem
     return cell
   }
   

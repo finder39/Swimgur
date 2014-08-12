@@ -11,6 +11,15 @@ import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
   var imageView: UIImageView = UIImageView(frame: CGRectMake(0.5, 0.5, 105, 105))
+  var gallery: GalleryItem? {
+    didSet {
+      if let galleryImage = gallery as? GalleryImage {
+        DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryImage.squareThumbnailURIForSize(self.frame.size))
+      } else if let galleryAlbum = gallery as? GalleryAlbum {
+        DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(self.frame.size))
+      }
+    }
+  }
   
   override init() {
     super.init()
@@ -24,5 +33,10 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   
   required init(coder aDecoder: NSCoder!) {
     super.init(coder: aDecoder)
+  }
+  
+  internal func resetCell() {
+    gallery = nil
+    imageView.image = nil
   }
 }
