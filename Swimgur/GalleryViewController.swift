@@ -39,7 +39,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
       println("Refreshing collectionGallery")
       self.galleryItems += newGalleryItems as [GalleryItem]
       self.collectionGallery.reloadData()
-    }) { (error, desciption) -> () in
+    }) { (error, description) -> () in
       
     }
   }

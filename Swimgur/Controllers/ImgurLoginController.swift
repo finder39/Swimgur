@@ -87,7 +87,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       SIUserDefaults().token = token // TODO: store the whole token
       self.getAccount()
-    }) { (error, desciption) -> () in
+    }) { (error, description) -> () in
       self.authorizationSucceeded(false)
     }
   }
@@ -101,7 +101,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       SIUserDefaults().token = token // TODO: store the whole token
       self.getAccount()
-      }) { (error, desciption) -> () in
+      }) { (error, description) -> () in
         self.authorizationSucceeded(false)
     }
   }
@@ -116,7 +116,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
       } else {
         self.authorizationSucceeded(false)
       }
-    }, onError: { (error, desciption) -> () in
+    }, onError: { (error, description) -> () in
       println("Failed to retrieve account information")
       self.authorizationSucceeded(false)
     })
