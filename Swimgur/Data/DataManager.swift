@@ -12,7 +12,7 @@ public typealias DMArrayBlock = (array:[AnyObject])->()
 public typealias DMBlockBool = (success:Bool)->()
 public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
 public typealias DMAccountBlock = (account:Account)->()
-public typealias DMErrorStringBlock = (error:NSError, desciption:String)->()
+public typealias DMErrorStringBlock = (error:NSError, description:String)->()
 public typealias DMTokenBlock = (token:Token)->()
 
 public enum Method: String {
@@ -187,32 +187,39 @@ class DataManager {
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
       if error {
-        println(error.localizedDescription)
+        onError(error: error, description: error.localizedDescription)
+        return
       }
       var err: NSError?
       var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
       //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
-      if err != nil {
-        println(err)
-        println("JSON Error \(err!.localizedDescription)")
+      if let err = err {
+        onError(error: err, description: err.localizedDescription)
+        return
       }
-      var results: Dictionary = jsonResult! as Dictionary
-      let data: [AnyObject]? = results["data"] as AnyObject? as [AnyObject]?
-      
-      var galleryItems:[GalleryItem] = []
-      if let data = data {
-        for galleryDict in data {
-          if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
-            galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
-          } else {
-            galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
+      if let jsonResult = jsonResult {
+        let data: [AnyObject]? = (jsonResult as Dictionary)["data"] as AnyObject? as [AnyObject]?
+        
+        if let data = data {
+          var galleryItems:[GalleryItem] = []
+          for galleryDict in data {
+            if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
+              galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+            } else {
+              galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
+            }
           }
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(array: galleryItems) // TODO: make not optional
+          })
+        } else {
+          onError(error: NSError(), description: "Data is nil")
+          return
         }
+      } else {
+        onError(error: NSError(), description: "jsonResult is nil")
+        return
       }
-      
-      dispatch_async(dispatch_get_main_queue(), {
-        onCompletion(array: galleryItems) // TODO: make not optional
-      })
     })
     task.resume()
   }

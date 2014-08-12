@@ -32,6 +32,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D8846F081999E6EB00546285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D8AE2DA3199070470062E3E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8AE2DAA199070470062E3E6;
+			remoteInfo = Swimgur;
+		};
+		D8846F0A1999E6EE00546285 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D8AE2DA3199070470062E3E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D8AE2DAA199070470062E3E6;
+			remoteInfo = Swimgur;
+		};
 		D8AE2DBE199070470062E3E6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D8AE2DA3199070470062E3E6 /* Project object */;
@@ -104,6 +118,13 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		D8846EF01999E5FA00546285 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		D89920C31991CBD50064C50A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +155,7 @@
 		D8AE2DAD199070470062E3E6 /* Swimgur */ = {
 			isa = PBXGroup;
 			children = (
+				D8846EF01999E5FA00546285 /* Libraries */,
 				D89920C31991CBD50064C50A /* Extensions */,
 				D8AE2DCD1990882F0062E3E6 /* Data */,
 				D8AE2DB0199070470062E3E6 /* AppDelegate.swift */,
@@ -248,6 +270,8 @@
 			);
 			dependencies = (
 				D8AE2DBF199070470062E3E6 /* PBXTargetDependency */,
+				D8846F091999E6EB00546285 /* PBXTargetDependency */,
+				D8846F0B1999E6EE00546285 /* PBXTargetDependency */,
 			);
 			name = SwimgurTests;
 			productName = SwimgurTests;
@@ -348,6 +372,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D8846F091999E6EB00546285 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8AE2DAA199070470062E3E6 /* Swimgur */;
+			targetProxy = D8846F081999E6EB00546285 /* PBXContainerItemProxy */;
+		};
+		D8846F0B1999E6EE00546285 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D8AE2DAA199070470062E3E6 /* Swimgur */;
+			targetProxy = D8846F0A1999E6EE00546285 /* PBXContainerItemProxy */;
+		};
 		D8AE2DBF199070470062E3E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D8AE2DAA199070470062E3E6 /* Swimgur */;
