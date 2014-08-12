@@ -17,7 +17,7 @@ let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseId
 .5 border - 105 image - .5 border  - 1 empty - .5 border - 105 image - .5 border - 1 empty - .5 border - 105 image - .5 border
 ************************/
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   @IBOutlet weak var collectionGallery: UICollectionView!
   
   var galleryItems:[GalleryItem] = []
@@ -59,14 +59,20 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
     var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
     let galleryItem = self.galleryItems[indexPath.row]
+    cell.imageView.image = nil // reset image
     if let galleryImage = galleryItem as? GalleryImage {
-      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryImage.link)
+      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryImage.squareThumbnailURIForSize(cell.frame.size))
     } else if let galleryAlbum = galleryItem as? GalleryAlbum {
-      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryAlbum.link)
+      DataManager.sharedInstance.setImageView(cell.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(cell.frame.size))
     }
     return cell
   }
   
+  // MARK: UICollectionViewDelegateFlowLayout
+  
+  func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
+    return CGSizeMake(106.0, 106.0)
+  }
   
   // MARK: UICollectionViewDelegate
 }

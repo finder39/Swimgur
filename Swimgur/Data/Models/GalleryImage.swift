@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /*
 {
@@ -35,7 +36,7 @@ width = 720;
 }
 */
 
-class GalleryImage: GalleryItem {
+class GalleryImage: GalleryItem, GalleryItemProtocol {
   let type: String?
   let animated: Bool?
   let width: Int
@@ -44,7 +45,6 @@ class GalleryImage: GalleryItem {
   let views: Int
   let bandwidth: Int
   let deletehash: String?
-  let link: String
   let vote: String?
   let favorite: Bool
   let nsfw: Bool?
@@ -65,7 +65,6 @@ class GalleryImage: GalleryItem {
     views = dictionary["views"] as AnyObject! as Int!
     bandwidth = dictionary["bandwidth"] as AnyObject! as Int!
     deletehash = dictionary["deletehash"] as AnyObject? as? String
-    link = dictionary["link"] as AnyObject! as String!
     vote = dictionary["vote"] as AnyObject? as? String
     favorite = dictionary["favorite"] as AnyObject! as Bool!
     nsfw = dictionary["nsfw"] as AnyObject? as? Bool
@@ -81,5 +80,16 @@ class GalleryImage: GalleryItem {
     title = dictionary["title"] as AnyObject! as String!
     description = dictionary["description"] as AnyObject? as? String
     datetime = dictionary["datetime"] as AnyObject! as Int!
+    link = dictionary["link"] as AnyObject! as String!
+  }
+  
+  func squareThumbnailURIForSize(size: CGSize) -> String {
+    if size.width <= 90 {
+      return self.appendLetterToLink("s")
+    } else if size.width <= 160 {
+      return self.appendLetterToLink("b")
+    } else {
+      return self.link
+    }
   }
 }

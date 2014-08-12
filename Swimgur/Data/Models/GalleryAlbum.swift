@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /*
 {
@@ -34,7 +35,7 @@ vote = "<null>";
 }
 */
 
-class GalleryAlbum: GalleryItem {
+class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   let cover: String
   let coverWidth: Int
   let coverHeight: Int
@@ -43,7 +44,6 @@ class GalleryAlbum: GalleryItem {
   let privacy: String
   let layout: String
   let views: Int
-  let link: String
   let ups: Int
   let downs: Int
   let score: Int
@@ -63,7 +63,6 @@ class GalleryAlbum: GalleryItem {
     privacy = dictionary["privacy"] as AnyObject! as String!
     layout = dictionary["layout"] as AnyObject! as String!
     views = dictionary["views"] as AnyObject! as Int!
-    link = dictionary["link"] as AnyObject! as String!
     ups = dictionary["ups"] as AnyObject! as Int!
     downs = dictionary["downs"] as AnyObject! as Int!
     score = dictionary["score"] as AnyObject! as Int!
@@ -78,5 +77,21 @@ class GalleryAlbum: GalleryItem {
     title = dictionary["title"] as AnyObject! as String!
     description = dictionary["description"] as AnyObject? as? String
     datetime = dictionary["datetime"] as AnyObject! as Int!
+    link = dictionary["link"] as AnyObject! as String!
+  }
+  
+  func squareThumbnailURIForSize(size: CGSize) -> String {
+    if size.width <= 90 {
+      return self.appendLetterToLink("s")
+    } else if size.width <= 160 {
+      return self.appendLetterToLink("b")
+    } else {
+      return self.link
+    }
+  }
+  
+  override func appendLetterToLink(letter:String) -> String {
+    let coverLink = "http://i.imgur.com/\(self.cover).jpg"
+    return coverLink.stringByReplacingOccurrencesOfString(".", withString: "\(letter).", options: NSStringCompareOptions.LiteralSearch, range: coverLink.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch))
   }
 }
