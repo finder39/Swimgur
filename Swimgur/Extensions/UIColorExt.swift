@@ -45,7 +45,7 @@ public class UIColorEXT {
   }
   
   public class func DownvoteColor() -> UIColor {
-    return UIColor.RGBColor(red: 43, green: 43, blue: 43)
+    return UIColor.RGBColor(red: 238, green: 68, blue: 68)
   }
   
   public class func PointBarDownvoteColor() -> UIColor {
