@@ -66,8 +66,10 @@ class DataManager {
     var dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
       if !error {
         dispatch_async(dispatch_get_main_queue(), {
-          let image = UIImage(data: data)
-          imageView.image = image
+          if (imageView != nil) {
+            let image = UIImage(data: data)
+            imageView.image = image
+          }
         })
       }
     })
