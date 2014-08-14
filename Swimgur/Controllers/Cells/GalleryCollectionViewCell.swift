@@ -8,10 +8,15 @@
 
 import Foundation
 import UIKit
+import QuartzCore
 
 class GalleryCollectionViewCell: UICollectionViewCell {
   //var imageView: UIImageView = UIImageView(frame: CGRectMake(0.5, 0.5, 105, 105))
   var imageView: UIImageView = UIImageView(frame: CGRectMake(0.0, 0.0, 106, 106))
+  
+  //// Polygon Drawing
+  var polygonPath:UIBezierPath = UIBezierPath()
+  
   var gallery: GalleryItem? {
     didSet {
       if let galleryImage = gallery as? GalleryImage {
@@ -41,6 +46,26 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   
   required init(coder aDecoder: NSCoder!) {
     super.init(coder: aDecoder)
+  }
+  
+  override func drawRect(rect: CGRect) {
+    var leftRGBA = [CGFloat](count: 4, repeatedValue: 0.0)
+    UIColorEXT.UpvoteColor().getRed(&leftRGBA[0], green: &leftRGBA[1], blue: &leftRGBA[2], alpha: &leftRGBA[3])
+    var fillColor = UIColor(red: 133.0/255.0, green: 191/255.0, blue: 37/255.0, alpha: 1.0)
+    fillColor = UIColor(red: leftRGBA[0], green: leftRGBA[1], blue: leftRGBA[2], alpha: leftRGBA[3])
+    var strokeColor = UIColor(red: leftRGBA[0], green: leftRGBA[1], blue: leftRGBA[2], alpha: leftRGBA[3])
+    
+    polygonPath = UIBezierPath()
+    polygonPath.moveToPoint(CGPointMake(106, 0))
+    polygonPath.addLineToPoint(CGPointMake(106, 20))
+    polygonPath.addLineToPoint(CGPointMake(86, 0))
+    polygonPath.closePath()
+    fillColor.setFill()
+    polygonPath.fill()
+    
+    var shape = CAShapeLayer()
+    shape.path = polygonPath.CGPath
+    self.layer.addSublayer(shape)
   }
   
   private func setup() {
