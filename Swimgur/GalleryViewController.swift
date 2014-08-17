@@ -35,7 +35,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 1, showViral: true, onCompletion: { (newGalleryItems) -> () in
+    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
       println("Refreshing collectionGallery")
       self.galleryItems += newGalleryItems as [GalleryItem]
       self.collectionGallery.reloadData()
