@@ -51,6 +51,7 @@ class DataManager {
   
   var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
+  var galleryItems:[GalleryItem] = []
   
   class var sharedInstance:DataManager {
     struct Static {
@@ -270,7 +271,7 @@ class DataManager {
   }
   
   func getAlbum(#albumId:String, onCompletion:DMAlbumBlock, onError:DMErrorStringBlock) {
-    let urlSetup = "https://api.imgur.com/3/gallery/album/\(albumId)"
+    let urlSetup = "gallery/album/\(albumId)"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
     var request = NSMutableURLRequest(URL: url)
     if let token = SIUserDefaults().token?.accessToken {
@@ -287,8 +288,9 @@ class DataManager {
             onError(error: error!, description: errorDescription!)
           })
         } else {
-          let data = data as [AnyObject]
+          let data = data as Dictionary<String, AnyObject>
           dispatch_async(dispatch_get_main_queue(), {
+            println(data)
             onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
           })
         }

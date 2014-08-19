@@ -120,11 +120,46 @@
                     <navigationItem key="navigationItem" title="Gallery" id="j70-T4-gqz"/>
                     <connections>
                         <outlet property="collectionGallery" destination="hgT-7H-jCs" id="lAr-SH-a1U"/>
+                        <segue destination="Yhc-FI-MO3" kind="push" identifier="SegueToImage" id="ILi-Us-OCb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LD6-kO-UnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="476" y="470"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="TGi-UI-wOI">
+            <objects>
+                <viewController id="Yhc-FI-MO3" customClass="ImageViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="F4w-S6-sj1"/>
+                        <viewControllerLayoutGuide type="bottom" id="G2C-5l-5Qn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Si-V9-uFV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="5t6-Ez-Z8l"/>
+                                    <constraint firstAttribute="height" constant="568" id="Gp4-Wy-fAV"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="xgb-9t-q9r"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Image" id="Wjd-CP-Jy9"/>
+                    <connections>
+                        <outlet property="scrollview" destination="LoC-A4-sOi" id="QVK-7L-EeC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7So-zr-XYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="899" y="470"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

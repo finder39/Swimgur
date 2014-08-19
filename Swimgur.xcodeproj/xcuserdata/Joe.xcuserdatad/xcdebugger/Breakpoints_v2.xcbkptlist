@@ -2,4 +2,52 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Swimgur/Data/DataManager.swift"
+            timestampString = "430179766.275606"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "imgurResponseParser(data:completionHandler:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swimgur.DataManager.imgurResponseParser (Swimgur.DataManager)(data : ObjectiveC.NSData, completionHandler : (data : Swift.AnyObject, error : Swift.Optional&lt;ObjectiveC.NSError&gt;, errorDescription : Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Swimgur"
+                  urlString = "file:///Users/Joe/Documents/iOS/Swimgur/Swimgur/Data/DataManager.swift"
+                  timestampString = "430179766.277634"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Swimgur.DataManager.imgurResponseParser (Swimgur.DataManager)(data : ObjectiveC.NSData, completionHandler : (data : Swift.AnyObject, error : Swift.Optional&lt;ObjectiveC.NSError&gt;, errorDescription : Swift.Optional&lt;Swift.String&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Swimgur"
+                  urlString = "file:///Users/Joe/Documents/iOS/Swimgur/Swimgur/Data/DataManager.swift"
+                  timestampString = "430179766.277793"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "165">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
+let SegueToImage = "SegueToImage"
 
 /************************
 // (320-(.5*6)-2)/3 = 105
@@ -20,7 +21,7 @@ let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseId
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   @IBOutlet weak var collectionGallery: UICollectionView!
   
-  var galleryItems:[GalleryItem] = []
+  var hasAppeared = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -35,19 +36,22 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
-      println("Refreshing collectionGallery")
-      self.galleryItems += newGalleryItems as [GalleryItem]
-      self.collectionGallery.reloadData()
-    }) { (error, description) -> () in
-      
+    if !hasAppeared {
+      hasAppeared = true
+      DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+        println("Refreshing collectionGallery")
+        DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
+        self.collectionGallery.reloadData()
+      }) { (error, description) -> () in
+        
+      }
     }
   }
   
   // MARK: UICollectionViewDataSource
   
   func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
-    return self.galleryItems.count
+    return DataManager.sharedInstance.galleryItems.count
   }
   
   func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
@@ -59,9 +63,14 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
     var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
     cell.resetCell()
-    let galleryItem = self.galleryItems[indexPath.row]
+    let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
     cell.gallery = galleryItem
     return cell
+  }
+  
+  func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
+    self.performSegueWithIdentifier(SegueToImage, sender: indexPath)
+    
   }
   
   // MARK: UICollectionViewDelegateFlowLayout
@@ -71,4 +80,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   }
   
   // MARK: UICollectionViewDelegate
+  
+  override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+    let row = (sender as NSIndexPath).row
+    (segue.destinationViewController as ImageViewController).galleryIndex = row
+  }
 }

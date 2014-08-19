@@ -41,8 +41,8 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   let coverHeight: Int
   let privacy: String
   let layout: String
-  let imagesCount: Int?
-  let images: [AnyObject]?
+  var imagesCount: Int?
+  var images: [AlbumImage] = []
   
   init(dictionary:Dictionary<String, AnyObject>) {
     cover = dictionary["cover"] as AnyObject! as String!
@@ -51,7 +51,11 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     privacy = dictionary["privacy"] as AnyObject! as String!
     layout = dictionary["layout"] as AnyObject! as String!
     imagesCount = dictionary["images_count"] as AnyObject? as? Int
-    images = []
+    if let albumImages = (dictionary["images"] as AnyObject?) as? [Dictionary<String, AnyObject>] {
+      for image in albumImages {
+        self.images.append(AlbumImage(dictionary: image))
+      }
+    }
     super.init()
     id = dictionary["id"] as AnyObject! as String!
     title = dictionary["title"] as AnyObject! as String!
@@ -83,5 +87,16 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   override func appendLetterToLink(letter:String) -> String {
     let coverLink = "http://i.imgur.com/\(self.cover).jpg"
     return coverLink.stringByReplacingOccurrencesOfString(".", withString: "\(letter).", options: NSStringCompareOptions.LiteralSearch, range: coverLink.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch))
+  }
+  
+  func getAlbum(#onCompletion:DMAlbumBlock) {
+    DataManager.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
+      dispatch_async(dispatch_get_main_queue(), {
+       onCompletion(album: album)
+      })
+    }) { (error, description) -> () in
+      println(error)
+      println(description)
+    }
   }
 }
