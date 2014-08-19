@@ -13,7 +13,7 @@ protocol GalleryItemProtocol {
   func squareThumbnailURIForSize(size:CGSize) -> String
 }
 
-class GalleryItem {
+public class GalleryItem {
   var id: String = ""
   var title: String = ""
   var description: String?

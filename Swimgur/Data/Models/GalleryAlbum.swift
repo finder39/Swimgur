@@ -35,7 +35,7 @@ vote = "<null>";
 }
 */
 
-class GalleryAlbum: GalleryItem, GalleryItemProtocol {
+public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   let cover: String
   let coverWidth: Int
   let coverHeight: Int

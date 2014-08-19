@@ -36,7 +36,7 @@ width = 720;
 }
 */
 
-class GalleryImage: GalleryItem, GalleryItemProtocol {
+public class GalleryImage: GalleryItem, GalleryItemProtocol {
   let type: String?
   let animated: Bool?
   let width: Int

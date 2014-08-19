@@ -12,6 +12,7 @@ public typealias DMArrayBlock = (array:[AnyObject])->()
 public typealias DMBlockBool = (success:Bool)->()
 public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
 public typealias DMAccountBlock = (account:Account)->()
+public typealias DMAlbumBlock = (album:GalleryAlbum)->()
 public typealias DMErrorStringBlock = (error:NSError, description:String)->()
 public typealias DMTokenBlock = (token:Token)->()
 
@@ -261,6 +262,34 @@ class DataManager {
           }
           dispatch_async(dispatch_get_main_queue(), {
             onCompletion(array: galleryItems)
+          })
+        }
+      })
+    })
+    task.resume()
+  }
+  
+  func getAlbum(#albumId:String, onCompletion:DMAlbumBlock, onError:DMErrorStringBlock) {
+    let urlSetup = "https://api.imgur.com/3/gallery/album/\(albumId)"
+    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
+    var request = NSMutableURLRequest(URL: url)
+    if let token = SIUserDefaults().token?.accessToken {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+      if error {
+        onError(error: error, description: error.localizedDescription)
+        return
+      }
+      self.imgurResponseParser(data: data, completionHandler: { (data, error, errorDescription) -> () in
+        if errorDescription != nil {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error!, description: errorDescription!)
+          })
+        } else {
+          let data = data as [AnyObject]
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
           })
         }
       })
