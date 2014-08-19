@@ -61,10 +61,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     if let swipeGesture = gesture as? UISwipeGestureRecognizer {
       switch swipeGesture.direction {
       case UISwipeGestureRecognizerDirection.Right:
-        galleryIndex++
+        galleryIndex--
         self.loadImage()
       case UISwipeGestureRecognizerDirection.Left:
-        galleryIndex--
+        galleryIndex++
         self.loadImage()
       default:
         break
@@ -73,7 +73,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   }
   
   private func loadImage() {
-    if DataManager.sharedInstance.galleryItems.count > galleryIndex {
+    if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
+      self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
+      
       let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
       
       // remove existing image views
