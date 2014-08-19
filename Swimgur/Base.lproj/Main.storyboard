@@ -141,10 +141,14 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="320" id="5t6-Ez-Z8l"/>
                                     <constraint firstAttribute="height" constant="568" id="Gp4-Wy-fAV"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Yhc-FI-MO3" id="WrS-tn-nK3"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>

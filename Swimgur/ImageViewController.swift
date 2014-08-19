@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var scrollview: UIScrollView!
   var imageViews:[UIImageView] = []
   
-  var galleryIndex: Int?/* {
+  var galleryIndex: Int = 0/* {
     didSet {
       if let galleryIndex = galleryIndex {
         if DataManager.sharedInstance.galleryItems.count > galleryIndex {
@@ -44,6 +44,12 @@ class ImageViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+    swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+    self.scrollview.addGestureRecognizer(swipeLeft)
+    var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+    swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+    self.scrollview.addGestureRecognizer(swipeRight)
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -51,44 +57,58 @@ class ImageViewController: UIViewController {
     self.loadImage()
   }
   
+  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+    if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+      switch swipeGesture.direction {
+      case UISwipeGestureRecognizerDirection.Right:
+        galleryIndex++
+        self.loadImage()
+      case UISwipeGestureRecognizerDirection.Left:
+        galleryIndex--
+        self.loadImage()
+      default:
+        break
+      }
+    }
+  }
+  
   private func loadImage() {
-    if let galleryIndex = galleryIndex {
-      if DataManager.sharedInstance.galleryItems.count > galleryIndex {
-        let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
-        
-        // remove existing image views
-        for imageView in imageViews {
-          imageView.removeFromSuperview()
-        }
-        imageViews.removeAll(keepCapacity: false)
-        
-        
-        if let galleryImage = item as? GalleryImage {
-          var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, self.scrollview.frame.height))
-          imageView.contentMode = UIViewContentMode.ScaleAspectFit
-          imageViews.append(imageView)
-          self.scrollview.addSubview(imageView)
-          DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
-          self.setContentSizeOfScrollView()
-        } else if let galleryAlbum = item as? GalleryAlbum {
-          if galleryAlbum.images.count == 0 {
-            galleryAlbum.getAlbum(onCompletion: { (album) -> () in
-              DataManager.sharedInstance.galleryItems[galleryIndex] = album
-              self.loadImage()
-            })
-          } else {
-            var originY:CGFloat = 0
-            for image in galleryAlbum.images {
-              let height:CGFloat = self.scrollview.frame.width/CGFloat(image.width)*CGFloat(image.height)
-              var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
-              imageView.contentMode = UIViewContentMode.ScaleAspectFit
-              imageViews.append(imageView)
-              self.scrollview.addSubview(imageView)
-              DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
-              originY += imageView.frame.height+2
-            }
-            self.setContentSizeOfScrollView()
+    if DataManager.sharedInstance.galleryItems.count > galleryIndex {
+      let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
+      
+      // remove existing image views
+      for imageView in imageViews {
+        imageView.removeFromSuperview()
+      }
+      imageViews.removeAll(keepCapacity: false)
+      
+      
+      if let galleryImage = item as? GalleryImage {
+        let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
+        var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageViews.append(imageView)
+        self.scrollview.addSubview(imageView)
+        DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+        self.setContentSizeOfScrollView()
+      } else if let galleryAlbum = item as? GalleryAlbum {
+        if galleryAlbum.images.count == 0 {
+          galleryAlbum.getAlbum(onCompletion: { (album) -> () in
+            DataManager.sharedInstance.galleryItems[self.galleryIndex] = album
+            self.loadImage()
+          })
+        } else {
+          var originY:CGFloat = 0
+          for image in galleryAlbum.images {
+            let height:CGFloat = self.scrollview.frame.width/CGFloat(image.width)*CGFloat(image.height)
+            var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
+            imageViews.append(imageView)
+            self.scrollview.addSubview(imageView)
+            DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
+            originY += imageView.frame.height+2
           }
+          self.setContentSizeOfScrollView()
         }
       }
     }
@@ -111,48 +131,4 @@ class ImageViewController: UIViewController {
     self.scrollview.showsHorizontalScrollIndicator = restoreHorizontal
     self.scrollview.showsVerticalScrollIndicator = restoreVertical
   }
-  
-  /*
-  
-  
-  - (void)setContentSizeOfSevenFormView {
-  BOOL restoreHorizontal = NO;
-  BOOL restoreVertical = NO;
-  
-  if ([self respondsToSelector:@selector(setShowsHorizontalScrollIndicator:)] && [self respondsToSelector:@selector(setShowsVerticalScrollIndicator:)]) {
-  if ([self showsHorizontalScrollIndicator]) {
-  restoreHorizontal = YES;
-  [self setShowsHorizontalScrollIndicator:NO];
-  }
-  if ([self showsVerticalScrollIndicator]) {
-  restoreVertical = YES;
-  [self setShowsVerticalScrollIndicator:NO];
-  }
-  }
-  CGRect contentRect = CGRectZero;
-  for (UIView *view in self.subviews) {
-  if (![view isHidden])
-  contentRect = CGRectUnion(contentRect, view.frame);
-  }
-  if (contentRect.size.height > self.frame.size.height)
-  [self setScrollEnabled:TRUE];
-  else
-  [self setScrollEnabled:FALSE];
-  if ([self respondsToSelector:@selector(setShowsHorizontalScrollIndicator:)] && [self respondsToSelector:@selector(setShowsVerticalScrollIndicator:)]) {
-  if (restoreHorizontal)
-  {
-  [self setShowsHorizontalScrollIndicator:YES];
-  }
-  if (restoreVertical) {
-  [self setShowsVerticalScrollIndicator:YES];
-  }
-  }
-  contentRect.size.height += 8;
-  if (contentRect.origin.y < 0) {
-  contentRect.size.height += contentRect.origin.y;
-  }
-  self.contentSize = contentRect.size;
-  [self setCanCancelContentTouches:YES];
-  }
-*/
 }
