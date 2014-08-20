@@ -10,6 +10,11 @@ import UIKit
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var scrollview: UIScrollView!
+  
+  @IBOutlet weak var downvoteButton: UIButton!
+  @IBOutlet weak var upvoteButton: UIButton!
+  @IBOutlet weak var voteBar: UIView!
+  
   var imageViews:[UIImageView] = []
   
   var galleryIndex: Int = 0/* {
@@ -50,11 +55,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeRight.direction = UISwipeGestureRecognizerDirection.Right
     self.scrollview.addGestureRecognizer(swipeRight)
+    
+    self.scrollview.canCancelContentTouches = true
+    self.scrollview.delaysContentTouches = true
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     self.loadImage()
+    self.view.bringSubviewToFront(self.voteBar)
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -63,9 +72,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       case UISwipeGestureRecognizerDirection.Right:
         galleryIndex--
         self.loadImage()
+        self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
       case UISwipeGestureRecognizerDirection.Left:
         galleryIndex++
         self.loadImage()
+        self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
       default:
         break
       }
@@ -74,8 +85,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   
   private func loadImage() {
     if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
-      self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
-      
       let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
       
       // remove existing image views
@@ -84,6 +93,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       }
       imageViews.removeAll(keepCapacity: false)
       
+      self.title = item.title
+      self.colorFromVote(item)
       
       if let galleryImage = item as? GalleryImage {
         let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
@@ -116,6 +127,24 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
   }
   
+  private func colorFromVote(item:GalleryItem) {
+    if let vote = item.vote {
+      if vote == "up" {
+        self.navigationController.navigationBar.barTintColor = UIColorEXT.UpvoteColor()
+        self.voteBar.backgroundColor = UIColorEXT.UpvoteColor()
+      } else if vote == "down" {
+        self.navigationController.navigationBar.barTintColor = UIColorEXT.DownvoteColor()
+        self.voteBar.backgroundColor = UIColorEXT.DownvoteColor()
+      } else {
+        self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor()
+        self.voteBar.backgroundColor = UIColorEXT.FrameColor()
+      }
+    } else {
+      self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor()
+      self.voteBar.backgroundColor = UIColorEXT.FrameColor()
+    }
+  }
+  
   private func setContentSizeOfScrollView() {
     let restoreHorizontal = self.scrollview.showsHorizontalScrollIndicator
     let restoreVertical = self.scrollview.showsVerticalScrollIndicator
@@ -132,5 +161,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     self.scrollview.showsHorizontalScrollIndicator = restoreHorizontal
     self.scrollview.showsVerticalScrollIndicator = restoreVertical
+  }
+  
+  @IBAction func voteUp(sender: AnyObject) {
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote(.Up)
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Up.toRaw()
+    self.colorFromVote(DataManager.sharedInstance.galleryItems[self.galleryIndex])
+  }
+  
+  @IBAction func voteDown(sender: AnyObject) {
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote(.Down)
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Down.toRaw()
+    self.colorFromVote(DataManager.sharedInstance.galleryItems[self.galleryIndex])
   }
 }

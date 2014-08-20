@@ -47,6 +47,11 @@ public enum ImgurWindow: String {
   case All = "all"
 }
 
+public enum GalleryItemVote: String {
+  case Up = "up"
+  case Down = "down"
+}
+
 class DataManager {
   
   var restConfig = RestConfig()
@@ -295,6 +300,23 @@ class DataManager {
           })
         }
       })
+    })
+    task.resume()
+  }
+  
+  // https://api.imgur.com/3/gallery/{id}/vote/{vote}
+  
+  func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote) {
+    let urlSetup = "gallery/image/\(galleryItemId)/vote/\(vote.toRaw())"
+    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
+    var request = NSMutableURLRequest(URL: url)
+    request.HTTPMethod = Method.POST.toRaw()
+    if let token = SIUserDefaults().token?.accessToken {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    println(request)
+    var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+      
     })
     task.resume()
   }

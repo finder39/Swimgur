@@ -37,4 +37,8 @@ public class GalleryItem {
   func appendLetterToLink(letter:String) -> String {
     return self.link.stringByReplacingOccurrencesOfString(".", withString: "\(letter).", options: NSStringCompareOptions.LiteralSearch, range: self.link.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch))
   }
+  
+  func vote(vote:GalleryItemVote) {
+    DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: self.id, vote: vote)
+  }
 }

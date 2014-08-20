@@ -36,6 +36,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
     if !hasAppeared {
       hasAppeared = true
       DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in

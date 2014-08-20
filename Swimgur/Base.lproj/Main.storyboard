@@ -2,6 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -130,7 +132,7 @@
         <!--Image-->
         <scene sceneID="TGi-UI-wOI">
             <objects>
-                <viewController id="Yhc-FI-MO3" customClass="ImageViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Image" id="Yhc-FI-MO3" customClass="ImageViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F4w-S6-sj1"/>
                         <viewControllerLayoutGuide type="bottom" id="G2C-5l-5Qn"/>
@@ -139,26 +141,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="5t6-Ez-Z8l"/>
-                                    <constraint firstAttribute="height" constant="568" id="Gp4-Wy-fAV"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="Yhc-FI-MO3" id="WrS-tn-nK3"/>
                                 </connections>
                             </scrollView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hhv-bw-Kr5">
+                                <rect key="frame" x="0.0" y="528" width="320" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLT-oh-lND">
+                                        <rect key="frame" x="160" y="1" width="160" height="38"/>
+                                        <state key="normal" title="Upvote">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="voteUp:" destination="Yhc-FI-MO3" eventType="touchUpInside" id="tYP-DS-4R1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tw-C7-Ilj">
+                                        <rect key="frame" x="0.0" y="1" width="160" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="wym-oT-rSj"/>
+                                        </constraints>
+                                        <state key="normal" title="Downvote">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="voteDown:" destination="Yhc-FI-MO3" eventType="touchUpInside" id="jn0-7Y-rCV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="nLT-oh-lND" firstAttribute="top" secondItem="4tw-C7-Ilj" secondAttribute="top" id="08r-YU-VdA"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="leading" secondItem="hhv-bw-Kr5" secondAttribute="leading" id="5NS-dh-G6d"/>
+                                    <constraint firstItem="nLT-oh-lND" firstAttribute="baseline" secondItem="4tw-C7-Ilj" secondAttribute="firstBaseline" id="A1V-aK-jgc"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="top" constant="1" id="Oi3-oW-XGc"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="baseline" secondItem="nLT-oh-lND" secondAttribute="firstBaseline" id="XG5-vG-peR"/>
+                                    <constraint firstAttribute="trailing" secondItem="nLT-oh-lND" secondAttribute="trailing" id="vsn-RA-Xt3"/>
+                                    <constraint firstItem="nLT-oh-lND" firstAttribute="leading" secondItem="4tw-C7-Ilj" secondAttribute="trailing" id="vxU-1v-T5p"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="centerY" secondItem="hhv-bw-Kr5" secondAttribute="centerY" id="xm6-uA-soC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="xgb-9t-q9r"/>
+                            <constraint firstItem="hhv-bw-Kr5" firstAttribute="bottom" secondItem="G2C-5l-5Qn" secondAttribute="top" id="TPR-HV-CFi"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="bottom" secondItem="G2C-5l-5Qn" secondAttribute="top" id="cq5-le-8kK"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="qOu-8m-QMd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Image" id="Wjd-CP-Jy9"/>
+                    <navigationItem key="navigationItem" id="Wjd-CP-Jy9"/>
                     <connections>
+                        <outlet property="downvoteButton" destination="4tw-C7-Ilj" id="mqD-pU-ogZ"/>
                         <outlet property="scrollview" destination="LoC-A4-sOi" id="QVK-7L-EeC"/>
+                        <outlet property="upvoteButton" destination="nLT-oh-lND" id="4iT-fP-IVO"/>
+                        <outlet property="voteBar" destination="hhv-bw-Kr5" id="P20-T0-5Y5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7So-zr-XYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
