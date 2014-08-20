@@ -18,6 +18,8 @@
 		D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B4071995414000179D0C /* SIUserDefaults.swift */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
+		D8A795C719A5223D0013315D /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C419A5223D0013315D /* FLAnimatedImage.m */; };
+		D8A795C819A5223D0013315D /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C619A5223D0013315D /* FLAnimatedImageView.m */; };
 		D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
 		D8ABBD7619A408D300CECF9B /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7519A408D300CECF9B /* AlbumImage.swift */; };
 		D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
@@ -69,6 +71,11 @@
 		D888B4071995414000179D0C /* SIUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SIUserDefaults.swift; path = Data/SIUserDefaults.swift; sourceTree = "<group>"; };
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
+		D8A795C319A5223D0013315D /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
+		D8A795C419A5223D0013315D /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
+		D8A795C519A5223D0013315D /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		D8A795C619A5223D0013315D /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
+		D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swimgur-Bridging-Header.h"; sourceTree = "<group>"; };
 		D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		D8ABBD7519A408D300CECF9B /* AlbumImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumImage.swift; sourceTree = "<group>"; };
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +132,7 @@
 		D8846EF01999E5FA00546285 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D8A795C219A5223D0013315D /* FLAnimatedImage */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -136,6 +144,18 @@
 				D888B40519948B5F00179D0C /* StringExt.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D8A795C219A5223D0013315D /* FLAnimatedImage */ = {
+			isa = PBXGroup;
+			children = (
+				D8A795C319A5223D0013315D /* FLAnimatedImage.h */,
+				D8A795C419A5223D0013315D /* FLAnimatedImage.m */,
+				D8A795C519A5223D0013315D /* FLAnimatedImageView.h */,
+				D8A795C619A5223D0013315D /* FLAnimatedImageView.m */,
+			);
+			name = FLAnimatedImage;
+			path = Libraries/FLAnimatedImage;
 			sourceTree = "<group>";
 		};
 		D8AE2DA2199070470062E3E6 = {
@@ -163,6 +183,7 @@
 				D89920C31991CBD50064C50A /* Extensions */,
 				D8AE2DCD1990882F0062E3E6 /* Data */,
 				D8AE2DB0199070470062E3E6 /* AppDelegate.swift */,
+				D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */,
 				D8DF2A731991D1C700397EE2 /* Controllers */,
 				D89920C11991B6530064C50A /* Constants.swift */,
 				D86CD79B19973B8D00DD7489 /* Transitions */,
@@ -357,10 +378,12 @@
 				D86CD79F199748DE00DD7489 /* RefreshTokenForm.swift in Sources */,
 				D857066719987698009D906E /* GalleryImage.swift in Sources */,
 				D8AE2DCF199088FC0062E3E6 /* DataManager.swift in Sources */,
+				D8A795C719A5223D0013315D /* FLAnimatedImage.m in Sources */,
 				D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */,
 				D8846EEB19989E7900546285 /* GalleryItem.swift in Sources */,
 				D8BB7C1D1995505E0084EAB8 /* Token.swift in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
+				D8A795C819A5223D0013315D /* FLAnimatedImageView.m in Sources */,
 				D8846EE919989ACE00546285 /* GalleryAlbum.swift in Sources */,
 				D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */,
 				D857066519986AA7009D906E /* GalleryViewController.swift in Sources */,
@@ -495,6 +518,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -507,6 +531,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -83,6 +83,21 @@ class DataManager {
     dataTask.resume()
   }
   
+  func setImageViewAnimated(imageView:FLAnimatedImageView, withURL imageURL:String) {
+    let url = NSURL(string: imageURL)
+    var dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+      if !error {
+        dispatch_async(dispatch_get_main_queue(), {
+          if (imageView != nil) {
+            let image = FLAnimatedImage(animatedGIFData: data)
+            imageView.animatedImage = image
+          }
+        })
+      }
+    })
+    dataTask.resume()
+  }
+  
   /*func setupSession(#authorization:String?) {
     var config = NSURLSessionConfiguration.defaultSessionConfiguration()
     config.HTTPAdditionalHeaders = ["Authorization" : authorization!]

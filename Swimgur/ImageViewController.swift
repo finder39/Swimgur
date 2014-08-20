@@ -98,11 +98,27 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       
       if let galleryImage = item as? GalleryImage {
         let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
-        var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
-        imageViews.append(imageView)
-        self.scrollview.addSubview(imageView)
-        DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+        if let animated = galleryImage.animated {
+          if animated {
+            var imageViewAnimated = FLAnimatedImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
+            imageViewAnimated.contentMode = UIViewContentMode.ScaleAspectFit
+            imageViews.append(imageViewAnimated)
+            self.scrollview.addSubview(imageViewAnimated)
+            DataManager.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: galleryImage.link)
+          } else {
+            var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
+            imageViews.append(imageView)
+            self.scrollview.addSubview(imageView)
+            DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+          }
+        } else {
+          var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
+          imageView.contentMode = UIViewContentMode.ScaleAspectFit
+          imageViews.append(imageView)
+          self.scrollview.addSubview(imageView)
+          DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+        }
         self.setContentSizeOfScrollView()
       } else if let galleryAlbum = item as? GalleryAlbum {
         if galleryAlbum.images.count == 0 {
@@ -114,12 +130,30 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
           var originY:CGFloat = 0
           for image in galleryAlbum.images {
             let height:CGFloat = self.scrollview.frame.width/CGFloat(image.width)*CGFloat(image.height)
-            var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
-            imageView.contentMode = UIViewContentMode.ScaleAspectFit
-            imageViews.append(imageView)
-            self.scrollview.addSubview(imageView)
-            DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
-            originY += imageView.frame.height+2
+            if let animated = image.animated {
+              if animated {
+                var imageViewAnimated = FLAnimatedImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
+                imageViewAnimated.contentMode = UIViewContentMode.ScaleAspectFit
+                imageViews.append(imageViewAnimated)
+                self.scrollview.addSubview(imageViewAnimated)
+                DataManager.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: image.link)
+                originY += imageViewAnimated.frame.height+2
+              } else {
+                var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
+                imageView.contentMode = UIViewContentMode.ScaleAspectFit
+                imageViews.append(imageView)
+                self.scrollview.addSubview(imageView)
+                DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
+                originY += imageView.frame.height+2
+              }
+            } else {
+              var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
+              imageView.contentMode = UIViewContentMode.ScaleAspectFit
+              imageViews.append(imageView)
+              self.scrollview.addSubview(imageView)
+              DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
+              originY += imageView.frame.height+2
+            }
           }
           self.setContentSizeOfScrollView()
         }
@@ -153,6 +187,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     for view in self.scrollview.subviews {
       contentRect = CGRectUnion(contentRect, view.frame)
     }
+    contentRect.size.height += self.voteBar.frame.size.height
     self.scrollview.contentSize = contentRect.size
     if contentRect.size.height > self.scrollview.frame.size.height {
       self.scrollview.scrollEnabled = true
