@@ -310,7 +310,6 @@ class DataManager {
         } else {
           let data = data as Dictionary<String, AnyObject>
           dispatch_async(dispatch_get_main_queue(), {
-            println(data)
             onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
           })
         }
@@ -329,7 +328,6 @@ class DataManager {
     if let token = SIUserDefaults().token?.accessToken {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
-    println(request)
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
       
     })
