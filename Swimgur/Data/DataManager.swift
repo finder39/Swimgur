@@ -68,12 +68,12 @@ class DataManager {
   init() {
   }
   
-  func setImageView(imageView:UIImageView, withURL imageURL:String) {
+  func setImageView(imageView:UIImageView?, withURL imageURL:String) {
     let url = NSURL(string: imageURL)
     var dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-      if !error {
+      if !(error != nil) {
         dispatch_async(dispatch_get_main_queue(), {
-          if (imageView != nil) {
+          if let imageView = imageView {
             let image = UIImage(data: data)
             imageView.image = image
           }
@@ -83,12 +83,12 @@ class DataManager {
     dataTask.resume()
   }
   
-  func setImageViewAnimated(imageView:FLAnimatedImageView, withURL imageURL:String) {
+  func setImageViewAnimated(imageView:FLAnimatedImageView?, withURL imageURL:String) {
     let url = NSURL(string: imageURL)
     var dataTask = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-      if !error {
+      if !(error != nil) {
         dispatch_async(dispatch_get_main_queue(), {
-          if (imageView != nil) {
+          if let imageView = imageView {
             let image = FLAnimatedImage(animatedGIFData: data)
             imageView.animatedImage = image
           }
@@ -157,7 +157,7 @@ class DataManager {
       request.HTTPBody = data
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if error {
+      if (error != nil) {
         println(error.localizedDescription)
       }
       var err: NSError?
@@ -189,7 +189,7 @@ class DataManager {
       request.HTTPBody = data
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if error {
+      if (error != nil) {
         println(error.localizedDescription)
       }
       var err: NSError?
@@ -234,7 +234,7 @@ class DataManager {
         onCompletion(account: Account(dictionary: data!))
       })*/
       
-      if error {
+      if (error != nil) {
         onError(error: error, description: error.localizedDescription)
         return
       }
@@ -262,7 +262,7 @@ class DataManager {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if error {
+      if (error != nil) {
         onError(error: error, description: error.localizedDescription)
         return
       }
@@ -298,7 +298,7 @@ class DataManager {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if error {
+      if (error != nil) {
         onError(error: error, description: error.localizedDescription)
         return
       }

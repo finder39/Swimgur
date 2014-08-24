@@ -21,8 +21,13 @@ public class SIUserDefaults {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.toRaw()) as AnyObject? as Dictionary<String, String>?
     }
     set {
-      NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.AccountKey.toRaw())
-      NSUserDefaults.standardUserDefaults().synchronize()
+      if let newValue = newValue {
+        NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.AccountKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      } else {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.AccountKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      }
     }
   }
   
@@ -46,7 +51,7 @@ public class SIUserDefaults {
         var data = NSKeyedArchiver.archivedDataWithRootObject(tokenDict)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: SIDefault.TokenKey.toRaw())
       } else {
-        NSUserDefaults.standardUserDefaults().setObject(newValue?.asDictionary(), forKey: SIDefault.TokenKey.toRaw())
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.TokenKey.toRaw())
       }
       NSUserDefaults.standardUserDefaults().synchronize()
     }
@@ -57,8 +62,13 @@ public class SIUserDefaults {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.UsernameKey.toRaw()) as AnyObject? as String?
     }
     set {
-      NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.UsernameKey.toRaw())
-      NSUserDefaults.standardUserDefaults().synchronize()
+      if let newValue = newValue {
+        NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.UsernameKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      } else {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.UsernameKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      }
     }
   }
   
@@ -67,8 +77,13 @@ public class SIUserDefaults {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.CodeKey.toRaw()) as AnyObject? as String?
     }
     set {
-      NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.CodeKey.toRaw())
-      NSUserDefaults.standardUserDefaults().synchronize()
+      if let newValue = newValue {
+        NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.CodeKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      } else {
+        NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.CodeKey.toRaw())
+        NSUserDefaults.standardUserDefaults().synchronize()
+      }
     }
   }
 }

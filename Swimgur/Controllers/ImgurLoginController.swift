@@ -108,14 +108,16 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   private func getAccount() {
     DataManager.sharedInstance.getAccountWithCompletion({ (account) -> () in
-      if account != nil {
+      SIUserDefaults().username = account.username // TODO: store the whole account
+      self.authorizationSucceeded(true)
+      /*if account != nil {
         //println("Retrieved account information: \(account.description)")
         
         SIUserDefaults().username = account.username // TODO: store the whole account
         self.authorizationSucceeded(true)
       } else {
         self.authorizationSucceeded(false)
-      }
+      }*/
     }, onError: { (error, description) -> () in
       println("Failed to retrieve account information")
       self.authorizationSucceeded(false)
@@ -134,7 +136,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType) -> Bool {
     // Once user logs in we will get their goodies in the ridirect URL. Example:
     // https://imgur.com/?state=auth&code=860381d0651a8c24079aa13c8732567d8a3f7bab
-    let redirectedURLString = request.URL.absoluteString.URLDecodedString()
+    let redirectedURLString = request.URL.absoluteString!.URLDecodedString() // explicit unwrap new for beta 6
     if redirectedURLString.rangeOfString("code=")?.startIndex != nil {
       self.webView(webView, didAuthenticateWithRedirectURLString: redirectedURLString)
       webView.stopLoading()
