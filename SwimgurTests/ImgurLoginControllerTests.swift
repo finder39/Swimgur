@@ -18,15 +18,10 @@ class ImgurLoginControllerTests: XCTestCase {
     
     
     telc.authorizeWithViewController(UIViewController()) { (success) -> () in
-      println(SIUserDefaults().code?)
+      XCTAssertTrue(success, "Login failed")
       XCTAssertNotNil(SIUserDefaults().code?, "Code does not exist")
       XCTAssertNotNil(SIUserDefaults().token?.accessToken, "Token does not exist")
       expectation.fulfill()
-      if success {
-        
-      } else {
-        // TODO: Give error
-      }
     }
     
     self.waitForExpectationsWithTimeout(5.0, handler: nil)
@@ -35,14 +30,8 @@ class ImgurLoginControllerTests: XCTestCase {
 
 class TestableImgurLoginController: ImgurLoginController {
   func webViewDidFinishLoad(webView: UIWebView!) {
-    println("woof")
     webView.stringByEvaluatingJavaScriptFromString("document.getElementById('username').value = 'testthewest'")
     webView.stringByEvaluatingJavaScriptFromString("document.getElementById('password').value = 'supertesters'")
     webView.stringByEvaluatingJavaScriptFromString("document.getElementById('allow').click()")
-  }
-  
-  override func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType) -> Bool {
-    println("meow")
-    return super.webView(webView, shouldStartLoadWithRequest: request, navigationType: navigationType)
   }
 }
