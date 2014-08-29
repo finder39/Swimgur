@@ -17,7 +17,7 @@ public enum ImgurLoginAuthType:String {
 
 class ImgurLoginController : NSObject, UIWebViewDelegate {
   
-  var authorizationClosure:DMBlockBool?
+  var authorizationClosure:DMBoolBlock?
   var authType:ImgurLoginAuthType = .ImgurLoginAuthTypeCode
   var imgurLoginViewController:UIViewController = UIViewController()
   var webView:UIWebView = UIWebView()
@@ -27,7 +27,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     imgurLoginViewController.view.addSubview(webView)
   }
   
-  func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBlockBool) {
+  func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBoolBlock) {
     authorizationClosure = completionBlock
     
     // https://api.imgur.com/oauth2/authorize?client_id=541fb8cc243d820&response_type=code&state=auth
@@ -37,12 +37,14 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     webView.delegate = self
     webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)))
     
-    viewController.presentViewController(imgurLoginViewController, animated: true, completion: nil)
+    if viewController.view.window != nil {
+      viewController.presentViewController(imgurLoginViewController, animated: true, completion: nil)
+    }
   }
   
   // TODO: verifyStoredAccountWithCompletionBlock
   
-  func verifyStoredAccount(#onCompletion:DMBlockBool) {
+  func verifyStoredAccount(#onCompletion:DMBoolBlock) {
     self.authorizationClosure = onCompletion
     
     var token:Token? = SIUserDefaults().token

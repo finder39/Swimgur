@@ -9,7 +9,7 @@
 import UIKit
 
 public typealias DMArrayBlock = (array:[AnyObject])->()
-public typealias DMBlockBool = (success:Bool)->()
+public typealias DMBoolBlock = (success:Bool)->()
 public typealias DMDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
 public typealias DMAccountBlock = (account:Account)->()
 public typealias DMAlbumBlock = (album:GalleryAlbum)->()
@@ -320,7 +320,7 @@ class DataManager {
   
   // https://api.imgur.com/3/gallery/{id}/vote/{vote}
   
-  func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote) {
+  func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:DMBoolBlock?) {
     let urlSetup = "gallery/image/\(galleryItemId)/vote/\(vote.toRaw())"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
     var request = NSMutableURLRequest(URL: url)
@@ -329,7 +329,10 @@ class DataManager {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      
+      if let onCompletion = onCompletion {
+        // need to check for 200 status in response
+        onCompletion(success: true)
+      }
     })
     task.resume()
   }

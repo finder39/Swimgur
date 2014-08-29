@@ -10,19 +10,62 @@ import UIKit
 import XCTest
 
 class ImgurLoginControllerTests: XCTestCase {
-  func testLogin() {
-    var telc = TestableImgurLoginController()
-    XCTAssertNotNil(telc, "TestableImgurLoginController not loaded")
+  
+  func test1Login() {
+    var tilc = TestableImgurLoginController()
+    XCTAssertNotNil(tilc, "TestableImgurLoginController not loaded")
     
-    var expectation = self.expectationWithDescription("login")
+    var expectation = self.expectationWithDescription("Login")
     
-    
-    telc.authorizeWithViewController(UIViewController()) { (success) -> () in
+    tilc.authorizeWithViewController(UIViewController()) { (success) -> () in
       XCTAssertTrue(success, "Login failed")
       XCTAssertNotNil(SIUserDefaults().code?, "Code does not exist")
       XCTAssertNotNil(SIUserDefaults().token?.accessToken, "Token does not exist")
+      XCTAssertNotNil(SIUserDefaults().username?, "Username does not exist")
       expectation.fulfill()
     }
+    
+    self.waitForExpectationsWithTimeout(5.0, handler: nil)
+  }
+  
+  func testGetGallery() {
+    var expectation = self.expectationWithDescription("Get gallery")
+    
+    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      XCTAssertGreaterThan(newGalleryItems.count, 0, "None returned")
+      expectation.fulfill()
+    }) { (error, description) -> () in
+      XCTFail("Get gallery failed")
+      expectation.fulfill()
+    }
+    
+    self.waitForExpectationsWithTimeout(5.0, handler: nil)
+  }
+  
+  func testGetAlbum() {
+    var expectation = self.expectationWithDescription("Get album")
+    
+    DataManager.sharedInstance.getAlbum(albumId: "TxQjM", onCompletion: { (album) -> () in
+      XCTAssertEqual(album.images.count, 10, "Album image count incorrect")
+      expectation.fulfill()
+    }) { (error, description) -> () in
+      XCTFail("Get album failed")
+      expectation.fulfill()
+    }
+    
+    self.waitForExpectationsWithTimeout(5.0, handler: nil)
+  }
+  
+  func testVoting() {
+    var expectation = self.expectationWithDescription("Get album")
+    
+    DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Down, onCompletion: { (success) -> () in
+      XCTAssertTrue(success, "Down vote failed")
+      DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Up, onCompletion: { (success) -> () in
+        XCTAssertTrue(success, "Up vote failed")
+        expectation.fulfill()
+      })
+    })
     
     self.waitForExpectationsWithTimeout(5.0, handler: nil)
   }

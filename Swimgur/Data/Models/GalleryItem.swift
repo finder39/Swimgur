@@ -39,6 +39,6 @@ public class GalleryItem {
   }
   
   func vote(vote:GalleryItemVote) {
-    DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: self.id, vote: vote)
+    DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: self.id, vote: vote, onCompletion: nil)
   }
 }
