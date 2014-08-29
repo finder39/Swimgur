@@ -18,6 +18,8 @@
 		D888B4081995414000179D0C /* SIUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B4071995414000179D0C /* SIUserDefaults.swift */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
+		D8A581D819B0F27500168974 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C419A5223D0013315D /* FLAnimatedImage.m */; };
+		D8A581D919B0F27500168974 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C619A5223D0013315D /* FLAnimatedImageView.m */; };
 		D8A795C719A5223D0013315D /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C419A5223D0013315D /* FLAnimatedImage.m */; };
 		D8A795C819A5223D0013315D /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C619A5223D0013315D /* FLAnimatedImageView.m */; };
 		D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
@@ -33,6 +35,28 @@
 		D8BB7C1F199575540084EAB8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB7C1E199575540084EAB8 /* Account.swift */; };
 		D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */; };
 		D8DF2A79199436C600397EE2 /* RestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A78199436C600397EE2 /* RestConfig.swift */; };
+		D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */; };
+		D8F044BD19B0F1CF00F04FB5 /* ImgurLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */; };
+		D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
+		D8F044BF19B0F20100F04FB5 /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
+		D8F044C019B0F20100F04FB5 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB7C1C1995505E0084EAB8 /* Token.swift */; };
+		D8F044C119B0F20100F04FB5 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB7C1E199575540084EAB8 /* Account.swift */; };
+		D8F044C219B0F20100F04FB5 /* GalleryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EEA19989E7900546285 /* GalleryItem.swift */; };
+		D8F044C319B0F20100F04FB5 /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066619987698009D906E /* GalleryImage.swift */; };
+		D8F044C419B0F20100F04FB5 /* GalleryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EE819989ACE00546285 /* GalleryAlbum.swift */; };
+		D8F044C519B0F20100F04FB5 /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7519A408D300CECF9B /* AlbumImage.swift */; };
+		D8F044C619B0F20100F04FB5 /* CodeForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BB7C1919954BAC0084EAB8 /* CodeForm.swift */; };
+		D8F044C719B0F20100F04FB5 /* RefreshTokenForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79E199748DE00DD7489 /* RefreshTokenForm.swift */; };
+		D8F044C819B0F20100F04FB5 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DCE199088FC0062E3E6 /* DataManager.swift */; };
+		D8F044C919B0F20100F04FB5 /* RestConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A78199436C600397EE2 /* RestConfig.swift */; };
+		D8F044CA19B0F20100F04FB5 /* SIUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B4071995414000179D0C /* SIUserDefaults.swift */; };
+		D8F044CB19B0F20100F04FB5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
+		D8F044CC19B0F20100F04FB5 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */; };
+		D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB2199070470062E3E6 /* ViewController.swift */; };
+		D8F044CE19B0F20100F04FB5 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066419986AA7009D906E /* GalleryViewController.swift */; };
+		D8F044CF19B0F20100F04FB5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
+		D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
+		D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +117,7 @@
 		D8BB7C1E199575540084EAB8 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Data/Models/Account.swift; sourceTree = "<group>"; };
 		D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgurLoginController.swift; path = Controllers/ImgurLoginController.swift; sourceTree = "<group>"; };
 		D8DF2A78199436C600397EE2 /* RestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestConfig.swift; path = Data/RestConfig.swift; sourceTree = "<group>"; };
+		D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurLoginControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */,
+				D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */,
 				D8AE2DC1199070470062E3E6 /* Supporting Files */,
 			);
 			path = SwimgurTests;
@@ -396,7 +422,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F044BD19B0F1CF00F04FB5 /* ImgurLoginController.swift in Sources */,
+				D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */,
+				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
+				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
+				D8F044CA19B0F20100F04FB5 /* SIUserDefaults.swift in Sources */,
+				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
+				D8F044C819B0F20100F04FB5 /* DataManager.swift in Sources */,
+				D8A581D919B0F27500168974 /* FLAnimatedImageView.m in Sources */,
+				D8F044C519B0F20100F04FB5 /* AlbumImage.swift in Sources */,
+				D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */,
+				D8F044C219B0F20100F04FB5 /* GalleryItem.swift in Sources */,
+				D8F044CC19B0F20100F04FB5 /* GalleryCollectionViewCell.swift in Sources */,
+				D8F044C019B0F20100F04FB5 /* Token.swift in Sources */,
+				D8F044CF19B0F20100F04FB5 /* ImageViewController.swift in Sources */,
+				D8F044C319B0F20100F04FB5 /* GalleryImage.swift in Sources */,
 				D8AE2DC4199070470062E3E6 /* SwimgurTests.swift in Sources */,
+				D8F044C619B0F20100F04FB5 /* CodeForm.swift in Sources */,
+				D8F044C919B0F20100F04FB5 /* RestConfig.swift in Sources */,
+				D8F044C719B0F20100F04FB5 /* RefreshTokenForm.swift in Sources */,
+				D8F044BF19B0F20100F04FB5 /* StringExt.swift in Sources */,
+				D8F044C419B0F20100F04FB5 /* GalleryAlbum.swift in Sources */,
+				D8A581D819B0F27500168974 /* FLAnimatedImage.m in Sources */,
+				D8F044CE19B0F20100F04FB5 /* GalleryViewController.swift in Sources */,
+				D8F044CB19B0F20100F04FB5 /* AppDelegate.swift in Sources */,
+				D8F044C119B0F20100F04FB5 /* Account.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,6 +600,7 @@
 				INFOPLIST_FILE = SwimgurTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
 			};
 			name = Debug;
@@ -565,6 +616,7 @@
 				INFOPLIST_FILE = SwimgurTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
 			};
 			name = Release;
