@@ -57,6 +57,7 @@
 		D8F044CF19B0F20100F04FB5 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
 		D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
+		D8F1FC9819B154D8008D38C1 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgurLoginController.swift; path = Controllers/ImgurLoginController.swift; sourceTree = "<group>"; };
 		D8DF2A78199436C600397EE2 /* RestConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestConfig.swift; path = Data/RestConfig.swift; sourceTree = "<group>"; };
 		D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurLoginControllerTests.swift; sourceTree = "<group>"; };
+		D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */,
 				D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */,
+				D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */,
 				D8AE2DC1199070470062E3E6 /* Supporting Files */,
 			);
 			path = SwimgurTests;
@@ -445,6 +448,7 @@
 				D8F044C419B0F20100F04FB5 /* GalleryAlbum.swift in Sources */,
 				D8A581D819B0F27500168974 /* FLAnimatedImage.m in Sources */,
 				D8F044CE19B0F20100F04FB5 /* GalleryViewController.swift in Sources */,
+				D8F1FC9819B154D8008D38C1 /* DataManagerTests.swift in Sources */,
 				D8F044CB19B0F20100F04FB5 /* AppDelegate.swift in Sources */,
 				D8F044C119B0F20100F04FB5 /* Account.swift in Sources */,
 			);

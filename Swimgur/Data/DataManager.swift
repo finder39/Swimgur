@@ -52,7 +52,7 @@ public enum GalleryItemVote: String {
   case Down = "down"
 }
 
-class DataManager {
+class DataManager: NSObject {
   
   var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
@@ -65,7 +65,7 @@ class DataManager {
     return Static.instance
   }
   
-  init() {
+  override init() {
   }
   
   func setImageView(imageView:UIImageView?, withURL imageURL:String) {
