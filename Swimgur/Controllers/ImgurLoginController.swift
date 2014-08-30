@@ -110,7 +110,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   private func getAccount() {
     DataManager.sharedInstance.getAccountWithCompletion({ (account) -> () in
-      SIUserDefaults().username = account.username // TODO: store the whole account
+      SIUserDefaults().account = account
       self.authorizationSucceeded(true)
       /*if account != nil {
         //println("Retrieved account information: \(account.description)")

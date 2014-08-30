@@ -21,11 +21,16 @@ class ImgurLoginControllerTests: XCTestCase {
       XCTAssertTrue(success, "Login failed")
       XCTAssertNotNil(SIUserDefaults().code?, "Code does not exist")
       XCTAssertNotNil(SIUserDefaults().token?.accessToken, "Token does not exist")
-      XCTAssertNotNil(SIUserDefaults().username?, "Username does not exist")
+      XCTAssertNotNil(SIUserDefaults().account?, "Account does not exist")
+      if let username = SIUserDefaults().account?.username {
+        XCTAssertEqual(username, "testthewest", "Username is incorrect")
+      } else {
+        XCTFail("Username not set")
+      }
       expectation.fulfill()
     }
     
-    self.waitForExpectationsWithTimeout(5.0, handler: nil)
+    self.waitForExpectationsWithTimeout(10.0, handler: nil)
   }
   
   func testGetGallery() {

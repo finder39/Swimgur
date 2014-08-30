@@ -11,23 +11,33 @@ import Foundation
 public enum SIDefault: String {
   case AccountKey = "account"
   case TokenKey = "token"
-  case UsernameKey = "username"
   case CodeKey = "code"
 }
 
 public class SIUserDefaults {
-  var account: Dictionary<String, String>? {
+  var account: Account? {
     get {
-      return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.toRaw()) as AnyObject? as Dictionary<String, String>?
+      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.toRaw()) as AnyObject? as NSData?
+      if let outData = outData {
+        let accountDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as AnyObject? as Dictionary<String, AnyObject>?
+        if let accountDict = accountDict {
+          return Account(dictionary: accountDict)
+        } else {
+          return nil
+        }
+      } else {
+        return nil
+      }
     }
     set {
-      if let newValue = newValue {
-        NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.AccountKey.toRaw())
-        NSUserDefaults.standardUserDefaults().synchronize()
+      let accountDict = newValue?.asDictionary()
+      if let accountDict = accountDict {
+        var data = NSKeyedArchiver.archivedDataWithRootObject(accountDict)
+        NSUserDefaults.standardUserDefaults().setObject(data, forKey: SIDefault.AccountKey.toRaw())
       } else {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.AccountKey.toRaw())
-        NSUserDefaults.standardUserDefaults().synchronize()
       }
+      NSUserDefaults.standardUserDefaults().synchronize()
     }
   }
   
@@ -54,21 +64,6 @@ public class SIUserDefaults {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.TokenKey.toRaw())
       }
       NSUserDefaults.standardUserDefaults().synchronize()
-    }
-  }
-  
-  var username: String? {
-    get {
-      return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.UsernameKey.toRaw()) as AnyObject? as String?
-    }
-    set {
-      if let newValue = newValue {
-        NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: SIDefault.UsernameKey.toRaw())
-        NSUserDefaults.standardUserDefaults().synchronize()
-      } else {
-        NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.UsernameKey.toRaw())
-        NSUserDefaults.standardUserDefaults().synchronize()
-      }
     }
   }
   

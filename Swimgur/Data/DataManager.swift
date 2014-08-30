@@ -144,6 +144,8 @@ class DataManager {
     }
   }
   
+  // MARK: Account
+  
   func getTokensWithForm(form:CodeForm, onCompletion:DMTokenBlock, onError:DMErrorStringBlock) {
     let url = NSURL(string: self.createAuthenticationEndpointFor(self.restConfig.tokenURI))
     var request = NSMutableURLRequest(URL: url)
@@ -253,6 +255,14 @@ class DataManager {
     })
     task.resume()
   }
+  
+  func logout() {
+    SIUserDefaults().code = nil
+    SIUserDefaults().token = nil
+    SIUserDefaults().account = nil
+  }
+  
+  // MARK: Gallery
   
   func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:DMArrayBlock, onError:DMErrorStringBlock) {
     let urlSetup = "\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)"

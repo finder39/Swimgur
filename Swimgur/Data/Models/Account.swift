@@ -24,4 +24,15 @@ public class Account {
     created = dictionary["created"] as AnyObject! as Int!
     proExpiration = dictionary["pro_expiration"] as AnyObject? as? Int
   }
+  
+  func asDictionary() -> Dictionary<String, AnyObject> {
+    var dictionary:Dictionary<String, AnyObject> = Dictionary()
+    dictionary["id"] = id
+    dictionary["url"] = username
+    if let bio = bio { dictionary["bio"] = bio }
+    dictionary["reputation"] = reputation
+    dictionary["created"] = created
+    dictionary["pro_expiration"] = proExpiration
+    return dictionary
+  }
 }
