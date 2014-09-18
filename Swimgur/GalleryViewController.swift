@@ -36,7 +36,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
+    self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
     if !hasAppeared {
       hasAppeared = true
       DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
@@ -51,17 +51,17 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   // MARK: UICollectionViewDataSource
   
-  func collectionView(collectionView: UICollectionView!, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return DataManager.sharedInstance.galleryItems.count
   }
   
-  func numberOfSectionsInCollectionView(collectionView: UICollectionView!) -> Int {
+  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
     return 1
   }
   
   
   
-  func collectionView(collectionView: UICollectionView!, cellForItemAtIndexPath indexPath: NSIndexPath!) -> UICollectionViewCell! {
+  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
     cell.resetCell()
     let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
@@ -82,7 +82,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   // MARK: UICollectionViewDelegate
   
-  override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
     let row = (sender as NSIndexPath).row
     (segue.destinationViewController as ImageViewController).galleryIndex = row
   }

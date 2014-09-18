@@ -164,17 +164,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   private func colorFromVote(item:GalleryItem) {
     if let vote = item.vote {
       if vote == "up" {
-        self.navigationController.navigationBar.barTintColor = UIColorEXT.UpvoteColor()
+        self.navigationController?.navigationBar.barTintColor = UIColorEXT.UpvoteColor()
         self.voteBar.backgroundColor = UIColorEXT.UpvoteColor()
       } else if vote == "down" {
-        self.navigationController.navigationBar.barTintColor = UIColorEXT.DownvoteColor()
+        self.navigationController?.navigationBar.barTintColor = UIColorEXT.DownvoteColor()
         self.voteBar.backgroundColor = UIColorEXT.DownvoteColor()
       } else {
-        self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor()
+        self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor()
         self.voteBar.backgroundColor = UIColorEXT.FrameColor()
       }
     } else {
-      self.navigationController.navigationBar.barTintColor = UIColorEXT.FrameColor()
+      self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor()
       self.voteBar.backgroundColor = UIColorEXT.FrameColor()
     }
   }

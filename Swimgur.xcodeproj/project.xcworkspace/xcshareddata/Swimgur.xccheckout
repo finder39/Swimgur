@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>59AADD59-AB0F-49A7-B76A-FCD85AC69D90</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Swimgur</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>AA6D9911C8BBEC6E336BEB0642897CFBF67B2C84</key>
+		<string>https://gotappsinc.repositoryhosting.com/git/gotappsinc/swimgur.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Swimgur.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>AA6D9911C8BBEC6E336BEB0642897CFBF67B2C84</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://gotappsinc.repositoryhosting.com/git/gotappsinc/swimgur.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>AA6D9911C8BBEC6E336BEB0642897CFBF67B2C84</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>AA6D9911C8BBEC6E336BEB0642897CFBF67B2C84</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Swimgur</string>
+		</dict>
+	</array>
+</dict>
+</plist>
