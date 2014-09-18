@@ -206,6 +206,7 @@
 		D8AE2DAD199070470062E3E6 /* Swimgur */ = {
 			isa = PBXGroup;
 			children = (
+				D8EF882219CAAC9A00B3932D /* Resources */,
 				D8846EF01999E5FA00546285 /* Libraries */,
 				D89920C31991CBD50064C50A /* Extensions */,
 				D8AE2DCD1990882F0062E3E6 /* Data */,
@@ -292,6 +293,13 @@
 				D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D8EF882219CAAC9A00B3932D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

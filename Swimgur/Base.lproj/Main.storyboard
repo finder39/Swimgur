@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6205" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6198"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Constraints with attributes relative to the layout margin" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -119,7 +119,13 @@
                             <constraint firstItem="hgT-7H-jCs" firstAttribute="leading" secondItem="1iy-UC-BWK" secondAttribute="leadingMargin" constant="-16" id="UbF-F1-lZS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Gallery" id="j70-T4-gqz"/>
+                    <navigationItem key="navigationItem" title="Gallery" id="j70-T4-gqz">
+                        <barButtonItem key="rightBarButtonItem" image="upload_to_cloud-22" id="88G-Ao-AF4">
+                            <connections>
+                                <action selector="uploadNewImage:" destination="s5C-xn-xsm" id="cya-2x-jks"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionGallery" destination="hgT-7H-jCs" id="lAr-SH-a1U"/>
                         <segue destination="Yhc-FI-MO3" kind="push" identifier="SegueToImage" id="ILi-Us-OCb"/>
@@ -206,13 +212,13 @@
             <point key="canvasLocation" x="899" y="470"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="upload_to_cloud-22" width="22" height="22"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4">
-            <size key="portraitSize" width="320" height="568"/>
-            <size key="landscapeSize" width="568" height="320"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <color key="tintColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>

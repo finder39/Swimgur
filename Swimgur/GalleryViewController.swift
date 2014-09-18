@@ -18,8 +18,10 @@ let SegueToImage = "SegueToImage"
 .5 border - 105 image - .5 border  - 1 empty - .5 border - 105 image - .5 border - 1 empty - .5 border - 105 image - .5 border
 ************************/
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   @IBOutlet weak var collectionGallery: UICollectionView!
+  
+  var imagePicker:UIImagePickerController = UIImagePickerController()
   
   var hasAppeared = false
   
@@ -85,5 +87,45 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
     let row = (sender as NSIndexPath).row
     (segue.destinationViewController as ImageViewController).galleryIndex = row
+  }
+  
+  // MARK: UIImagePickerControllerDelegate
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    picker.dismissViewControllerAnimated(true, completion: { () -> Void in
+      
+    })
+    
+    // Access the original image from the info dictionary
+    let image = info["UIImagePickerControllerOriginalImage"] as UIImage
+    
+    // Capture the file name of the image
+    let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+    let documentsDirectory = paths[0] as String
+    var error:NSError?
+    let dirContents = NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentsDirectory, error: &error)
+    if let dirContents = dirContents {
+      let fileName = "photo_\(dirContents.count).png"
+      let imagePath = documentsDirectory.stringByAppendingString(fileName)
+    }
+    
+    // Setup for upload
+    let imageB64 = Constants().encodeImageToBase64String(image)
+  }
+  
+  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    picker.dismissViewControllerAnimated(true, completion: { () -> Void in
+      
+    })
+  }
+  
+  // MARK: Actions
+  @IBAction func uploadNewImage(sender: AnyObject) {
+    imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+    imagePicker.allowsEditing = false
+    imagePicker.delegate = self
+    self.presentViewController(imagePicker, animated: true) { () -> Void in
+      
+    }
   }
 }

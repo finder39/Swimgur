@@ -346,4 +346,15 @@ class DataManager: NSObject {
     })
     task.resume()
   }
+  
+  // MARK: Upload
+  func uploadImage(#onCompletion:DMBoolBlock?) {
+    let urlSetup = "image"
+    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
+    var request = NSMutableURLRequest(URL: url)
+    request.HTTPMethod = Method.POST.toRaw()
+    if let token = SIUserDefaults().token?.accessToken {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+  }
 }
