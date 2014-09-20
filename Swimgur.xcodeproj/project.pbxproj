@@ -11,6 +11,8 @@
 		D857066719987698009D906E /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066619987698009D906E /* GalleryImage.swift */; };
 		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
 		D86CD79F199748DE00DD7489 /* RefreshTokenForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79E199748DE00DD7489 /* RefreshTokenForm.swift */; };
+		D874CDCF19CE2E9800E8B9A6 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874CDCE19CE2E9800E8B9A6 /* ImageUpload.swift */; };
+		D874CDD019CE31D700E8B9A6 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D874CDCE19CE2E9800E8B9A6 /* ImageUpload.swift */; };
 		D8846EE919989ACE00546285 /* GalleryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EE819989ACE00546285 /* GalleryAlbum.swift */; };
 		D8846EEB19989E7900546285 /* GalleryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EEA19989E7900546285 /* GalleryItem.swift */; };
 		D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */; };
@@ -89,6 +91,7 @@
 		D857066619987698009D906E /* GalleryImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryImage.swift; path = Data/Models/GalleryImage.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
 		D86CD79E199748DE00DD7489 /* RefreshTokenForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshTokenForm.swift; sourceTree = "<group>"; };
+		D874CDCE19CE2E9800E8B9A6 /* ImageUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUpload.swift; sourceTree = "<group>"; };
 		D8846EE819989ACE00546285 /* GalleryAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbum.swift; path = Data/Models/GalleryAlbum.swift; sourceTree = "<group>"; };
 		D8846EEA19989E7900546285 /* GalleryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryItem.swift; path = Data/Models/GalleryItem.swift; sourceTree = "<group>"; };
 		D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Controllers/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +282,7 @@
 				D857066619987698009D906E /* GalleryImage.swift */,
 				D8846EE819989ACE00546285 /* GalleryAlbum.swift */,
 				D8ABBD7519A408D300CECF9B /* AlbumImage.swift */,
+				D874CDCE19CE2E9800E8B9A6 /* ImageUpload.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -407,6 +411,7 @@
 				D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */,
 				D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */,
 				D888B40619948B5F00179D0C /* StringExt.swift in Sources */,
+				D874CDCF19CE2E9800E8B9A6 /* ImageUpload.swift in Sources */,
 				D8ABBD7619A408D300CECF9B /* AlbumImage.swift in Sources */,
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
 				D8BB7C1A19954BAC0084EAB8 /* CodeForm.swift in Sources */,
@@ -437,6 +442,7 @@
 				D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */,
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
+				D874CDD019CE31D700E8B9A6 /* ImageUpload.swift in Sources */,
 				D8F044CA19B0F20100F04FB5 /* SIUserDefaults.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
 				D8F044C819B0F20100F04FB5 /* DataManager.swift in Sources */,

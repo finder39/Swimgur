@@ -52,10 +52,16 @@ public enum GalleryItemVote: String {
   case Down = "down"
 }
 
-class DataManager: NSObject {
+protocol UploadPhotoDelegate {
+  func updateProgress(progress:Double)
+}
+
+class DataManager: NSObject, NSURLSessionTaskDelegate {
   
   var restConfig = RestConfig()
   let session = NSURLSession.sharedSession()
+  var uploadPhotoDelegate:UploadPhotoDelegate?
+  
   var galleryItems:[GalleryItem] = []
   
   class var sharedInstance:DataManager {
@@ -348,13 +354,35 @@ class DataManager: NSObject {
   }
   
   // MARK: Upload
-  func uploadImage(#onCompletion:DMBoolBlock?) {
-    let urlSetup = "image"
+  func uploadImage(toUpload:ImageUpload, onCompletion:DMBoolBlock) {
+    let urlSetup = "upload"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
     var request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = Method.POST.toRaw()
     if let token = SIUserDefaults().token?.accessToken {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    // set HTTPBody
+    var err: NSError?
+    if let data = NSJSONSerialization.dataWithJSONObject(toUpload.asDictionary(), options: nil, error: &err) {
+      let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+      request.setValue("application/json; charset=\(charset)", forHTTPHeaderField: "Content-Type")
+      
+      var task = session.uploadTaskWithRequest(request, fromData: data) { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        println(response)
+        println(error)
+        onCompletion(success: true)
+      }
+      task.resume()
+    } else {
+      onCompletion(success: false)
+    }
+  }
+  
+  // MARK: NSURLSessionTaskDelegate
+  func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    if let uploadPhotoDelegate = uploadPhotoDelegate {
+      uploadPhotoDelegate.updateProgress(Double(totalBytesSent) / Double(totalBytesExpectedToSend))
     }
   }
 }
