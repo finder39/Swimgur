@@ -56,10 +56,10 @@ protocol UploadPhotoDelegate {
   func updateProgress(progress:Double)
 }
 
-class DataManager: NSObject, NSURLSessionTaskDelegate {
+class DataManager: NSObject, NSURLSessionTaskDelegate, NSURLSessionDelegate {
   
   var restConfig = RestConfig()
-  let session = NSURLSession.sharedSession()
+  let session:NSURLSession!
   var uploadPhotoDelegate:UploadPhotoDelegate?
   
   var galleryItems:[GalleryItem] = []
@@ -72,6 +72,8 @@ class DataManager: NSObject, NSURLSessionTaskDelegate {
   }
   
   override init() {
+    super.init()
+    session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
   }
   
   func setImageView(imageView:UIImageView?, withURL imageURL:String) {
@@ -370,11 +372,12 @@ class DataManager: NSObject, NSURLSessionTaskDelegate {
       
       var task = session.uploadTaskWithRequest(request, fromData: data) { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
         println(response)
-        println(error)
+        self.uploadPhotoDelegate = nil
         onCompletion(success: true)
       }
       task.resume()
     } else {
+      self.uploadPhotoDelegate = nil
       onCompletion(success: false)
     }
   }
