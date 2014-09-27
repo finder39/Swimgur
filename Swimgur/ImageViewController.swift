@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWNetworking
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var scrollview: UIScrollView!

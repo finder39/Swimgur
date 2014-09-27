@@ -9,27 +9,27 @@
 import Foundation
 
 public class AlbumImage {
-  var id: String = ""
-  var title: String?
-  var description: String?
-  var datetime: Int = 0
-  var link: String = ""
-  var ups: Int?
-  var downs: Int?
-  var score: Int?
-  var views: Int?
-  var vote: String?
-  var nsfw: Bool?
-  let type: String?
-  let animated: Bool?
-  let width: Int
-  let height: Int
-  let size: Int
-  let bandwidth: Int
-  let deletehash: String?
-  let section: String?
+  public var id: String = ""
+  public var title: String?
+  public var description: String?
+  public var datetime: Int = 0
+  public var link: String = ""
+  public var ups: Int?
+  public var downs: Int?
+  public var score: Int?
+  public var views: Int?
+  public var vote: String?
+  public var nsfw: Bool?
+  public let type: String?
+  public let animated: Bool?
+  public let width: Int
+  public let height: Int
+  public let size: Int
+  public let bandwidth: Int
+  public let deletehash: String?
+  public let section: String?
   
-  init(dictionary:Dictionary<String, AnyObject>) {
+  public init(dictionary:Dictionary<String, AnyObject>) {
     type = dictionary["type"] as AnyObject? as? String
     animated = dictionary["animated"] as AnyObject? as? Bool
     width = dictionary["width"] as AnyObject! as Int!

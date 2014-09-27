@@ -2,32 +2,32 @@
 //  RestConfig.swift
 //  Swimgur
 //
-//  Created by Joseph Neuman on 8/7/14.
+//  Created by Joseph Neuman on 9/27/14.
 //  Copyright (c) 2014 Joseph Neuman. All rights reserved.
 //
 
 import Foundation
 
-class RestConfig {
+public class RestConfig {
   var server = "api.imgur.com"
   let serviceSecure = true
   
   private let serviceAuthorize = "oauth2"
-  var serviceAuthorizeEndpoint = ""
+  public var serviceAuthorizeEndpoint = ""
   private let serviceQuery = "3"
-  var serviceQueryEndpoint = ""
+  public var serviceQueryEndpoint = ""
   
   let accountURI = "account"
-  let accountMeURI = "account/me"
-  let authorizeURI = "authorize"
+  public let accountMeURI = "account/me"
+  public let authorizeURI = "authorize"
   
   let albumURI = "album"
   let albumsURI = "albums"
   let imagesURI = "images"
-  let tokenURI = "token"
-  let galleryURI = "gallery"
+  public let tokenURI = "token"
+  public let galleryURI = "gallery"
   
-  init() { // required for initiliaze in self
+  public init() { // required for initiliaze in self
     serviceAuthorizeEndpoint = serviceSecure ? "https://\(server)/\(serviceAuthorize)" : "http://\(server)/\(serviceAuthorize)"
     serviceQueryEndpoint = serviceSecure ? "https://\(server)/\(serviceQuery)" : "http://\(server)/\(serviceQuery)"
   }

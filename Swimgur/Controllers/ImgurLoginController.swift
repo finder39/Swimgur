@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWNetworking
 
 // Type of authentication
 public enum ImgurLoginAuthType:String {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWNetworking
 
 public typealias DMArrayBlock = (array:[AnyObject])->()
 public typealias DMBoolBlock = (success:Bool)->()
@@ -26,30 +27,6 @@ public enum Method: String {
   case DELETE = "DELETE"
   case TRACE = "TRACE"
   case CONNECT = "CONNECT"
-}
-
-public enum ImgurSection: String {
-  case Hot = "hot"
-  case Top = "top"
-  case User = "user"
-}
-
-public enum ImgurSort: String {
-  case Viral = "viral"
-  case Time = "time"
-}
-
-public enum ImgurWindow: String {
-  case Day = "day"
-  case Week = "week"
-  case Month = "month"
-  case Year = "year"
-  case All = "all"
-}
-
-public enum GalleryItemVote: String {
-  case Up = "up"
-  case Down = "down"
 }
 
 protocol UploadPhotoDelegate {

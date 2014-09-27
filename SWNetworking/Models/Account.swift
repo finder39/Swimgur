@@ -9,14 +9,14 @@
 import Foundation
 
 public class Account {
-  var id: Int
-  var username: String
-  var bio: String?
-  var reputation: Int
-  var created: Int
-  var proExpiration: Int?
+  public var id: Int
+  public var username: String
+  public var bio: String?
+  public var reputation: Int
+  public var created: Int
+  public var proExpiration: Int?
   
-  init(dictionary:Dictionary<String, AnyObject>) {
+  public init(dictionary:Dictionary<String, AnyObject>) {
     id = dictionary["id"] as AnyObject! as Int!
     username = dictionary["url"] as AnyObject! as String!
     bio = dictionary["bio"] as AnyObject? as? String
@@ -25,7 +25,7 @@ public class Account {
     proExpiration = dictionary["pro_expiration"] as AnyObject? as? Int
   }
   
-  func asDictionary() -> Dictionary<String, AnyObject> {
+  public func asDictionary() -> Dictionary<String, AnyObject> {
     var dictionary:Dictionary<String, AnyObject> = Dictionary()
     dictionary["id"] = id
     dictionary["url"] = username

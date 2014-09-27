@@ -1,8 +1,8 @@
 //
-//  SIUserDefaults.swift
+//  SWUserDefaults.swift
 //  Swimgur
 //
-//  Created by Joseph Neuman on 8/8/14.
+//  Created by Joseph Neuman on 9/27/14.
 //  Copyright (c) 2014 Joseph Neuman. All rights reserved.
 //
 
@@ -15,7 +15,11 @@ public enum SIDefault: String {
 }
 
 public class SIUserDefaults {
-  var account: Account? {
+  public init() {
+    
+  }
+  
+  public var account: Account? {
     get {
       let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.toRaw()) as AnyObject? as NSData?
       if let outData = outData {
@@ -41,7 +45,7 @@ public class SIUserDefaults {
     }
   }
   
-  var token: Token? {
+  public var token: Token? {
     get {
       let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.toRaw()) as AnyObject? as NSData?
       if let outData = outData {
@@ -67,7 +71,7 @@ public class SIUserDefaults {
     }
   }
   
-  var code: String? {
+  public var code: String? {
     get {
       return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.CodeKey.toRaw()) as AnyObject? as String?
     }

@@ -34,6 +34,20 @@
                ReferencedContainer = "container:Swimgur.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D8E9D16B19D745D300DB6A91"
+               BuildableName = "SWNetworkingTests.xctest"
+               BlueprintName = "SWNetworkingTests"
+               ReferencedContainer = "container:Swimgur.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -49,6 +63,16 @@
                BlueprintIdentifier = "D8AE2DBC199070470062E3E6"
                BuildableName = "SwimgurTests.xctest"
                BlueprintName = "SwimgurTests"
+               ReferencedContainer = "container:Swimgur.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D8E9D16B19D745D300DB6A91"
+               BuildableName = "SWNetworkingTests.xctest"
+               BlueprintName = "SWNetworkingTests"
                ReferencedContainer = "container:Swimgur.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -36,15 +36,15 @@ vote = "<null>";
 */
 
 public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
-  let cover: String
-  let coverWidth: Int
-  let coverHeight: Int
-  let privacy: String
-  let layout: String
-  var imagesCount: Int?
-  var images: [AlbumImage] = []
+  public let cover: String
+  public let coverWidth: Int
+  public let coverHeight: Int
+  public let privacy: String
+  public let layout: String
+  public var imagesCount: Int?
+  public var images: [AlbumImage] = []
   
-  init(dictionary:Dictionary<String, AnyObject>) {
+  public init(dictionary:Dictionary<String, AnyObject>) {
     cover = dictionary["cover"] as AnyObject! as String!
     coverWidth = dictionary["cover_width"] as AnyObject! as Int!
     coverHeight = dictionary["cover_height"] as AnyObject! as Int!
@@ -74,7 +74,7 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     nsfw = dictionary["nsfw"] as AnyObject? as? Bool
   }
   
-  func squareThumbnailURIForSize(size: CGSize) -> String {
+  public func squareThumbnailURIForSize(size: CGSize) -> String {
     if size.width <= 90 {
       return self.appendLetterToLink("s")
     } else if size.width <= 160 {
@@ -84,19 +84,20 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     }
   }
   
-  override func appendLetterToLink(letter:String) -> String {
+  public override func appendLetterToLink(letter:String) -> String {
     let coverLink = "http://i.imgur.com/\(self.cover).jpg"
     return coverLink.stringByReplacingOccurrencesOfString(".", withString: "\(letter).", options: NSStringCompareOptions.LiteralSearch, range: coverLink.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch))
   }
   
-  func getAlbum(#onCompletion:DMAlbumBlock) {
-    DataManager.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
+  public func getAlbum(#onCompletion:SWAlbumBlock) {
+    // TODO:
+    /*DataManager.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
       dispatch_async(dispatch_get_main_queue(), {
        onCompletion(album: album)
       })
     }) { (error, description) -> () in
       println(error)
       println(description)
-    }
+    }*/
   }
 }

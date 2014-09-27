@@ -37,16 +37,16 @@ width = 720;
 */
 
 public class GalleryImage: GalleryItem, GalleryItemProtocol {
-  let type: String?
-  let animated: Bool?
-  let width: Int
-  let height: Int
-  let size: Int
-  let bandwidth: Int
-  let deletehash: String?
-  let section: String?
+  public let type: String?
+  public let animated: Bool?
+  public let width: Int
+  public let height: Int
+  public let size: Int
+  public let bandwidth: Int
+  public let deletehash: String?
+  public let section: String?
   
-  init(dictionary:Dictionary<String, AnyObject>) {
+  public init(dictionary:Dictionary<String, AnyObject>) {
     type = dictionary["type"] as AnyObject? as? String
     animated = dictionary["animated"] as AnyObject? as? Bool
     width = dictionary["width"] as AnyObject! as Int!
@@ -73,7 +73,7 @@ public class GalleryImage: GalleryItem, GalleryItemProtocol {
     nsfw = dictionary["nsfw"] as AnyObject? as? Bool
   }
   
-  func squareThumbnailURIForSize(size: CGSize) -> String {
+  public func squareThumbnailURIForSize(size: CGSize) -> String {
     if size.width <= 90 {
       return self.appendLetterToLink("s")
     } else if size.width <= 160 {

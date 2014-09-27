@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SWNetworking
 
 let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
 let SegueToImage = "SegueToImage"
@@ -41,12 +42,12 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
     if !hasAppeared {
       hasAppeared = true
-      DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
         println("Refreshing collectionGallery")
         DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
         self.collectionGallery.reloadData()
-      }) { (error, description) -> () in
-        
+        }) { (error, description) -> () in
+          
       }
     }
   }

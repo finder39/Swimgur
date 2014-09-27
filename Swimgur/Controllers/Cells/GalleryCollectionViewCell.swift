@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import QuartzCore
+import SWNetworking
 
 class GalleryCollectionViewCell: UICollectionViewCell {
   //var imageView: UIImageView = UIImageView(frame: CGRectMake(0.5, 0.5, 105, 105))

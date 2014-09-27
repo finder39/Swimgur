@@ -15,19 +15,19 @@ public enum ImageUploadType:String {
 }
 
 public class ImageUpload {
-  var image: String
-  var album: String?
-  var type: ImageUploadType?
-  var name: String?
-  var title: String?
-  var description: String?
+  public var image: String
+  public var album: String?
+  public var type: ImageUploadType?
+  public var name: String?
+  public var title: String?
+  public var description: String?
   
-  init(imageB64:String) {
+  public init(imageB64:String) {
     image = imageB64
     type = .Base64
   }
   
-  func asDictionary() -> Dictionary<String, String> {
+  public func asDictionary() -> Dictionary<String, String> {
     var dictionary:Dictionary<String, String> = Dictionary()
     dictionary["image"] = image
     dictionary["album"] = album
