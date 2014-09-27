@@ -105,20 +105,20 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imageViewAnimated.contentMode = UIViewContentMode.ScaleAspectFit
             imageViews.append(imageViewAnimated)
             self.scrollview.addSubview(imageViewAnimated)
-            DataManager.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: galleryImage.link)
+            SWNetworking.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: galleryImage.link)
           } else {
             var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
             imageView.contentMode = UIViewContentMode.ScaleAspectFit
             imageViews.append(imageView)
             self.scrollview.addSubview(imageView)
-            DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+            SWNetworking.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
           }
         } else {
           var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
           imageView.contentMode = UIViewContentMode.ScaleAspectFit
           imageViews.append(imageView)
           self.scrollview.addSubview(imageView)
-          DataManager.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+          SWNetworking.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
         }
         self.setContentSizeOfScrollView()
       } else if let galleryAlbum = item as? GalleryAlbum {
@@ -137,14 +137,14 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
                 imageViewAnimated.contentMode = UIViewContentMode.ScaleAspectFit
                 imageViews.append(imageViewAnimated)
                 self.scrollview.addSubview(imageViewAnimated)
-                DataManager.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: image.link)
+                SWNetworking.sharedInstance.setImageViewAnimated(imageViewAnimated, withURL: image.link)
                 originY += imageViewAnimated.frame.height+2
               } else {
                 var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
                 imageView.contentMode = UIViewContentMode.ScaleAspectFit
                 imageViews.append(imageView)
                 self.scrollview.addSubview(imageView)
-                DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
+                SWNetworking.sharedInstance.setImageView(imageView, withURL: image.link)
                 originY += imageView.frame.height+2
               }
             } else {
@@ -152,7 +152,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
               imageView.contentMode = UIViewContentMode.ScaleAspectFit
               imageViews.append(imageView)
               self.scrollview.addSubview(imageView)
-              DataManager.sharedInstance.setImageView(imageView, withURL: image.link)
+              SWNetworking.sharedInstance.setImageView(imageView, withURL: image.link)
               originY += imageView.frame.height+2
             }
           }

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Swimgur/Data/DataManager.swift"
-            timestampString = "433544239.043136"
+            timestampString = "433548847.22466"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "imgurResponseParser(data:completionHandler:)"
             landmarkType = "5">
             <Locations>

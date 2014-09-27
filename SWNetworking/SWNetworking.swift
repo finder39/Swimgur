@@ -115,6 +115,38 @@ public class SWNetworking: NSObject {
     }
   }
   
+  // MARK: Image views
+  
+  public func setImageView(imageView:UIImageView?, withURL imageURL:String) {
+    let url = NSURL(string: imageURL)
+    var dataTask = session.session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+      if !(error != nil) {
+        dispatch_async(dispatch_get_main_queue(), {
+          if let imageView = imageView {
+            let image = UIImage(data: data)
+            imageView.image = image
+          }
+        })
+      }
+    })
+    dataTask.resume()
+  }
+  
+  public func setImageViewAnimated(imageView:FLAnimatedImageView?, withURL imageURL:String) {
+    let url = NSURL(string: imageURL)
+    var dataTask = session.session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+      if !(error != nil) {
+        dispatch_async(dispatch_get_main_queue(), {
+          if let imageView = imageView {
+            let image = FLAnimatedImage(animatedGIFData: data)
+            imageView.animatedImage = image
+          }
+        })
+      }
+    })
+    dataTask.resume()
+  }
+  
   public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
     let url = "\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)"
     session.GET(self.createQueryEndpointFor(url), parameters: nil, success: { (operation, responseObject) -> Void in

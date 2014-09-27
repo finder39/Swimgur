@@ -21,9 +21,9 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   var gallery: GalleryItem? {
     didSet {
       if let galleryImage = gallery as? GalleryImage {
-        DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryImage.squareThumbnailURIForSize(self.frame.size))
+        SWNetworking.sharedInstance.setImageView(self.imageView, withURL: galleryImage.squareThumbnailURIForSize(self.frame.size))
       } else if let galleryAlbum = gallery as? GalleryAlbum {
-        DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(self.frame.size))
+        SWNetworking.sharedInstance.setImageView(self.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(self.frame.size))
       }
       if let vote = gallery?.vote {
         if vote == "up" {

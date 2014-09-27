@@ -18,3 +18,6 @@ FOUNDATION_EXPORT const unsigned char SWNetworkingVersionString[];
 
 #import <SWNetworking/AFNetworking.h>
 #import <SWNetworking/UIImageView+AFNetworking.h>
+
+#import "FLAnimatedImage.h"
+#import "FLAnimatedImageView.h"

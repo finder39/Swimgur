@@ -13,12 +13,12 @@
 		D888B40619948B5F00179D0C /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
 		D897759119D7687700595045 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897759019D7687700595045 /* DataManager.swift */; };
 		D897759219D7687700595045 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897759019D7687700595045 /* DataManager.swift */; };
+		D897759819D76A9A00595045 /* FLAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = D897759419D76A9A00595045 /* FLAnimatedImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D897759919D76A9A00595045 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D897759519D76A9A00595045 /* FLAnimatedImage.m */; };
+		D897759A19D76A9A00595045 /* FLAnimatedImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = D897759619D76A9A00595045 /* FLAnimatedImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D897759B19D76A9A00595045 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D897759719D76A9A00595045 /* FLAnimatedImageView.m */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
-		D8A581D819B0F27500168974 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C419A5223D0013315D /* FLAnimatedImage.m */; };
-		D8A581D919B0F27500168974 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C619A5223D0013315D /* FLAnimatedImageView.m */; };
-		D8A795C719A5223D0013315D /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C419A5223D0013315D /* FLAnimatedImage.m */; };
-		D8A795C819A5223D0013315D /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A795C619A5223D0013315D /* FLAnimatedImageView.m */; };
 		D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
 		D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
 		D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB2199070470062E3E6 /* ViewController.swift */; };
@@ -157,12 +157,12 @@
 		D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Controllers/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
 		D897759019D7687700595045 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
+		D897759419D76A9A00595045 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
+		D897759519D76A9A00595045 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
+		D897759619D76A9A00595045 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
+		D897759719D76A9A00595045 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
-		D8A795C319A5223D0013315D /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
-		D8A795C419A5223D0013315D /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
-		D8A795C519A5223D0013315D /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
-		D8A795C619A5223D0013315D /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
 		D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swimgur-Bridging-Header.h"; sourceTree = "<group>"; };
 		D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,7 +285,6 @@
 		D8846EF01999E5FA00546285 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D8A795C219A5223D0013315D /* FLAnimatedImage */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -298,6 +297,17 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		D897759319D76A9A00595045 /* FLAnimatedImage */ = {
+			isa = PBXGroup;
+			children = (
+				D897759419D76A9A00595045 /* FLAnimatedImage.h */,
+				D897759519D76A9A00595045 /* FLAnimatedImage.m */,
+				D897759619D76A9A00595045 /* FLAnimatedImageView.h */,
+				D897759719D76A9A00595045 /* FLAnimatedImageView.m */,
+			);
+			path = FLAnimatedImage;
+			sourceTree = "<group>";
+		};
 		D89920C31991CBD50064C50A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,18 +315,6 @@
 				D888B40519948B5F00179D0C /* StringExt.swift */,
 			);
 			name = Extensions;
-			sourceTree = "<group>";
-		};
-		D8A795C219A5223D0013315D /* FLAnimatedImage */ = {
-			isa = PBXGroup;
-			children = (
-				D8A795C319A5223D0013315D /* FLAnimatedImage.h */,
-				D8A795C419A5223D0013315D /* FLAnimatedImage.m */,
-				D8A795C519A5223D0013315D /* FLAnimatedImageView.h */,
-				D8A795C619A5223D0013315D /* FLAnimatedImageView.m */,
-			);
-			name = FLAnimatedImage;
-			path = Libraries/FLAnimatedImage;
 			sourceTree = "<group>";
 		};
 		D8AE2DA2199070470062E3E6 = {
@@ -443,6 +441,7 @@
 		D8E9D18119D745FD00DB6A91 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D897759319D76A9A00595045 /* FLAnimatedImage */,
 				D8E9D18219D745FD00DB6A91 /* AFNetworking */,
 				D8E9D19619D745FD00DB6A91 /* UIKit+AFNetworking */,
 			);
@@ -547,6 +546,7 @@
 				D8E9D1C619D745FD00DB6A91 /* UIProgressView+AFNetworking.h in Headers */,
 				D8E9D1B919D745FD00DB6A91 /* AFURLSessionManager.h in Headers */,
 				D8E9D1B519D745FD00DB6A91 /* AFURLRequestSerialization.h in Headers */,
+				D897759A19D76A9A00595045 /* FLAnimatedImageView.h in Headers */,
 				D8E9D16719D745D300DB6A91 /* SWNetworking.h in Headers */,
 				D8E9D1A819D745FD00DB6A91 /* AFHTTPRequestOperation.h in Headers */,
 				D8E9D1AC19D745FD00DB6A91 /* AFHTTPSessionManager.h in Headers */,
@@ -554,6 +554,7 @@
 				D8E9D1BF19D745FD00DB6A91 /* UIAlertView+AFNetworking.h in Headers */,
 				D8E9D1C319D745FD00DB6A91 /* UIImageView+AFNetworking.h in Headers */,
 				D8E9D1B319D745FD00DB6A91 /* AFURLConnectionOperation.h in Headers */,
+				D897759819D76A9A00595045 /* FLAnimatedImage.h in Headers */,
 				D8E9D1C819D745FD00DB6A91 /* UIRefreshControl+AFNetworking.h in Headers */,
 				D8E9D1AF19D745FD00DB6A91 /* AFNetworkReachabilityManager.h in Headers */,
 				D8E9D1B119D745FD00DB6A91 /* AFSecurityPolicy.h in Headers */,
@@ -734,9 +735,7 @@
 				D888B40619948B5F00179D0C /* StringExt.swift in Sources */,
 				D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */,
 				D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */,
-				D8A795C719A5223D0013315D /* FLAnimatedImage.m in Sources */,
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
-				D8A795C819A5223D0013315D /* FLAnimatedImageView.m in Sources */,
 				D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */,
 				D857066519986AA7009D906E /* GalleryViewController.swift in Sources */,
 				D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */,
@@ -755,13 +754,11 @@
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
-				D8A581D919B0F27500168974 /* FLAnimatedImageView.m in Sources */,
 				D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */,
 				D8F044CC19B0F20100F04FB5 /* GalleryCollectionViewCell.swift in Sources */,
 				D8F044CF19B0F20100F04FB5 /* ImageViewController.swift in Sources */,
 				D8AE2DC4199070470062E3E6 /* SwimgurTests.swift in Sources */,
 				D8F044BF19B0F20100F04FB5 /* StringExt.swift in Sources */,
-				D8A581D819B0F27500168974 /* FLAnimatedImage.m in Sources */,
 				D8F044CE19B0F20100F04FB5 /* GalleryViewController.swift in Sources */,
 				D8F1FC9819B154D8008D38C1 /* DataManagerTests.swift in Sources */,
 				D8F044CB19B0F20100F04FB5 /* AppDelegate.swift in Sources */,
@@ -774,6 +771,7 @@
 			files = (
 				D8E9D1C019D745FD00DB6A91 /* UIAlertView+AFNetworking.m in Sources */,
 				D8E9D1DE19D74BD500DB6A91 /* Token.swift in Sources */,
+				D897759919D76A9A00595045 /* FLAnimatedImage.m in Sources */,
 				D8E9D1DC19D74BD500DB6A91 /* GalleryItem.swift in Sources */,
 				D8E9D1BA19D745FD00DB6A91 /* AFURLSessionManager.m in Sources */,
 				D8E9D1DB19D74BD500DB6A91 /* GalleryImage.swift in Sources */,
@@ -781,6 +779,7 @@
 				D8E9D1C919D745FD00DB6A91 /* UIRefreshControl+AFNetworking.m in Sources */,
 				D8E9D1AD19D745FD00DB6A91 /* AFHTTPSessionManager.m in Sources */,
 				D8E9D1B219D745FD00DB6A91 /* AFSecurityPolicy.m in Sources */,
+				D897759B19D76A9A00595045 /* FLAnimatedImageView.m in Sources */,
 				D8E9D1C719D745FD00DB6A91 /* UIProgressView+AFNetworking.m in Sources */,
 				D8E9D1BE19D745FD00DB6A91 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				D8E9D1C419D745FD00DB6A91 /* UIImageView+AFNetworking.m in Sources */,
