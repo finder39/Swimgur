@@ -149,10 +149,60 @@ public class SWNetworking: NSObject {
   
   // MARK: Account
   
+  public func getTokensWithForm(form:CodeForm, onCompletion:SWTokenBlock, onError:SWErrorStringBlock) {
+    let url = self.createAuthenticationEndpointFor(self.restConfig.tokenURI)
+    session.POST(url, parameters: form.httpParametersDictionary(), success: { (operation, responseObject) -> Void in
+      if let responseObject = responseObject as? Dictionary<String, AnyObject> {
+        SIUserDefaults().token = Token(dictionary: responseObject)
+        self.updateSessionConfigurationToken()
+        dispatch_async(dispatch_get_main_queue(), {
+          onCompletion(token: Token(dictionary: responseObject))
+        })
+      }
+    }) { (operation, error) -> Void in
+      
+    }
+  }
+  
+  public func getTokensWithForm(form:RefreshTokenForm, onCompletion:SWTokenBlock, onError:SWErrorStringBlock) {
+    let url = self.createAuthenticationEndpointFor(self.restConfig.tokenURI)
+    session.POST(url, parameters: form.httpParametersDictionary(), success: { (operation, responseObject) -> Void in
+      if let responseObject = responseObject as? Dictionary<String, AnyObject> {
+        SIUserDefaults().token = Token(dictionary: responseObject)
+        self.updateSessionConfigurationToken()
+        dispatch_async(dispatch_get_main_queue(), {
+          onCompletion(token: Token(dictionary: responseObject))
+        })
+      }
+      }) { (operation, error) -> Void in
+        
+    }
+  }
+  
+  public func getAccountWithCompletion(onCompletion:SWAccountBlock, onError:SWErrorStringBlock) {
+    let url = self.createQueryEndpointFor(self.restConfig.accountMeURI)
+    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
+      if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
+        dispatch_async(dispatch_get_main_queue(), {
+          onCompletion(account: Account(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
+        })
+      } else {
+        dispatch_async(dispatch_get_main_queue(), {
+          onError(error: NSError(), description: "No data was returned")
+        })
+      }
+    }) { (operation, error) -> Void in
+      dispatch_async(dispatch_get_main_queue(), {
+        onError(error: error, description: error.description)
+      })
+    }
+  }
+  
   public func logout() {
     SIUserDefaults().code = nil
     SIUserDefaults().token = nil
     SIUserDefaults().account = nil
+    self.updateSessionConfigurationToken()
   }
   
   // MARK: Gallery
@@ -196,10 +246,10 @@ public class SWNetworking: NSObject {
           onError(error: NSError(), description: "No data was returned")
         })
       }
-      }) { (operation, error) -> Void in
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: error, description: error.description)
-        })
+    }) { (operation, error) -> Void in
+      dispatch_async(dispatch_get_main_queue(), {
+        onError(error: error, description: error.description)
+      })
     }
   }
   

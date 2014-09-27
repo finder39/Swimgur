@@ -87,8 +87,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     form.clientID = Constants().ImgurControllerConfigClientID
     form.clientSecret = Constants().ImgurControllerConfigSecret
     form.grantType = "authorization_code"
-    DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
-      SIUserDefaults().token = token // TODO: store the whole token
+    SWNetworking.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       self.getAccount()
     }) { (error, description) -> () in
       self.authorizationSucceeded(false)
@@ -101,8 +100,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     form.clientID = Constants().ImgurControllerConfigClientID
     form.clientSecret = Constants().ImgurControllerConfigSecret
     form.grantType = "refresh_token"
-    DataManager.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
-      SIUserDefaults().token = token // TODO: store the whole token
+    SWNetworking.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       self.getAccount()
       }) { (error, description) -> () in
         self.authorizationSucceeded(false)
@@ -110,7 +108,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   }
   
   private func getAccount() {
-    DataManager.sharedInstance.getAccountWithCompletion({ (account) -> () in
+    SWNetworking.sharedInstance.getAccountWithCompletion({ (account) -> () in
       SIUserDefaults().account = account
       self.authorizationSucceeded(true)
       /*if account != nil {
