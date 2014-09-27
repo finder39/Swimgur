@@ -211,12 +211,6 @@ class DataManager: NSObject, NSURLSessionTaskDelegate, NSURLSessionDelegate {
     task.resume()
   }
   
-  func logout() {
-    SIUserDefaults().code = nil
-    SIUserDefaults().token = nil
-    SIUserDefaults().account = nil
-  }
-  
   // MARK: Gallery
   
   // https://api.imgur.com/3/gallery/{id}/vote/{vote}

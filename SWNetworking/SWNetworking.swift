@@ -147,6 +147,14 @@ public class SWNetworking: NSObject {
     dataTask.resume()
   }
   
+  // MARK: Account
+  
+  public func logout() {
+    SIUserDefaults().code = nil
+    SIUserDefaults().token = nil
+    SIUserDefaults().account = nil
+  }
+  
   // MARK: Gallery
   
   public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {

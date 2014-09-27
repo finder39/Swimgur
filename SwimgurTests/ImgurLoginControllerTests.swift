@@ -13,7 +13,7 @@ import SWNetworking
 class ImgurLoginControllerTests: XCTestCase {
   
   func test1Login() {
-    DataManager.sharedInstance.logout()
+    SWNetworking.sharedInstance.logout()
     var tilc = TestableImgurLoginController()
     XCTAssertNotNil(tilc, "TestableImgurLoginController not loaded")
     
