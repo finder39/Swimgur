@@ -66,9 +66,9 @@ class ImgurLoginControllerTests: XCTestCase {
   func testVoting() {
     var expectation = self.expectationWithDescription("Get album")
     
-    DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Down, onCompletion: { (success) -> () in
+    SWNetworking.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Down, onCompletion: { (success) -> () in
       XCTAssertTrue(success, "Down vote failed")
-      DataManager.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Up, onCompletion: { (success) -> () in
+      SWNetworking.sharedInstance.voteOnGalleryItem(galleryItemId: "TxQjM", vote: GalleryItemVote.Up, onCompletion: { (success) -> () in
         XCTAssertTrue(success, "Up vote failed")
         expectation.fulfill()
       })

@@ -194,4 +194,16 @@ public class SWNetworking: NSObject {
         })
     }
   }
+  
+  public func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:SWBoolBlock?) {
+    let url = self.createQueryEndpointFor("gallery/image/\(galleryItemId)/vote/\(vote.toRaw())")
+    session.POST(url, parameters: nil, success: { (operation, responseObject) -> Void in
+      if let onCompletion = onCompletion {
+        // need to check for 200 status in response
+        onCompletion(success: true)
+      }
+    }) { (operation, error) -> Void in
+      
+    }
+  }
 }

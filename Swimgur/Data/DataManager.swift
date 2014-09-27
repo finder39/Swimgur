@@ -221,23 +221,6 @@ class DataManager: NSObject, NSURLSessionTaskDelegate, NSURLSessionDelegate {
   
   // https://api.imgur.com/3/gallery/{id}/vote/{vote}
   
-  func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:DMBoolBlock?) {
-    let urlSetup = "gallery/image/\(galleryItemId)/vote/\(vote.toRaw())"
-    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
-    var request = NSMutableURLRequest(URL: url)
-    request.HTTPMethod = Method.POST.toRaw()
-    if let token = SIUserDefaults().token?.accessToken {
-      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-    }
-    var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-      if let onCompletion = onCompletion {
-        // need to check for 200 status in response
-        onCompletion(success: true)
-      }
-    })
-    task.resume()
-  }
-  
   // MARK: Upload
   func uploadImage(toUpload:ImageUpload, onCompletion:DMBoolBlock) {
     let urlSetup = "upload"
