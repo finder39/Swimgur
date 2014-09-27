@@ -13,17 +13,17 @@ private let refreshTokenFornClientIDKey = "client_id"
 private let refreshTokenFornClientSecretKey = "client_secret"
 private let refreshTokenFornGrantTypeKey = "grant_type"
 
-class RefreshTokenForm {
-  var refreshToken: String?
-  var clientID: String?
-  var clientSecret: String?
-  var grantType: String?
+public class RefreshTokenForm {
+  public var refreshToken: String?
+  public var clientID: String?
+  public var clientSecret: String?
+  public var grantType: String?
   
-  init() {
+  public init() {
     
   }
   
-  func httpParametersDictionary() -> Dictionary<String, String> {
+  public func httpParametersDictionary() -> Dictionary<String, String> {
     var dictionary:Dictionary<String, String> = Dictionary()
     if let refreshToken = refreshToken { dictionary[refreshTokenFornRefreshTokenKey] = refreshToken }
     if let clientID = clientID { dictionary[refreshTokenFornClientIDKey] = clientID }

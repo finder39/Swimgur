@@ -13,17 +13,17 @@ private let codeFormClientIDKey = "client_id"
 private let codeFormClientSecretKey = "client_secret"
 private let codeFormGrantTypeKey = "grant_type"
 
-class CodeForm {
-  var code: String?
-  var clientID: String?
-  var clientSecret: String?
-  var grantType: String?
+public class CodeForm {
+  public var code: String?
+  public var clientID: String?
+  public var clientSecret: String?
+  public var grantType: String?
   
-  init() {
+  public init() {
     
   }
   
-  func httpParametersDictionary() -> Dictionary<String, String> {
+  public func httpParametersDictionary() -> Dictionary<String, String> {
     var dictionary:Dictionary<String, String> = Dictionary()
     if let code = code { dictionary[codeFormCodeKey] = code }
     if let clientID = clientID { dictionary[codeFormClientIDKey] = clientID }
