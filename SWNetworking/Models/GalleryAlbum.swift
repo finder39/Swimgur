@@ -90,14 +90,13 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   }
   
   public func getAlbum(#onCompletion:SWAlbumBlock) {
-    // TODO:
-    /*DataManager.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
+    SWNetworking.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
       dispatch_async(dispatch_get_main_queue(), {
        onCompletion(album: album)
       })
     }) { (error, description) -> () in
       println(error)
       println(description)
-    }*/
+    }
   }
 }

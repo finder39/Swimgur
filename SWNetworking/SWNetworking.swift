@@ -147,9 +147,11 @@ public class SWNetworking: NSObject {
     dataTask.resume()
   }
   
+  // MARK: Gallery
+  
   public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
-    let url = "\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)"
-    session.GET(self.createQueryEndpointFor(url), parameters: nil, success: { (operation, responseObject) -> Void in
+    let url = self.createQueryEndpointFor("\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)")
+    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
       if let data = responseObject["data"] as? [AnyObject] {
         var galleryItems:[GalleryItem] = []
         for galleryDict in data {
@@ -172,26 +174,24 @@ public class SWNetworking: NSObject {
         onError(error: error, description: error.description)
       })
     }
-    
-    /*self.imgurResponseParser(data: data, completionHandler: { (data, error, errorDescription) -> () in
-      if errorDescription != nil {
+  }
+  
+  public func getAlbum(#albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
+    let url = self.createQueryEndpointFor("gallery/album/\(albumId)")
+    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
+      if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
         dispatch_async(dispatch_get_main_queue(), {
-          onError(error: error!, description: errorDescription!)
+          onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
         })
       } else {
-        let data = data as [AnyObject]
-        var galleryItems:[GalleryItem] = []
-        for galleryDict in data {
-          if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
-            galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
-          } else {
-            galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
-          }
-        }
         dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(array: galleryItems)
+          onError(error: NSError(), description: "No data was returned")
         })
       }
-    })*/
+      }) { (operation, error) -> Void in
+        dispatch_async(dispatch_get_main_queue(), {
+          onError(error: error, description: error.description)
+        })
+    }
   }
 }

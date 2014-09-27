@@ -38,7 +38,7 @@ class ImgurLoginControllerTests: XCTestCase {
   func testGetGallery() {
     var expectation = self.expectationWithDescription("Get gallery")
     
-    DataManager.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+    SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
       XCTAssertGreaterThan(newGalleryItems.count, 0, "None returned")
       expectation.fulfill()
     }) { (error, description) -> () in
@@ -52,7 +52,7 @@ class ImgurLoginControllerTests: XCTestCase {
   func testGetAlbum() {
     var expectation = self.expectationWithDescription("Get album")
     
-    DataManager.sharedInstance.getAlbum(albumId: "TxQjM", onCompletion: { (album) -> () in
+    SWNetworking.sharedInstance.getAlbum(albumId: "TxQjM", onCompletion: { (album) -> () in
       XCTAssertEqual(album.images.count, 10, "Album image count incorrect")
       expectation.fulfill()
     }) { (error, description) -> () in
