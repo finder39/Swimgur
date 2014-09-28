@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 public typealias SWArrayBlock = (array:[AnyObject])->()
 public typealias SWBoolBlock = (success:Bool)->()
@@ -119,32 +120,7 @@ public class SWNetworking: NSObject {
   
   public func setImageView(imageView:UIImageView?, withURL imageURL:String) {
     let url = NSURL(string: imageURL)
-    var dataTask = session.session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-      if !(error != nil) {
-        dispatch_async(dispatch_get_main_queue(), {
-          if let imageView = imageView {
-            let image = UIImage(data: data)
-            imageView.image = image
-          }
-        })
-      }
-    })
-    dataTask.resume()
-  }
-  
-  public func setImageViewAnimated(imageView:FLAnimatedImageView?, withURL imageURL:String) {
-    let url = NSURL(string: imageURL)
-    var dataTask = session.session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-      if !(error != nil) {
-        dispatch_async(dispatch_get_main_queue(), {
-          if let imageView = imageView {
-            let image = FLAnimatedImage(animatedGIFData: data)
-            imageView.animatedImage = image
-          }
-        })
-      }
-    })
-    dataTask.resume()
+    imageView?.sd_setImageWithURL(url)
   }
   
   // MARK: Account

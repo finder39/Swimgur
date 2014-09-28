@@ -17,7 +17,4 @@ FOUNDATION_EXPORT const unsigned char SWNetworkingVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <SWNetworking/PublicHeader.h>
 
 #import <SWNetworking/AFNetworking.h>
-#import <SWNetworking/UIImageView+AFNetworking.h>
-
-#import "FLAnimatedImage.h"
-#import "FLAnimatedImageView.h"
+#import <SWNetworking/UIImageView+WebCache.h>
