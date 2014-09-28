@@ -97,6 +97,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       self.title = item.title
       self.colorFromVote(item)
       
+      // http://stackoverflow.com/questions/19896447/ios-7-navigation-bar-height
+      /*UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+        self.navigationController!.navigationBar.bounds = CGRectMake(0, 0, self.navigationController!.navigationBar.frame.size.width, 100)
+      }, completion: { (done) -> Void in
+        
+      })*/
+      
       if let galleryImage = item as? GalleryImage {
         let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
         
