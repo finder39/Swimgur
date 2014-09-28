@@ -100,3 +100,12 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     }
   }
 }
+
+public func checkForValidAlbumDictionary(dictionary:Dictionary<String, AnyObject>) -> Bool {
+  if (dictionary["cover_width"] as AnyObject? as? Int == nil || dictionary["cover_height"] as AnyObject? as? Int == nil) {
+    // This means the album is empty (no longer exists)
+    return false
+  } else {
+    return true
+  }
+}

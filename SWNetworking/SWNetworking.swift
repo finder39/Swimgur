@@ -190,7 +190,10 @@ public class SWNetworking: NSObject {
         var galleryItems:[GalleryItem] = []
         for galleryDict in data {
           if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
-            galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+            let theDict = galleryDict as Dictionary<String, AnyObject>
+            if checkForValidAlbumDictionary(theDict) {
+              galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+            }
           } else {
             galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
           }
