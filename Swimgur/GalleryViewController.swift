@@ -19,7 +19,7 @@ let SegueToImage = "SegueToImage"
 .5 border - 105 image - .5 border  - 1 empty - .5 border - 105 image - .5 border - 1 empty - .5 border - 105 image - .5 border
 ************************/
 
-class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UploadPhotoDelegate {
+class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   @IBOutlet weak var collectionGallery: UICollectionView!
   
   var imagePicker:UIImagePickerController = UIImagePickerController()
@@ -113,8 +113,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     // Setup for upload
     let imageB64 = Constants().encodeImageToBase64String(image)
     
-    DataManager.sharedInstance.uploadPhotoDelegate = self
-    DataManager.sharedInstance.uploadImage(ImageUpload(imageB64: imageB64)) { (success) -> () in
+    SWNetworking.sharedInstance.uploadImage(ImageUpload(imageB64: imageB64)) { (success) -> () in
       
     }
   }
@@ -123,12 +122,6 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     picker.dismissViewControllerAnimated(true, completion: { () -> Void in
       
     })
-  }
-  
-  // MARK: UploadPhotoDelegate
-  
-  func updateProgress(progress: Double) {
-    println("Progress: \(progress)")
   }
   
   // MARK: Actions

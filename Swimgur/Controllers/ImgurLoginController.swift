@@ -18,7 +18,7 @@ public enum ImgurLoginAuthType:String {
 
 class ImgurLoginController : NSObject, UIWebViewDelegate {
   
-  var authorizationClosure:DMBoolBlock?
+  var authorizationClosure:SWBoolBlock?
   var authType:ImgurLoginAuthType = .ImgurLoginAuthTypeCode
   var imgurLoginViewController:UIViewController = UIViewController()
   var webView:UIWebView = UIWebView()
@@ -28,12 +28,12 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     imgurLoginViewController.view.addSubview(webView)
   }
   
-  func authorizeWithViewController(viewController:UIViewController, completionBlock:DMBoolBlock) {
+  func authorizeWithViewController(viewController:UIViewController, completionBlock:SWBoolBlock) {
     authorizationClosure = completionBlock
     
     // https://api.imgur.com/oauth2/authorize?client_id=541fb8cc243d820&response_type=code&state=auth
     
-    let urlString = "\(DataManager.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(DataManager.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
+    let urlString = "\(SWNetworking.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(SWNetworking.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
     
     webView.delegate = self
     webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)))
@@ -45,7 +45,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   // TODO: verifyStoredAccountWithCompletionBlock
   
-  func verifyStoredAccount(#onCompletion:DMBoolBlock) {
+  func verifyStoredAccount(#onCompletion:SWBoolBlock) {
     self.authorizationClosure = onCompletion
     
     var token:Token? = SIUserDefaults().token

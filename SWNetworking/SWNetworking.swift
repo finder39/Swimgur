@@ -17,6 +17,18 @@ public typealias SWAlbumBlock = (album:GalleryAlbum)->()
 public typealias SWErrorStringBlock = (error:NSError, description:String)->()
 public typealias SWTokenBlock = (token:Token)->()
 
+public enum Method: String {
+  case OPTIONS = "OPTIONS"
+  case GET = "GET"
+  case HEAD = "HEAD"
+  case POST = "POST"
+  case PUT = "PUT"
+  case PATCH = "PATCH"
+  case DELETE = "DELETE"
+  case TRACE = "TRACE"
+  case CONNECT = "CONNECT"
+}
+
 public enum ImgurSection: String {
   case Hot = "hot"
   case Top = "top"
@@ -43,9 +55,10 @@ public enum GalleryItemVote: String {
 
 public class SWNetworking: NSObject {
   
-  var restConfig = RestConfig()
+  public var restConfig = RestConfig()
   var configuration:NSURLSessionConfiguration!
   var session:AFHTTPSessionManager!
+  var sessionUpload:AFURLSessionManager!
   
   //var galleryItems:[GalleryItem] = []
   
@@ -65,6 +78,8 @@ public class SWNetworking: NSObject {
     session.requestSerializer = AFJSONRequestSerializer()
     session.responseSerializer = AFJSONResponseSerializer()
     self.updateSessionConfigurationToken()
+    
+    sessionUpload = AFURLSessionManager(sessionConfiguration: configuration)
   }
   
   func updateSessionConfigurationToken() {
@@ -241,6 +256,37 @@ public class SWNetworking: NSObject {
       }
     }) { (operation, error) -> Void in
       
+    }
+  }
+  
+  // MARK: Upload
+  public func uploadImage(toUpload:ImageUpload, onCompletion:SWBoolBlock) {
+    let urlSetup = "upload"
+    let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
+    var request = NSMutableURLRequest(URL: url)
+    request.HTTPMethod = Method.POST.toRaw()
+    if let token = SIUserDefaults().token?.accessToken {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    
+    var progress:NSProgress? = nil;
+    
+    // set HTTPBody
+    var err: NSError?
+    if let data = NSJSONSerialization.dataWithJSONObject(toUpload.asDictionary(), options: nil, error: &err) {
+      let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+      request.setValue("application/json; charset=\(charset)", forHTTPHeaderField: "Content-Type")
+      
+      var uploadTask = sessionUpload.uploadTaskWithRequest(request, fromData: data, progress: &progress, completionHandler: { (response, responseObject, error) -> Void in
+        if error != nil {
+          onCompletion(success: false)
+        } else {
+          onCompletion(success: true)
+        }
+      })
+      uploadTask.resume()
+    } else {
+      onCompletion(success: false)
     }
   }
 }
