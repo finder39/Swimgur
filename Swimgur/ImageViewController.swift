@@ -224,18 +224,20 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   
   private func addFirstItemConstraints(#item:UIView, galleryImage:GalleryImage) {
     let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
+    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
     let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
     let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, height, top, leading])
+    self.scrollview.addConstraints([width, top, leading])
+    item.addConstraint(height)
   }
   
   private func addItemConstraints(#item:UIImageView, lastItem:UIView, galleryImage:GalleryImage) {
     let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
+    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
     let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
     let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, height, top, leading])
+    self.scrollview.addConstraints([width, top, leading])
+    item.addConstraint(height)
   }
   
   private func addItemConstraints(#item:UITextView, lastItem:UIView) {
