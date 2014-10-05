@@ -2,8 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A379a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -147,18 +145,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoC-A4-sOi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="Yhc-FI-MO3" id="WrS-tn-nK3"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hhv-bw-Kr5">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhv-bw-Kr5">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLT-oh-lND">
-                                        <rect key="frame" x="160" y="1" width="160" height="38"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLT-oh-lND">
+                                        <rect key="frame" x="160" y="0.0" width="160" height="40"/>
                                         <state key="normal" title="Upvote">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -166,11 +164,8 @@
                                             <action selector="voteUp:" destination="Yhc-FI-MO3" eventType="touchUpInside" id="tYP-DS-4R1"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tw-C7-Ilj">
-                                        <rect key="frame" x="0.0" y="1" width="160" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="wym-oT-rSj"/>
-                                        </constraints>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tw-C7-Ilj">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="40"/>
                                         <state key="normal" title="Downvote">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -181,22 +176,31 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="nLT-oh-lND" firstAttribute="top" secondItem="4tw-C7-Ilj" secondAttribute="top" id="08r-YU-VdA"/>
-                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="leading" secondItem="hhv-bw-Kr5" secondAttribute="leading" id="5NS-dh-G6d"/>
-                                    <constraint firstItem="nLT-oh-lND" firstAttribute="baseline" secondItem="4tw-C7-Ilj" secondAttribute="firstBaseline" id="A1V-aK-jgc"/>
-                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="top" constant="1" id="Oi3-oW-XGc"/>
-                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="baseline" secondItem="nLT-oh-lND" secondAttribute="firstBaseline" id="XG5-vG-peR"/>
-                                    <constraint firstAttribute="trailing" secondItem="nLT-oh-lND" secondAttribute="trailing" id="vsn-RA-Xt3"/>
-                                    <constraint firstItem="nLT-oh-lND" firstAttribute="leading" secondItem="4tw-C7-Ilj" secondAttribute="trailing" id="vxU-1v-T5p"/>
-                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="centerY" secondItem="hhv-bw-Kr5" secondAttribute="centerY" id="xm6-uA-soC"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="width" secondItem="nLT-oh-lND" secondAttribute="width" id="1HC-lS-SBa"/>
+                                    <constraint firstAttribute="height" constant="40" id="9QV-wt-zLu"/>
+                                    <constraint firstItem="nLT-oh-lND" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="top" id="A3l-op-6Jt"/>
+                                    <constraint firstAttribute="bottom" secondItem="4tw-C7-Ilj" secondAttribute="bottom" id="G3E-Qi-4Vs"/>
+                                    <constraint firstItem="nLT-oh-lND" firstAttribute="leading" secondItem="4tw-C7-Ilj" secondAttribute="trailing" id="KWe-xZ-TMD"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="leading" secondItem="hhv-bw-Kr5" secondAttribute="leading" id="Z5E-Ie-VV9"/>
+                                    <constraint firstAttribute="trailing" secondItem="nLT-oh-lND" secondAttribute="trailing" id="ckH-Tw-3HX"/>
+                                    <constraint firstAttribute="bottom" secondItem="nLT-oh-lND" secondAttribute="bottom" id="gUl-Pn-3wP"/>
+                                    <constraint firstItem="4tw-C7-Ilj" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="top" id="mGh-NR-YC7"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hhv-bw-Kr5" firstAttribute="bottom" secondItem="G2C-5l-5Qn" secondAttribute="top" id="TPR-HV-CFi"/>
-                            <constraint firstItem="LoC-A4-sOi" firstAttribute="bottom" secondItem="G2C-5l-5Qn" secondAttribute="top" id="cq5-le-8kK"/>
-                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="qOu-8m-QMd"/>
+                            <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="bottom" id="6TL-ox-haI"/>
+                            <constraint firstAttribute="trailing" secondItem="hhv-bw-Kr5" secondAttribute="trailing" id="8NW-sN-5Jt"/>
+                            <constraint firstItem="hhv-bw-Kr5" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="Nw9-8I-eVa"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="PuK-tf-b2b"/>
+                            <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="LoC-A4-sOi" secondAttribute="bottom" id="UQZ-E8-Gcz"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="WFC-xe-Czq"/>
+                            <constraint firstAttribute="trailing" secondItem="LoC-A4-sOi" secondAttribute="trailing" id="Z31-JD-Ldi"/>
+                            <constraint firstAttribute="trailing" secondItem="LoC-A4-sOi" secondAttribute="trailing" id="k8U-Ia-bD6"/>
+                            <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="LoC-A4-sOi" secondAttribute="bottom" id="kLh-s6-0t1"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="l5q-NG-uWb"/>
+                            <constraint firstItem="LoC-A4-sOi" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="yyR-Ym-oOc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wjd-CP-Jy9"/>
