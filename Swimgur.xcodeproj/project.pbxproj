@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D857066519986AA7009D906E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066419986AA7009D906E /* GalleryViewController.swift */; };
 		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
+		D87FDFF019E1D1B500737BA0 /* UITextViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */; };
+		D87FDFF119E1D1B500737BA0 /* UITextViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */; };
 		D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */; };
 		D888B40619948B5F00179D0C /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D888B40519948B5F00179D0C /* StringExt.swift */; };
 		D897759119D7687700595045 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897759019D7687700595045 /* DataManager.swift */; };
@@ -166,6 +168,7 @@
 /* Begin PBXFileReference section */
 		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
+		D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExt.swift; sourceTree = "<group>"; };
 		D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Controllers/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
 		D897759019D7687700595045 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
@@ -326,6 +329,7 @@
 			children = (
 				D89920C51991CC0E0064C50A /* UIColorExt.swift */,
 				D888B40519948B5F00179D0C /* StringExt.swift */,
+				D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -773,6 +777,7 @@
 				D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */,
 				D857066519986AA7009D906E /* GalleryViewController.swift in Sources */,
 				D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */,
+				D87FDFF019E1D1B500737BA0 /* UITextViewExt.swift in Sources */,
 				D897759119D7687700595045 /* DataManager.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 			);
@@ -788,6 +793,7 @@
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
+				D87FDFF119E1D1B500737BA0 /* UITextViewExt.swift in Sources */,
 				D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */,
 				D8F044CC19B0F20100F04FB5 /* GalleryCollectionViewCell.swift in Sources */,
 				D8F044CF19B0F20100F04FB5 /* ImageViewController.swift in Sources */,

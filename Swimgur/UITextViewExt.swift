@@ -1,0 +1,20 @@
+//
+//  UITextViewExt.swift
+//  Swimgur
+//
+//  Created by Joseph Neuman on 10/5/14.
+//  Copyright (c) 2014 Joseph Neuman. All rights reserved.
+//
+
+import Foundation
+import UIKit
+
+public extension UITextView {
+  public func autoHeight() {
+    let fixedWidth = self.frame.size.width
+    let newSize = self.sizeThatFits(CGSizeMake(fixedWidth, CGFloat.max))
+    var newFrame = self.frame
+    newFrame.size = CGSizeMake(CGFloat(fmaxf(Float(newSize.width), Float(fixedWidth))), newSize.height)
+    self.frame = newFrame
+  }
+}

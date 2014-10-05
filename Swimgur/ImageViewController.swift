@@ -16,7 +16,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var upvoteButton: UIButton!
   @IBOutlet weak var voteBar: UIView!
   
-  var imageViews:[UIImageView] = []
+  var imageViews:[UIView] = []
   
   var galleryIndex: Int = 0/* {
     didSet {
@@ -107,11 +107,19 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       if let galleryImage = item as? GalleryImage {
         let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
         
-        var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, height))
+        var imageView = UIImageView(frame: CGRectMake(0, 0, CGRectGetWidth(self.scrollview.frame), height))
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         imageViews.append(imageView)
         self.scrollview.addSubview(imageView)
         SWNetworking.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+        
+        // description of image
+        if let description = galleryImage.description {
+          let textView = newTextView(content:description, originY: CGRectGetMaxY(imageView.frame))
+          imageViews.append(textView)
+          self.scrollview.addSubview(textView)
+        }
+        
         self.setContentSizeOfScrollView()
       } else if let galleryAlbum = item as? GalleryAlbum {
         if galleryAlbum.images.count == 0 {
@@ -124,17 +132,49 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
           for image in galleryAlbum.images {
             let height:CGFloat = self.scrollview.frame.width/CGFloat(image.width)*CGFloat(image.height)
             
+            
+            // description of image
+            if let title = image.title {
+              let textView = newTextView(content:title, originY:originY)
+              imageViews.append(textView)
+              self.scrollview.addSubview(textView)
+              originY += CGRectGetHeight(textView.frame)
+            }
+            
             var imageView = UIImageView(frame: CGRectMake(0, originY, self.scrollview.frame.width, height))
             imageView.contentMode = UIViewContentMode.ScaleAspectFit
             imageViews.append(imageView)
             self.scrollview.addSubview(imageView)
             SWNetworking.sharedInstance.setImageView(imageView, withURL: image.link)
-            originY += imageView.frame.height+2
+            // description of image
+            if let description = image.description {
+              let textView = newTextView(content:description, originY: CGRectGetMaxY(imageView.frame))
+              imageViews.append(textView)
+              self.scrollview.addSubview(textView)
+              originY += CGRectGetHeight(textView.frame)
+            }
+            originY += CGRectGetHeight(imageView.frame)+5
           }
           self.setContentSizeOfScrollView()
         }
       }
     }
+  }
+  
+  private func newTextView(#content:String, originY:CGFloat) -> UITextView {
+    var textView = UITextView(frame: CGRectMake(0, originY, CGRectGetWidth(self.scrollview.frame), 100))
+    textView.backgroundColor = UIColor.clearColor()
+    textView.textColor = UIColorEXT.TextColor()
+    textView.font = UIFont.systemFontOfSize(16)
+    textView.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.RGBColor(red: 51, green: 102, blue: 187)]
+    textView.selectable = true
+    textView.editable = false
+    textView.scrollEnabled = false
+    textView.userInteractionEnabled = true
+    textView.dataDetectorTypes = UIDataDetectorTypes.All
+    textView.text = content
+    textView.autoHeight()
+    return textView
   }
   
   private func colorFromVote(item:GalleryItem) {
