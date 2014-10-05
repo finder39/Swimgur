@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 
 public extension UITextView {
+  public func getTextHeight() -> CGFloat {
+    let fixedWidth = self.frame.size.width
+    let newSize = self.sizeThatFits(CGSizeMake(fixedWidth, CGFloat.max))
+    return newSize.height
+  }
+  public func getTextHeight(#width:CGFloat) -> CGFloat {
+    let newSize = self.sizeThatFits(CGSizeMake(width, CGFloat.max))
+    return newSize.height
+  }
+  
   public func autoHeight() {
     let fixedWidth = self.frame.size.width
     let newSize = self.sizeThatFits(CGSizeMake(fixedWidth, CGFloat.max))

@@ -69,7 +69,26 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    
+    println()
+    let currentPoint = self.scrollview.contentOffset.y+self.scrollview.contentInset.top
+    let currentPercent = currentPoint/self.scrollview.contentSize.height
+    
+    for view in imageViews {
+      if let textView = view as? UITextView {
+        for constraint in textView.constraints() {
+          if let constraint = constraint as? NSLayoutConstraint {
+            if constraint.firstAttribute == .Height {
+              constraint.constant = textView.getTextHeight(width: CGRectGetWidth(self.scrollview.frame))
+            }
+          }
+        }
+      }
+    }
+    
     self.setContentSizeOfScrollView()
+    
+    self.scrollview.setContentOffset(CGPoint(x: 0.0, y: currentPercent*self.scrollview.contentSize.height-self.scrollview.contentInset.top), animated: true)
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -121,17 +140,16 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         self.scrollview.addSubview(imageView)
         SWNetworking.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
         
-        let width = NSLayoutConstraint(item: imageView, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-        let height = NSLayoutConstraint(item: imageView, attribute: .Height, relatedBy: .Equal, toItem: imageView, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
-        let top = NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
-        let leading = NSLayoutConstraint(item: imageView, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-        self.scrollview.addConstraints([width, height, top, leading])
+        addFirstItemConstraints(item: imageView, galleryImage: galleryImage)
         
         // description of image
         if let description = galleryImage.description {
-          let textView = newTextView(content:description, originY: CGRectGetMaxY(imageView.frame))
+          let textView = newTextView(content: description, lastItem: imageView)
+          textView.setTranslatesAutoresizingMaskIntoConstraints(false)
           imageViews.append(textView)
           self.scrollview.addSubview(textView)
+          
+          addItemConstraints(item: textView, lastItem: imageView)
         }
       } else if let galleryAlbum = item as? GalleryAlbum {
         if galleryAlbum.images.count == 0 {
@@ -187,6 +205,46 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     textView.text = content
     textView.autoHeight()
     return textView
+  }
+  
+  private func newTextView(#content:String, lastItem:UIView) -> UITextView {
+    var textView = UITextView()
+    textView.backgroundColor = UIColor.clearColor()
+    textView.textColor = UIColorEXT.TextColor()
+    textView.font = UIFont.systemFontOfSize(16)
+    textView.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.RGBColor(red: 51, green: 102, blue: 187)]
+    textView.selectable = true
+    textView.editable = false
+    textView.scrollEnabled = false
+    textView.userInteractionEnabled = true
+    textView.dataDetectorTypes = UIDataDetectorTypes.All
+    textView.text = content
+    return textView
+  }
+  
+  private func addFirstItemConstraints(#item:UIView, galleryImage:GalleryImage) {
+    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
+    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
+    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
+    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
+    self.scrollview.addConstraints([width, height, top, leading])
+  }
+  
+  private func addItemConstraints(#item:UIImageView, lastItem:UIView, galleryImage:GalleryImage) {
+    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
+    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
+    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
+    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
+    self.scrollview.addConstraints([width, height, top, leading])
+  }
+  
+  private func addItemConstraints(#item:UITextView, lastItem:UIView) {
+    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
+    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: item.getTextHeight(width: CGRectGetWidth(self.scrollview.frame)))
+    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
+    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
+    self.scrollview.addConstraints([width, top, leading])
+    item.addConstraint(height)
   }
   
   private func colorFromVote(item:GalleryItem) {
