@@ -67,6 +67,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     self.view.bringSubviewToFront(self.voteBar)
   }
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.setContentSizeOfScrollView()
+  }
+  
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
     if let swipeGesture = gesture as? UISwipeGestureRecognizer {
       switch swipeGesture.direction {
@@ -105,13 +110,22 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       })*/
       
       if let galleryImage = item as? GalleryImage {
-        let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
+        //let height:CGFloat = self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)
         
-        var imageView = UIImageView(frame: CGRectMake(0, 0, CGRectGetWidth(self.scrollview.frame), height))
+        //var imageView = UIImageView(frame: CGRectMake(0, 0, self.scrollview.frame.width, self.scrollview.frame.width/CGFloat(galleryImage.width)*CGFloat(galleryImage.height)))
+        var imageView = UIImageView()
+        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         imageView.contentMode = UIViewContentMode.ScaleAspectFit
         imageViews.append(imageView)
         self.scrollview.addSubview(imageView)
         SWNetworking.sharedInstance.setImageView(imageView, withURL: galleryImage.link)
+        
+        let width = NSLayoutConstraint(item: imageView, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
+        let height = NSLayoutConstraint(item: imageView, attribute: .Height, relatedBy: .Equal, toItem: imageView, attribute: .Width, multiplier: CGFloat(galleryImage.height)/CGFloat(galleryImage.width), constant: 0)
+        let top = NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
+        let leading = NSLayoutConstraint(item: imageView, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
+        self.scrollview.addConstraints([width, height, top, leading])
         
         // description of image
         if let description = galleryImage.description {
@@ -119,8 +133,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
           imageViews.append(textView)
           self.scrollview.addSubview(textView)
         }
-        
-        self.setContentSizeOfScrollView()
       } else if let galleryAlbum = item as? GalleryAlbum {
         if galleryAlbum.images.count == 0 {
           galleryAlbum.getAlbum(onCompletion: { (album) -> () in
