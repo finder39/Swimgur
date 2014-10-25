@@ -33,10 +33,10 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     
     // https://api.imgur.com/oauth2/authorize?client_id=541fb8cc243d820&response_type=code&state=auth
     
-    let urlString = "\(SWNetworking.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(SWNetworking.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.toRaw())&state=auth"
+    let urlString = "\(SWNetworking.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(SWNetworking.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.rawValue)&state=auth"
     
     webView.delegate = self
-    webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)))
+    webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)!))
     
     if viewController.view.window != nil {
       viewController.presentViewController(imgurLoginViewController, animated: true, completion: nil)

@@ -31,7 +31,7 @@ public class ImageUpload {
     var dictionary:Dictionary<String, String> = Dictionary()
     dictionary["image"] = image
     dictionary["album"] = album
-    dictionary["type"] = type?.toRaw()
+    dictionary["type"] = type?.rawValue
     dictionary["name"] = name
     dictionary["title"] = title
     dictionary["description"] = description

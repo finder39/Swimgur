@@ -75,8 +75,8 @@ public class SWNetworking: NSObject {
     configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
     
     session = AFHTTPSessionManager(sessionConfiguration: configuration)
-    session.requestSerializer = AFJSONRequestSerializer()
-    session.responseSerializer = AFJSONResponseSerializer()
+    session.requestSerializer = AFJSONRequestSerializer() as AFHTTPRequestSerializer
+    session.responseSerializer = AFJSONResponseSerializer() as AFHTTPResponseSerializer
     self.updateSessionConfigurationToken()
     
     sessionUpload = AFURLSessionManager(sessionConfiguration: configuration)
@@ -199,7 +199,7 @@ public class SWNetworking: NSObject {
   // MARK: Gallery
   
   public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
-    let url = self.createQueryEndpointFor("\(self.restConfig.galleryURI)/\(section.toRaw())/\(sort.toRaw())/\(window.toRaw())/\(page)?showViral=\(showViral)")
+    let url = self.createQueryEndpointFor("\(self.restConfig.galleryURI)/\(section.rawValue)/\(sort.rawValue)/\(window.rawValue)/\(page)?showViral=\(showViral)")
     session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
       if let data = responseObject["data"] as? [AnyObject] {
         var galleryItems:[GalleryItem] = []
@@ -248,7 +248,7 @@ public class SWNetworking: NSObject {
   }
   
   public func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:SWBoolBlock?) {
-    let url = self.createQueryEndpointFor("gallery/image/\(galleryItemId)/vote/\(vote.toRaw())")
+    let url = self.createQueryEndpointFor("gallery/image/\(galleryItemId)/vote/\(vote.rawValue)")
     session.POST(url, parameters: nil, success: { (operation, responseObject) -> Void in
       if let onCompletion = onCompletion {
         // need to check for 200 status in response
@@ -263,8 +263,8 @@ public class SWNetworking: NSObject {
   public func uploadImage(toUpload:ImageUpload, onCompletion:SWBoolBlock) {
     let urlSetup = "upload"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
-    var request = NSMutableURLRequest(URL: url)
-    request.HTTPMethod = Method.POST.toRaw()
+    var request = NSMutableURLRequest(URL: url!)
+    request.HTTPMethod = Method.POST.rawValue
     if let token = SIUserDefaults().token?.accessToken {
       request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     }

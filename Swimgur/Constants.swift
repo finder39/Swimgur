@@ -19,6 +19,6 @@ struct Constants {
   
   func decodeBase64ToImage(strEncodeData:String) -> UIImage {
     let data = NSData(base64EncodedString: strEncodeData, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
-    return UIImage(data: data)
+    return UIImage(data: data!)!
   }
 }

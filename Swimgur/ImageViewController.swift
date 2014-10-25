@@ -288,13 +288,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   
   @IBAction func voteUp(sender: AnyObject) {
     DataManager.sharedInstance.galleryItems[self.galleryIndex].vote(.Up)
-    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Up.toRaw()
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Up.rawValue
     self.colorFromVote(DataManager.sharedInstance.galleryItems[self.galleryIndex])
   }
   
   @IBAction func voteDown(sender: AnyObject) {
     DataManager.sharedInstance.galleryItems[self.galleryIndex].vote(.Down)
-    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Down.toRaw()
+    DataManager.sharedInstance.galleryItems[self.galleryIndex].vote = GalleryItemVote.Down.rawValue
     self.colorFromVote(DataManager.sharedInstance.galleryItems[self.galleryIndex])
   }
 }
