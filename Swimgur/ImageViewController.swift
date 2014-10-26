@@ -70,7 +70,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     
-    println()
     let currentPoint = self.scrollview.contentOffset.y+self.scrollview.contentInset.top
     let currentPercent = currentPoint/self.scrollview.contentSize.height
     

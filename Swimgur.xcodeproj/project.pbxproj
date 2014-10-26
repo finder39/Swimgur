@@ -17,6 +17,7 @@
 		D897759219D7687700595045 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897759019D7687700595045 /* DataManager.swift */; };
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
+		D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A787DA19FD9FC00099AC98 /* ILTranslucentView.swift */; };
 		D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
 		D8AC10DF19D88EA9008E7E4D /* MKAnnotationView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC10BE19D88EA9008E7E4D /* MKAnnotationView+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC10E019D88EA9008E7E4D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10BF19D88EA9008E7E4D /* MKAnnotationView+WebCache.m */; };
@@ -174,6 +175,7 @@
 		D897759019D7687700595045 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
+		D8A787DA19FD9FC00099AC98 /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILTranslucentView.swift; sourceTree = "<group>"; };
 		D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swimgur-Bridging-Header.h"; sourceTree = "<group>"; };
 		D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		D8AC10BE19D88EA9008E7E4D /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 		D8846EF01999E5FA00546285 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D8A787D919FD9FA80099AC98 /* ILTranslucentView */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -332,6 +335,15 @@
 				D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D8A787D919FD9FA80099AC98 /* ILTranslucentView */ = {
+			isa = PBXGroup;
+			children = (
+				D8A787DA19FD9FC00099AC98 /* ILTranslucentView.swift */,
+			);
+			name = ILTranslucentView;
+			path = Libraries/ILTranslucentView;
 			sourceTree = "<group>";
 		};
 		D8AC10BD19D88EA9008E7E4D /* SDWebImage */ = {
@@ -780,6 +792,7 @@
 				D87FDFF019E1D1B500737BA0 /* UITextViewExt.swift in Sources */,
 				D897759119D7687700595045 /* DataManager.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
+				D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
