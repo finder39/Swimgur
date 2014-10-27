@@ -18,6 +18,7 @@
 		D89920C21991B6530064C50A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C11991B6530064C50A /* Constants.swift */; };
 		D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89920C51991CC0E0064C50A /* UIColorExt.swift */; };
 		D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A787DA19FD9FC00099AC98 /* ILTranslucentView.swift */; };
+		D8A787DE19FDC8C60099AC98 /* LaunchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8A787DD19FDC8C60099AC98 /* LaunchView.xib */; };
 		D8ABBD7419A3FAB200CECF9B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */; };
 		D8AC10DF19D88EA9008E7E4D /* MKAnnotationView+WebCache.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC10BE19D88EA9008E7E4D /* MKAnnotationView+WebCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC10E019D88EA9008E7E4D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10BF19D88EA9008E7E4D /* MKAnnotationView+WebCache.m */; };
@@ -176,6 +177,7 @@
 		D89920C11991B6530064C50A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D89920C51991CC0E0064C50A /* UIColorExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColorExt.swift; path = Extensions/UIColorExt.swift; sourceTree = "<group>"; };
 		D8A787DA19FD9FC00099AC98 /* ILTranslucentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILTranslucentView.swift; sourceTree = "<group>"; };
+		D8A787DD19FDC8C60099AC98 /* LaunchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchView.xib; sourceTree = "<group>"; };
 		D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swimgur-Bridging-Header.h"; sourceTree = "<group>"; };
 		D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		D8AC10BE19D88EA9008E7E4D /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				D89920C11991B6530064C50A /* Constants.swift */,
 				D86CD79B19973B8D00DD7489 /* Transitions */,
 				D8AE2DB4199070470062E3E6 /* Main.storyboard */,
+				D8A787DD19FDC8C60099AC98 /* LaunchView.xib */,
 				D8AE2DB7199070470062E3E6 /* Images.xcassets */,
 				D8AE2DAE199070470062E3E6 /* Supporting Files */,
 			);
@@ -747,6 +750,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A787DE19FDC8C60099AC98 /* LaunchView.xib in Resources */,
 				D8AE2DB6199070470062E3E6 /* Main.storyboard in Resources */,
 				D8AE2DB8199070470062E3E6 /* Images.xcassets in Resources */,
 			);
@@ -998,7 +1002,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Swimgur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1011,7 +1014,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Swimgur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -26,13 +26,29 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   var imagePicker:UIImagePickerController = UIImagePickerController()
   
   var hasAppeared = false
-  var infiniteScrollingView:UIView!
+  var loadingMore = false
+  var cellSize:CGFloat = 0
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
     self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
+    
+    let size = min(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)-3-2
+    var inc:CGFloat = 2
+    while cellSize == 0 {
+      let temp:CGFloat = size/inc
+      let temp2:CGFloat = size/(inc+1)
+      if temp >= 105 && temp2 <= 105 {
+        if 105-temp < temp2-105 {
+          cellSize = temp
+        } else {
+          cellSize = temp2
+        }
+      }
+      inc++
+    }
   }
   
   override func didReceiveMemoryWarning() {
@@ -45,47 +61,28 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
     if !hasAppeared {
       hasAppeared = true
+      loadingMore = true
       SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
         println("Refreshing collectionGallery")
         DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
         self.collectionGallery.reloadData()
-        }) { (error, description) -> () in
-          
+        self.loadingMore = false
+      }) { (error, description) -> () in
+        self.loadingMore = false
       }
     }
   }
   
-  /*func loadMore() {
-    let fetchPage = Int(ceil(Double(self.datasource.count)/30))+1
-    Post.fetch(self.filter, page:fetchPage, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
-      if let realDatasource = posts {
-        var tempDatasource:NSMutableArray = NSMutableArray(array: self.datasource, copyItems: false)
-        let postsNotFromNewPageCount = ((fetchPage-1)*30)
-        if (tempDatasource.count - postsNotFromNewPageCount > 0) {
-          tempDatasource.removeObjectsInRange(NSMakeRange(postsNotFromNewPageCount, tempDatasource.count-postsNotFromNewPageCount))
-        }
-        tempDatasource.addObjectsFromArray(realDatasource)
-        self.datasource = tempDatasource
-        if (self.datasource.count % 30 == 0) {
-          self.loadMoreEnabled = true
-        } else {
-          self.loadMoreEnabled = false
-        }
-      }
-      if (!local) {
-        self.refreshing = false
-        self.tableView.tableFooterView = nil
-      }
-    })
-  }*/
-  
   func loadMore() {
-    SWNetworking.sharedInstance.getGalleryImagesWithSectionNextPage(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, showViral: true, onCompletion: { (newGalleryItems) -> () in
-      println("Refreshing collectionGallery")
-      DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
-      self.collectionGallery.reloadData()
+    if !loadingMore {
+      SWNetworking.sharedInstance.getGalleryImagesWithSectionNextPage(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, showViral: true, onCompletion: { (newGalleryItems) -> () in
+        println("Refreshing collectionGallery")
+        DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
+        self.collectionGallery.reloadData()
+        self.loadingMore = false
       }) { (error, description) -> () in
-        
+        self.loadingMore = false
+      }
     }
   }
 
@@ -106,13 +103,13 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     if indexPath.section == 0 {
       var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
-      cell.resetCell()
+      //cell.resetCell()
       let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
       cell.gallery = galleryItem
       
       if (indexPath.row == DataManager.sharedInstance.galleryItems.count-12) {
-        //self.collectionGallery.tableFooterView = self.infiniteScrollingView
         loadMore()
+        self.loadingMore = true
       }
       
       return cell
@@ -134,7 +131,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
     if indexPath.section == 0 {
-      return CGSizeMake(106.0, 106.0)
+      return CGSizeMake(cellSize, cellSize)
     } else {
       return CGSizeMake(self.view.frame.size.width, 40.0)
     }

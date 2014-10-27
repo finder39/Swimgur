@@ -12,8 +12,8 @@ import QuartzCore
 import SWNetworking
 
 class GalleryCollectionViewCell: UICollectionViewCell {
-  //var imageView: UIImageView = UIImageView(frame: CGRectMake(0.5, 0.5, 105, 105))
-  var imageView: UIImageView = UIImageView(frame: CGRectMake(0.0, 0.0, 106, 106))
+  var imageView: UIImageView = UIImageView()
+  //@IBOutlet var imageView: UIImageView!
   
   //// Polygon Drawing
   var polygonPath:UIBezierPath = UIBezierPath()
@@ -70,13 +70,21 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   }
   
   private func setup() {
+    imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
     self.addSubview(imageView)
+    let trailing = NSLayoutConstraint(item: imageView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: 0.5)
+    let bottom = NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 0.5)
+    let top = NSLayoutConstraint(item: imageView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 0.5)
+    let leading = NSLayoutConstraint(item: imageView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1.0, constant: 0.5)
+    self.addConstraints([trailing, bottom, top, leading])
     self.layer.borderWidth = 1
   }
   
   internal func resetCell() {
     gallery = nil
-    imageView.image = nil
+    //if let imageView = imageView {
+      imageView.image = nil
+    //}
     self.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1).CGColor
   }
   

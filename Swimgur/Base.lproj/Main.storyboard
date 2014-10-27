@@ -98,9 +98,23 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B82-i4-MXt">
+                                                    <rect key="frame" x="0.5" y="0.0" width="105.5" height="106"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="B82-i4-MXt" firstAttribute="leading" secondItem="rLf-go-5sB" secondAttribute="leading" id="PEV-up-ckN"/>
+                                            <constraint firstItem="B82-i4-MXt" firstAttribute="top" secondItem="rLf-go-5sB" secondAttribute="top" id="QA1-B8-2Uk"/>
+                                            <constraint firstAttribute="bottom" secondItem="B82-i4-MXt" secondAttribute="bottom" id="l4B-FZ-tuS"/>
+                                            <constraint firstAttribute="trailing" secondItem="B82-i4-MXt" secondAttribute="trailing" id="uvH-s1-afU"/>
+                                        </constraints>
                                         <size key="customSize" width="106" height="106"/>
+                                        <connections>
+                                            <outlet property="imageView" destination="B82-i4-MXt" id="kqL-sC-3eK"/>
+                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCollectionViewLoadMoreCellReuseIdentifier" id="OKK-zK-Nfx">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
