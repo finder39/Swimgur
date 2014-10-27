@@ -32,7 +32,6 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    setupInfiniteScrollingView()
     self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
   }
   
@@ -54,17 +53,6 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
           
       }
     }
-  }
-  
-  private func setupInfiniteScrollingView() {
-    self.infiniteScrollingView = UIView(frame: CGRectMake(0, self.collectionGallery.contentSize.height, self.collectionGallery.bounds.size.width, 60))
-    self.infiniteScrollingView!.autoresizingMask = UIViewAutoresizing.FlexibleWidth
-    self.infiniteScrollingView!.backgroundColor = UIColorEXT.FrameColor()
-    var activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
-    activityViewIndicator.color = UIColor.darkGrayColor()
-    activityViewIndicator.frame = CGRectMake(self.infiniteScrollingView.frame.size.width/2-activityViewIndicator.frame.width/2, self.infiniteScrollingView.frame.size.height/2-activityViewIndicator.frame.height/2, activityViewIndicator.frame.width, activityViewIndicator.frame.height)
-    activityViewIndicator.startAnimating()
-    self.infiniteScrollingView.addSubview(activityViewIndicator)
   }
   
   /*func loadMore() {
