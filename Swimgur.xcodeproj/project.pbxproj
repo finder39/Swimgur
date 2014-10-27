@@ -325,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				D897759019D7687700595045 /* DataManager.swift */,
+				D8846EEC19997DF100546285 /* Cells */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -460,7 +461,6 @@
 		D8DF2A731991D1C700397EE2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D8846EEC19997DF100546285 /* Cells */,
 				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
 				D857066419986AA7009D906E /* GalleryViewController.swift */,
 				D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */,

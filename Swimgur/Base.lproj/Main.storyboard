@@ -98,23 +98,9 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="106" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B82-i4-MXt">
-                                                    <rect key="frame" x="0.5" y="0.0" width="105.5" height="106"/>
-                                                </imageView>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <constraints>
-                                            <constraint firstItem="B82-i4-MXt" firstAttribute="leading" secondItem="rLf-go-5sB" secondAttribute="leading" id="PEV-up-ckN"/>
-                                            <constraint firstItem="B82-i4-MXt" firstAttribute="top" secondItem="rLf-go-5sB" secondAttribute="top" id="QA1-B8-2Uk"/>
-                                            <constraint firstAttribute="bottom" secondItem="B82-i4-MXt" secondAttribute="bottom" id="l4B-FZ-tuS"/>
-                                            <constraint firstAttribute="trailing" secondItem="B82-i4-MXt" secondAttribute="trailing" id="uvH-s1-afU"/>
-                                        </constraints>
                                         <size key="customSize" width="106" height="106"/>
-                                        <connections>
-                                            <outlet property="imageView" destination="B82-i4-MXt" id="kqL-sC-3eK"/>
-                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="GalleryCollectionViewLoadMoreCellReuseIdentifier" id="OKK-zK-Nfx">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -144,9 +130,9 @@
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hgT-7H-jCs" firstAttribute="top" secondItem="1iy-UC-BWK" secondAttribute="topMargin" id="G2J-ih-MDR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hgT-7H-jCs" secondAttribute="trailing" constant="-16" id="KIe-QY-WVF"/>
                             <constraint firstItem="2Mt-Rr-OUr" firstAttribute="top" secondItem="hgT-7H-jCs" secondAttribute="bottom" id="KMb-1l-gcn"/>
-                            <constraint firstItem="hgT-7H-jCs" firstAttribute="leading" secondItem="1iy-UC-BWK" secondAttribute="leadingMargin" constant="-16" id="UbF-F1-lZS"/>
+                            <constraint firstItem="hgT-7H-jCs" firstAttribute="leading" secondItem="1iy-UC-BWK" secondAttribute="leading" id="X76-YF-8c8"/>
+                            <constraint firstAttribute="trailing" secondItem="hgT-7H-jCs" secondAttribute="trailing" id="vAd-sQ-fgS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Gallery" id="j70-T4-gqz">

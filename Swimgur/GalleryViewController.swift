@@ -35,20 +35,27 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     
     self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
     
-    let size = min(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)-3-2
-    var inc:CGFloat = 2
+    cellSize = collectionCellSizeFinder(deviceWidth: min(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height), max: 135)
+  }
+  
+  func collectionCellSizeFinder(deviceWidth size:CGFloat, max:CGFloat) -> CGFloat {
+    var count = 0
+    var current = max
+    var cellSize:CGFloat = 0
     while cellSize == 0 {
-      let temp:CGFloat = size/inc
-      let temp2:CGFloat = size/(inc+1)
-      if temp >= 105 && temp2 <= 105 {
-        if 105-temp < temp2-105 {
-          cellSize = temp
-        } else {
-          cellSize = temp2
-        }
+      count = 1
+      var tempSize = size
+      while tempSize > current {
+        tempSize--
+        tempSize -= current
+        count++
       }
-      inc++
+      if tempSize == current {
+        cellSize = current
+      }
+      current--
     }
+    return cellSize
   }
   
   override func didReceiveMemoryWarning() {
@@ -136,6 +143,18 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
       return CGSizeMake(self.view.frame.size.width, 40.0)
     }
   }
+  
+  /*func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    return 0
+  }
+  
+  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+  }*/
   
   // MARK: UICollectionViewDelegate
   
