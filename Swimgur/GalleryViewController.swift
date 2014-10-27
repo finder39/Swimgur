@@ -11,6 +11,7 @@ import UIKit
 import SWNetworking
 
 let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
+let GalleryCollectionViewLoadMoreCellReuseIdentifier = "GalleryCollectionViewLoadMoreCellReuseIdentifier"
 let SegueToImage = "SegueToImage"
 
 /************************
@@ -25,10 +26,13 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   var imagePicker:UIImagePickerController = UIImagePickerController()
   
   var hasAppeared = false
+  var infiniteScrollingView:UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    setupInfiniteScrollingView()
     self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
   }
   
@@ -52,35 +56,100 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
   }
   
+  private func setupInfiniteScrollingView() {
+    self.infiniteScrollingView = UIView(frame: CGRectMake(0, self.collectionGallery.contentSize.height, self.collectionGallery.bounds.size.width, 60))
+    self.infiniteScrollingView!.autoresizingMask = UIViewAutoresizing.FlexibleWidth
+    self.infiniteScrollingView!.backgroundColor = UIColorEXT.FrameColor()
+    var activityViewIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
+    activityViewIndicator.color = UIColor.darkGrayColor()
+    activityViewIndicator.frame = CGRectMake(self.infiniteScrollingView.frame.size.width/2-activityViewIndicator.frame.width/2, self.infiniteScrollingView.frame.size.height/2-activityViewIndicator.frame.height/2, activityViewIndicator.frame.width, activityViewIndicator.frame.height)
+    activityViewIndicator.startAnimating()
+    self.infiniteScrollingView.addSubview(activityViewIndicator)
+  }
+  
+  /*func loadMore() {
+    let fetchPage = Int(ceil(Double(self.datasource.count)/30))+1
+    Post.fetch(self.filter, page:fetchPage, completion: {(posts: [Post]!, error: Fetcher.ResponseError!, local: Bool) in
+      if let realDatasource = posts {
+        var tempDatasource:NSMutableArray = NSMutableArray(array: self.datasource, copyItems: false)
+        let postsNotFromNewPageCount = ((fetchPage-1)*30)
+        if (tempDatasource.count - postsNotFromNewPageCount > 0) {
+          tempDatasource.removeObjectsInRange(NSMakeRange(postsNotFromNewPageCount, tempDatasource.count-postsNotFromNewPageCount))
+        }
+        tempDatasource.addObjectsFromArray(realDatasource)
+        self.datasource = tempDatasource
+        if (self.datasource.count % 30 == 0) {
+          self.loadMoreEnabled = true
+        } else {
+          self.loadMoreEnabled = false
+        }
+      }
+      if (!local) {
+        self.refreshing = false
+        self.tableView.tableFooterView = nil
+      }
+    })
+  }*/
+  
+  func loadMore() {
+    SWNetworking.sharedInstance.getGalleryImagesWithSectionNextPage(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      println("Refreshing collectionGallery")
+      DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
+      self.collectionGallery.reloadData()
+      }) { (error, description) -> () in
+        
+    }
+  }
+
   // MARK: UICollectionViewDataSource
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return DataManager.sharedInstance.galleryItems.count
+    if section == 0 {
+      return DataManager.sharedInstance.galleryItems.count
+    } else {
+      return 1
+    }
   }
   
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return 1
+    return 2
   }
   
-  
-  
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
-    cell.resetCell()
-    let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
-    cell.gallery = galleryItem
-    return cell
+    if indexPath.section == 0 {
+      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
+      cell.resetCell()
+      let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
+      cell.gallery = galleryItem
+      
+      if (indexPath.row == DataManager.sharedInstance.galleryItems.count-12) {
+        //self.collectionGallery.tableFooterView = self.infiniteScrollingView
+        loadMore()
+      }
+      
+      return cell
+    } else {
+      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewLoadMoreCellReuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+      return cell
+    }
   }
   
   func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
-    self.performSegueWithIdentifier(SegueToImage, sender: indexPath)
-    
+    if indexPath.section == 0 {
+      self.performSegueWithIdentifier(SegueToImage, sender: indexPath)
+    } else {
+      
+    }
   }
   
   // MARK: UICollectionViewDelegateFlowLayout
   
   func collectionView(collectionView: UICollectionView!, layout collectionViewLayout: UICollectionViewLayout!, sizeForItemAtIndexPath indexPath: NSIndexPath!) -> CGSize {
-    return CGSizeMake(106.0, 106.0)
+    if indexPath.section == 0 {
+      return CGSizeMake(106.0, 106.0)
+    } else {
+      return CGSizeMake(self.view.frame.size.width, 40.0)
+    }
   }
   
   // MARK: UICollectionViewDelegate

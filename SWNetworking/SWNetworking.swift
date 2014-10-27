@@ -60,6 +60,8 @@ public class SWNetworking: NSObject {
   var session:AFHTTPSessionManager!
   var sessionUpload:AFURLSessionManager!
   
+  var lastPageLoaded = -1
+  
   //var galleryItems:[GalleryItem] = []
   
   public class var sharedInstance:SWNetworking {
@@ -213,6 +215,7 @@ public class SWNetworking: NSObject {
             galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
           }
         }
+        self.lastPageLoaded = page
         dispatch_async(dispatch_get_main_queue(), {
           onCompletion(array: galleryItems)
         })
@@ -226,6 +229,10 @@ public class SWNetworking: NSObject {
         onError(error: error, description: error.description)
       })
     }
+  }
+  
+  public func getGalleryImagesWithSectionNextPage(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
+    getGalleryImagesWithSection(section, sort: sort, window: window, page: self.lastPageLoaded+1, showViral: showViral, onCompletion: onCompletion, onError: onError)
   }
   
   public func getAlbum(#albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
