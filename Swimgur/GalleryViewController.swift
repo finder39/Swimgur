@@ -21,7 +21,8 @@ let SegueToImage = "SegueToImage"
 ************************/
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  @IBOutlet weak var collectionGallery: UICollectionView!
+  @IBOutlet var collectionGallery: UICollectionView!
+  var refreshControl:UIRefreshControl = UIRefreshControl()
   
   var imagePicker:UIImagePickerController = UIImagePickerController()
   
@@ -36,6 +37,9 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
     
     cellSize = collectionCellSizeFinder(deviceWidth: min(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height), max: 135)
+    
+    refreshControl.addTarget(self, action: Selector("loadFirstPage"), forControlEvents: .ValueChanged)
+    collectionGallery.addSubview(refreshControl)
   }
   
   func collectionCellSizeFinder(deviceWidth size:CGFloat, max:CGFloat) -> CGFloat {
@@ -68,15 +72,22 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor() // reset from ImageViewController
     if !hasAppeared {
       hasAppeared = true
-      loadingMore = true
-      SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
-        println("Refreshing collectionGallery")
-        DataManager.sharedInstance.galleryItems += newGalleryItems
-        self.collectionGallery.reloadData()
-        self.loadingMore = false
-      }) { (error, description) -> () in
-        self.loadingMore = false
-      }
+      loadFirstPage()
+    }
+  }
+  
+  func loadFirstPage() {
+    loadingMore = true
+    SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+      println("Refreshing collectionGallery")
+      DataManager.sharedInstance.galleryItems
+        = newGalleryItems
+      self.collectionGallery.reloadData()
+      self.loadingMore = false
+      self.refreshControl.endRefreshing()
+    }) { (error, description) -> () in
+      self.loadingMore = false
+      self.refreshControl.endRefreshing()
     }
   }
   
