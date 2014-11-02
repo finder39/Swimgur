@@ -14,6 +14,7 @@ public typealias SWBoolBlock = (success:Bool)->()
 public typealias SWDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)->()
 public typealias SWAccountBlock = (account:Account)->()
 public typealias SWAlbumBlock = (album:GalleryAlbum)->()
+public typealias SWGalleryItemArrayBlock = (galleryItems:[GalleryItem])->()
 public typealias SWErrorStringBlock = (error:NSError, description:String)->()
 public typealias SWTokenBlock = (token:Token)->()
 
@@ -200,7 +201,7 @@ public class SWNetworking: NSObject {
   
   // MARK: Gallery
   
-  public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
+  public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWGalleryItemArrayBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("\(self.restConfig.galleryURI)/\(section.rawValue)/\(sort.rawValue)/\(window.rawValue)/\(page)?showViral=\(showViral)")
     session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
       if let data = responseObject["data"] as? [AnyObject] {
@@ -217,7 +218,7 @@ public class SWNetworking: NSObject {
         }
         self.lastPageLoaded = page
         dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(array: galleryItems)
+          onCompletion(galleryItems: galleryItems)
         })
       } else {
         dispatch_async(dispatch_get_main_queue(), {
@@ -231,7 +232,7 @@ public class SWNetworking: NSObject {
     }
   }
   
-  public func getGalleryImagesWithSectionNextPage(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, showViral:Bool, onCompletion:SWArrayBlock, onError:SWErrorStringBlock) {
+  public func getGalleryImagesWithSectionNextPage(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, showViral:Bool, onCompletion:SWGalleryItemArrayBlock, onError:SWErrorStringBlock) {
     getGalleryImagesWithSection(section, sort: sort, window: window, page: self.lastPageLoaded+1, showViral: showViral, onCompletion: onCompletion, onError: onError)
   }
   

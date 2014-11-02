@@ -71,7 +71,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
       loadingMore = true
       SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
         println("Refreshing collectionGallery")
-        DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
+        DataManager.sharedInstance.galleryItems += newGalleryItems
         self.collectionGallery.reloadData()
         self.loadingMore = false
       }) { (error, description) -> () in
@@ -83,8 +83,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   func loadMore() {
     if !loadingMore {
       SWNetworking.sharedInstance.getGalleryImagesWithSectionNextPage(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, showViral: true, onCompletion: { (newGalleryItems) -> () in
-        println("Refreshing collectionGallery")
-        DataManager.sharedInstance.galleryItems += newGalleryItems as [GalleryItem]
+        println("Loading more collectionGallery")
+        DataManager.sharedInstance.galleryItems += newGalleryItems
         self.collectionGallery.reloadData()
         self.loadingMore = false
       }) { (error, description) -> () in
