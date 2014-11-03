@@ -11,6 +11,8 @@
 		D84551A31A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
 		D84551A41A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
 		D852EA681A074DC300D21248 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852EA671A074DC300D21248 /* Comment.swift */; };
+		D852EA6A1A075B3200D21248 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852EA691A075B3200D21248 /* CommentCell.swift */; };
+		D852EA6B1A075B3200D21248 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D852EA691A075B3200D21248 /* CommentCell.swift */; };
 		D857066519986AA7009D906E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066419986AA7009D906E /* GalleryViewController.swift */; };
 		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
 		D878E2AF1A06E4A50015C84E /* GalleryItemTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */; };
@@ -176,6 +178,7 @@
 /* Begin PBXFileReference section */
 		D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurTextCell.swift; sourceTree = "<group>"; };
 		D852EA671A074DC300D21248 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		D852EA691A075B3200D21248 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = Controllers/GalleryViewController.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
 		D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemTableItem.swift; sourceTree = "<group>"; };
@@ -474,6 +477,7 @@
 				D8ABBD7319A3FAB200CECF9B /* GalleryItemViewController.swift */,
 				D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */,
 				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
+				D852EA691A075B3200D21248 /* CommentCell.swift */,
 			);
 			name = GalleryItemView;
 			path = Controllers/GalleryItemView;
@@ -830,6 +834,7 @@
 				D897759119D7687700595045 /* DataManager.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 				D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */,
+				D852EA6A1A075B3200D21248 /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -842,6 +847,7 @@
 				D84551A41A06FEB900E02E0A /* ImgurTextCell.swift in Sources */,
 				D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */,
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
+				D852EA6B1A075B3200D21248 /* CommentCell.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
 				D84551A11A06FD5200E02E0A /* ImgurImageCell.swift in Sources */,

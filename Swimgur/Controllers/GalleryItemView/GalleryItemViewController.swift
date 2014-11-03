@@ -17,6 +17,7 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
   @IBOutlet weak var voteBar: UIView!
   
   var textCell:ImgurTextCell!
+  var commentCell:CommentCell!
   
   var imageViews:[UIView] = []
   
@@ -62,6 +63,7 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
     
     // hacky hack hack
     textCell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
+    commentCell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier") as CommentCell
     
     var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
@@ -145,13 +147,17 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
           }
         } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
           textCell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
-          //textCell.frame.size.width = tableView.frame.size.width
           let size = textCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
           return size.height
         }
       }
     } else if indexPath.section == 1 {
-      
+      if let item = currentGalleryItem {
+        let comment = item.comments[indexPath.row]
+        commentCell.imgurText.text = comment.comment
+        let size = commentCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
+        return size.height+24
+      }
     }
     return 60
   }
@@ -188,9 +194,24 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       }
     } else if indexPath.section == 1 {
       let item = currentGalleryItem!
+      let comment = item.comments[indexPath.row]
       
-      var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
-      cell.imgurText.text = item.comments[indexPath.row].comment
+      var cell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier", forIndexPath: indexPath) as CommentCell
+      cell.authorButton.setTitle(comment.author, forState: .Normal)
+      let authorSize = cell.authorButton.titleLabel?.sizeThatFits(CGSizeMake(CGFloat.max, cell.pointsLabel.frame.size.height))
+      if let authorSize = authorSize {
+        cell.authorWidth.constant = authorSize.width
+      } else {
+        cell.authorWidth.constant = 100
+      }
+      if let points = comment.points {
+        cell.pointsLabel.text = "\(points) points"
+      } else {
+        cell.pointsLabel.text = "0 points"
+      }
+      let pointsSize = cell.pointsLabel.sizeThatFits(CGSizeMake(CGFloat.max, cell.pointsLabel.frame.size.height))
+      cell.pointsWidth.constant = pointsSize.width
+      cell.imgurText.text = comment.comment
       return cell
     }
     return UITableViewCell()
