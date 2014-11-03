@@ -174,11 +174,11 @@
 
 /* Begin PBXFileReference section */
 		D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurTextCell.swift; sourceTree = "<group>"; };
-		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = Controllers/GalleryViewController.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
 		D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemTableItem.swift; sourceTree = "<group>"; };
 		D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurImageCell.swift; sourceTree = "<group>"; };
-		D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExt.swift; sourceTree = "<group>"; };
+		D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITextViewExt.swift; path = Extensions/UITextViewExt.swift; sourceTree = "<group>"; };
 		D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Controllers/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
 		D897759019D7687700595045 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Data/DataManager.swift; sourceTree = "<group>"; };
@@ -422,6 +422,7 @@
 		D8AE2DAD199070470062E3E6 /* Swimgur */ = {
 			isa = PBXGroup;
 			children = (
+				D8D43B971A0747D4003E4331 /* Helpers */,
 				D8EF882219CAAC9A00B3932D /* Resources */,
 				D8846EF01999E5FA00546285 /* Libraries */,
 				D89920C31991CBD50064C50A /* Extensions */,
@@ -429,7 +430,6 @@
 				D8A795C919A522940013315D /* Swimgur-Bridging-Header.h */,
 				D897758F19D7686E00595045 /* Data */,
 				D8DF2A731991D1C700397EE2 /* Controllers */,
-				D89920C11991B6530064C50A /* Constants.swift */,
 				D86CD79B19973B8D00DD7489 /* Transitions */,
 				D8AE2DB4199070470062E3E6 /* Main.storyboard */,
 				D8A787DD19FDC8C60099AC98 /* LaunchView.xib */,
@@ -466,15 +466,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D8D43B961A07477E003E4331 /* GalleryItemView */ = {
+			isa = PBXGroup;
+			children = (
+				D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */,
+				D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */,
+				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
+			);
+			name = GalleryItemView;
+			path = Controllers/GalleryItemView;
+			sourceTree = "<group>";
+		};
+		D8D43B971A0747D4003E4331 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D89920C11991B6530064C50A /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D8DF2A731991D1C700397EE2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D8D43B961A07477E003E4331 /* GalleryItemView */,
 				D8AE2DB2199070470062E3E6 /* ViewController.swift */,
 				D857066419986AA7009D906E /* GalleryViewController.swift */,
-				D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */,
 				D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */,
-				D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */,
-				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
