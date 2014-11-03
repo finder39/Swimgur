@@ -32,6 +32,11 @@ public class GalleryItem {
   public var vote: String?
   public var nsfw: Bool?
   
+  public var comments: [Comment] = []
+  
+  // used to prevent loading twice
+  private var loadingComments = false
+  
   // array to use in tableview datasource
   public var tableViewDataSourceArray:[GalleryItemTableItem] = []
   
@@ -45,5 +50,19 @@ public class GalleryItem {
   
   public func vote(vote:GalleryItemVote) {
     SWNetworking.sharedInstance.voteOnGalleryItem(galleryItemId: self.id, vote: vote, onCompletion: nil)
+  }
+  
+  public func getComments(onCompletion:SWBoolBlock) {
+    if !loadingComments {
+      loadingComments = true
+      SWNetworking.sharedInstance.getComments(galleryItemId: self.id, onCompletion: { (comments) -> () in
+        self.loadingComments = false
+        self.comments = comments
+        onCompletion(success: true)
+      }, onError: { (error, description) -> () in
+        self.loadingComments = false
+        onCompletion(success: false)
+      })
+    }
   }
 }

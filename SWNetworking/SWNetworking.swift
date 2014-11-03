@@ -15,6 +15,7 @@ public typealias SWDictionaryBlock = (dictionary:Dictionary<String, AnyObject>)-
 public typealias SWAccountBlock = (account:Account)->()
 public typealias SWAlbumBlock = (album:GalleryAlbum)->()
 public typealias SWGalleryItemArrayBlock = (galleryItems:[GalleryItem])->()
+public typealias SWCommentsBlock = (comments:[Comment])->()
 public typealias SWErrorStringBlock = (error:NSError, description:String)->()
 public typealias SWTokenBlock = (token:Token)->()
 
@@ -271,7 +272,33 @@ public class SWNetworking: NSObject {
     }
   }
   
+  // MARK: comments
+  
+  public func getComments(#galleryItemId:String, onCompletion:SWCommentsBlock, onError:SWErrorStringBlock) {
+    let url = self.createQueryEndpointFor("gallery/\(galleryItemId)/comments")
+    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
+      if let data = responseObject["data"] as? [AnyObject] {
+        var comments:[Comment] = []
+        for commentDict in data {
+          comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
+        }
+        dispatch_async(dispatch_get_main_queue(), {
+          onCompletion(comments: comments)
+        })
+      } else {
+        dispatch_async(dispatch_get_main_queue(), {
+          onError(error: NSError(), description: "No data was returned")
+        })
+      }
+    }) { (operation, error) -> Void in
+      dispatch_async(dispatch_get_main_queue(), {
+        onError(error: NSError(), description: "No data was returned")
+      })
+    }
+  }
+  
   // MARK: Upload
+  
   public func uploadImage(toUpload:ImageUpload, onCompletion:SWBoolBlock) {
     let urlSetup = "upload"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))

@@ -102,6 +102,10 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
   
   private func loadImage() {
     if let item = currentGalleryItem {
+      item.getComments({ (success) -> () in
+        self.tableView.reloadData()
+      })
+      
       self.title = item.title
       self.colorFromVote(item)
       
@@ -129,54 +133,67 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
   // MARK: UITableViewDelegate
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if let item = currentGalleryItem {
-      if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-        if let image = item.tableViewDataSourceArray[indexPath.row].associatedGalleryImage {
-          let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
-          return height
-        } else if let image = item.tableViewDataSourceArray[indexPath.row].associatedAlbumImage {
-          let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
-          return height
-        } else {
-          return 100
+    if indexPath.section == 0 {
+      if let item = currentGalleryItem {
+        if item.tableViewDataSourceArray[indexPath.row].type == .Image {
+          if let image = item.tableViewDataSourceArray[indexPath.row].associatedGalleryImage {
+            let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
+            return height
+          } else if let image = item.tableViewDataSourceArray[indexPath.row].associatedAlbumImage {
+            let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
+            return height
+          }
+        } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
+          textCell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
+          //textCell.frame.size.width = tableView.frame.size.width
+          let size = textCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
+          return size.height
         }
-      } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
-        textCell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
-        //textCell.frame.size.width = tableView.frame.size.width
-        let size = textCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
-        return size.height
-      } else {
-        return 60
       }
-    } else {
-      return 60
+    } else if indexPath.section == 1 {
+      
     }
+    return 60
   }
   
   // MARK: UITableViewDataSource
   
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 2
+  }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let item = currentGalleryItem {
-      return item.tableViewDataSourceArray.count
-    } else {
-      return 0
+      if section == 0 {
+        return item.tableViewDataSourceArray.count
+      } else if section == 1 {
+        return item.comments.count
+      }
     }
+    return 0
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let item = currentGalleryItem!
-    
-    if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-      var cell = tableView.dequeueReusableCellWithIdentifier("ImgurImageCellReuseIdentifier", forIndexPath: indexPath) as ImgurImageCell
-      SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
-      return cell
-    } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
+    if indexPath.section == 0 {
+      let item = currentGalleryItem!
+      
+      if item.tableViewDataSourceArray[indexPath.row].type == .Image {
+        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurImageCellReuseIdentifier", forIndexPath: indexPath) as ImgurImageCell
+        SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
+        return cell
+      } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
+        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
+        cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
+        return cell
+      }
+    } else if indexPath.section == 1 {
+      let item = currentGalleryItem!
+      
       var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
-      cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
+      cell.imgurText.text = item.comments[indexPath.row].comment
       return cell
-    } else {
-      return UITableViewCell()
     }
+    return UITableViewCell()
   }
   
   private func colorFromVote(item:GalleryItem) {
