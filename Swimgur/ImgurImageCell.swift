@@ -8,19 +8,23 @@
 
 import Foundation
 import UIKit
+import SWNetworking
 
 class ImgurImageCell: UITableViewCell {
   @IBOutlet var imgurImage:UIImageView!
   
-  required init(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setup()
   }
   
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+  func setup() {
+    
   }
   
-  override init() {
-    super.init()
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    SWNetworking.sharedInstance.cancelImageviewLoad(imageView)
+    imageView.image = nil
   }
 }

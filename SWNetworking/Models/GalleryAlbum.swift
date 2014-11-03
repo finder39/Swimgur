@@ -105,11 +105,11 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     if images.count > 0 {
       for image in images {
         if let title = image.title {
-          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Title, text: title))
+          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Title, text: title, image:image))
         }
-        tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link))
+        tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link, image:image))
         if let description = image.description {
-          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description))
+          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description, image:image))
         }
       }
     }

@@ -12,15 +12,18 @@ import UIKit
 class ImgurTextCell: UITableViewCell {
   @IBOutlet var imgurText:UITextView!
   
-  required init(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    setup()
   }
   
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
+  func setup() {
+    imgurText.textColor = UIColorEXT.TextColor()
+    imgurText.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.RGBColor(red: 51, green: 102, blue: 187)]
   }
   
-  override init() {
-    super.init()
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    imgurText.text = nil
   }
 }

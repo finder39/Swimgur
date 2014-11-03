@@ -16,6 +16,8 @@ class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDat
   @IBOutlet weak var upvoteButton: UIButton!
   @IBOutlet weak var voteBar: UIView!
   
+  var textCell:ImgurTextCell!
+  
   var imageViews:[UIView] = []
   
   var galleryIndex: Int = 0/* {
@@ -57,6 +59,10 @@ class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDat
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    // hacky hack hack
+    textCell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
+    
     var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
     self.tableView.addGestureRecognizer(swipeLeft)
@@ -66,35 +72,15 @@ class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     self.tableView.canCancelContentTouches = true
     self.tableView.delaysContentTouches = true
+    
+    self.tableView.contentInset.bottom = self.voteBar.frame.size.height
+    self.tableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     self.loadImage()
     self.view.bringSubviewToFront(self.voteBar)
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    
-    let currentPoint = self.tableView.contentOffset.y+self.tableView.contentInset.top
-    let currentPercent = currentPoint/self.tableView.contentSize.height
-    
-    for view in imageViews {
-      if let textView = view as? UITextView {
-        for constraint in textView.constraints() {
-          if let constraint = constraint as? NSLayoutConstraint {
-            if constraint.firstAttribute == .Height {
-              constraint.constant = textView.getTextHeight(width: CGRectGetWidth(self.tableView.frame))
-            }
-          }
-        }
-      }
-    }
-    
-    self.setContentSizeOfScrollView()
-    
-    self.tableView.setContentOffset(CGPoint(x: 0.0, y: currentPercent*self.tableView.contentSize.height-self.tableView.contentInset.top), animated: true)
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -240,6 +226,31 @@ class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDat
   
   // MARK: UITableViewDelegate
   
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    if let item = currentGalleryItem {
+      if item.tableViewDataSourceArray[indexPath.row].type == .Image {
+        if let image = item.tableViewDataSourceArray[indexPath.row].associatedGalleryImage {
+          let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
+          return height
+        } else if let image = item.tableViewDataSourceArray[indexPath.row].associatedAlbumImage {
+          let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
+          return height
+        } else {
+          return 100
+        }
+      } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
+        textCell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
+        //textCell.frame.size.width = tableView.frame.size.width
+        let size = textCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
+        return size.height
+      } else {
+        return 60
+      }
+    } else {
+      return 60
+    }
+  }
+  
   // MARK: UITableViewDataSource
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -282,25 +293,6 @@ class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDat
       self.navigationController?.navigationBar.barTintColor = UIColorEXT.FrameColor()
       self.voteBar.backgroundColor = UIColorEXT.FrameColor()
     }
-  }
-  
-  private func setContentSizeOfScrollView() {
-    let restoreHorizontal = self.tableView.showsHorizontalScrollIndicator
-    let restoreVertical = self.tableView.showsVerticalScrollIndicator
-    
-    var contentRect = CGRectZero
-    for view in self.tableView.subviews {
-      contentRect = CGRectUnion(contentRect, view.frame)
-    }
-    contentRect.size.height += self.voteBar.frame.size.height
-    self.tableView.contentSize = contentRect.size
-    if contentRect.size.height > self.tableView.frame.size.height {
-      self.tableView.scrollEnabled = true
-    } else {
-      self.tableView.scrollEnabled = false
-    }
-    self.tableView.showsHorizontalScrollIndicator = restoreHorizontal
-    self.tableView.showsVerticalScrollIndicator = restoreVertical
   }
   
   @IBAction func voteUp(sender: AnyObject) {

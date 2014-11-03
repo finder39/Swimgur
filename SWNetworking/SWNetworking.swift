@@ -141,6 +141,10 @@ public class SWNetworking: NSObject {
     imageView?.sd_setImageWithURL(url)
   }
   
+  public func cancelImageviewLoad(imageView:UIImageView?) {
+    imageView?.sd_cancelCurrentImageLoad()
+  }
+  
   // MARK: Account
   
   public func getTokensWithForm(form:CodeForm, onCompletion:SWTokenBlock, onError:SWErrorStringBlock) {

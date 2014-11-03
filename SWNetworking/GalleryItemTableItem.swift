@@ -18,9 +18,18 @@ public enum GalleryItemTableItemType {
 public class GalleryItemTableItem {
   public var type:GalleryItemTableItemType!
   public var text:String
+  public weak var associatedGalleryImage:GalleryImage?
+  public weak var associatedAlbumImage:AlbumImage?
   
-  public init(type:GalleryItemTableItemType, text:String) {
+  public init(type:GalleryItemTableItemType, text:String, image:GalleryImage) {
     self.type = type
     self.text = text
+    self.associatedGalleryImage = image
+  }
+  
+  public init(type:GalleryItemTableItemType, text:String, image:AlbumImage) {
+    self.type = type
+    self.text = text
+    self.associatedAlbumImage = image
   }
 }

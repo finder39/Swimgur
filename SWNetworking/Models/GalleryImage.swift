@@ -87,9 +87,9 @@ public class GalleryImage: GalleryItem, GalleryItemProtocol {
   
   internal func setupTableViewDataSourceArray() {
     tableViewDataSourceArray.removeAll(keepCapacity: false)
-    tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link))
+    tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link, image:self))
     if let description = description {
-      tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description))
+      tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description, image:self))
     }
   }
 }
