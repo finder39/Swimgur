@@ -44,6 +44,9 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   public var imagesCount: Int?
   public var images: [AlbumImage] = []
   
+  // used to prevent loading twice
+  private var loadingAlbum = false
+  
   public init(dictionary:Dictionary<String, AnyObject>) {
     cover = dictionary["cover"] as AnyObject! as String!
     coverWidth = dictionary["cover_width"] as AnyObject! as Int!
@@ -92,13 +95,18 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   }
   
   public func getAlbum(#onCompletion:SWAlbumBlock) {
-    SWNetworking.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
-      dispatch_async(dispatch_get_main_queue(), {
-       onCompletion(album: album)
-      })
-    }) { (error, description) -> () in
-      println(error)
-      println(description)
+    if !loadingAlbum {
+      loadingAlbum = true
+      SWNetworking.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
+        self.loadingAlbum = false
+        dispatch_async(dispatch_get_main_queue(), {
+          onCompletion(album: album)
+        })
+      }) { (error, description) -> () in
+        self.loadingAlbum = false
+        println(error)
+        println(description)
+      }
     }
   }
   
