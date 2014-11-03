@@ -12,7 +12,7 @@ import SWNetworking
 
 let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
 let GalleryCollectionViewLoadMoreCellReuseIdentifier = "GalleryCollectionViewLoadMoreCellReuseIdentifier"
-let SegueToImage = "SegueToImage"
+let SegueGalleryToGalleryItem = "SegueGalleryToGalleryItem"
 
 /************************
 // (320-(.5*6)-2)/3 = 105
@@ -139,7 +139,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
     if indexPath.section == 0 {
-      self.performSegueWithIdentifier(SegueToImage, sender: indexPath)
+      self.performSegueWithIdentifier(SegueGalleryToGalleryItem, sender: indexPath)
     } else {
       
     }
@@ -171,7 +171,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
     let row = (sender as NSIndexPath).row
-    (segue.destinationViewController as ImageViewController).galleryIndex = row
+    (segue.destinationViewController as GalleryItemViewController).galleryIndex = row
   }
   
   // MARK: UIImagePickerControllerDelegate

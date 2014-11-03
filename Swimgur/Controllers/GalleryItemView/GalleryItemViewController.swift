@@ -1,5 +1,5 @@
 //
-//  ImageViewController.swift
+//  GalleryItemViewController.swift
 //  Swimgur
 //
 //  Created by Joseph Neuman on 8/19/14.
@@ -9,7 +9,7 @@
 import UIKit
 import SWNetworking
 
-class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   @IBOutlet weak var tableView: UITableView!
   
   @IBOutlet weak var downvoteButton: UIButton!

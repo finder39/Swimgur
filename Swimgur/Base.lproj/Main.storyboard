@@ -144,7 +144,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionGallery" destination="hgT-7H-jCs" id="lAr-SH-a1U"/>
-                        <segue destination="Yhc-FI-MO3" kind="push" identifier="SegueToImage" id="ILi-Us-OCb"/>
+                        <segue destination="Yhc-FI-MO3" kind="push" identifier="SegueGalleryToGalleryItem" id="ILi-Us-OCb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LD6-kO-UnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -154,7 +154,7 @@
         <!--Image-->
         <scene sceneID="TGi-UI-wOI">
             <objects>
-                <viewController title="Image" id="Yhc-FI-MO3" customClass="ImageViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Image" id="Yhc-FI-MO3" customClass="GalleryItemViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F4w-S6-sj1"/>
                         <viewControllerLayoutGuide type="bottom" id="G2C-5l-5Qn"/>
@@ -196,7 +196,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qK-lv-nUy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
