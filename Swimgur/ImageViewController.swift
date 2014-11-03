@@ -9,8 +9,8 @@
 import UIKit
 import SWNetworking
 
-class ImageViewController: UIViewController, UIScrollViewDelegate {
-  @IBOutlet weak var scrollview: UIScrollView!
+class ImageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+  @IBOutlet weak var tableView: UITableView!
   
   @IBOutlet weak var downvoteButton: UIButton!
   @IBOutlet weak var upvoteButton: UIButton!
@@ -32,6 +32,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       }
     }
   }*/
+  private var currentGalleryItem:GalleryItem? {
+    if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
+      return DataManager.sharedInstance.galleryItems[galleryIndex]
+    } else {
+      return nil
+    }
+  }
   
   override init() {
     super.init()
@@ -52,13 +59,13 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     // Do any additional setup after loading the view, typically from a nib.
     var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-    self.scrollview.addGestureRecognizer(swipeLeft)
+    self.tableView.addGestureRecognizer(swipeLeft)
     var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeRight.direction = UISwipeGestureRecognizerDirection.Right
-    self.scrollview.addGestureRecognizer(swipeRight)
+    self.tableView.addGestureRecognizer(swipeRight)
     
-    self.scrollview.canCancelContentTouches = true
-    self.scrollview.delaysContentTouches = true
+    self.tableView.canCancelContentTouches = true
+    self.tableView.delaysContentTouches = true
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -70,15 +77,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     
-    let currentPoint = self.scrollview.contentOffset.y+self.scrollview.contentInset.top
-    let currentPercent = currentPoint/self.scrollview.contentSize.height
+    let currentPoint = self.tableView.contentOffset.y+self.tableView.contentInset.top
+    let currentPercent = currentPoint/self.tableView.contentSize.height
     
     for view in imageViews {
       if let textView = view as? UITextView {
         for constraint in textView.constraints() {
           if let constraint = constraint as? NSLayoutConstraint {
             if constraint.firstAttribute == .Height {
-              constraint.constant = textView.getTextHeight(width: CGRectGetWidth(self.scrollview.frame))
+              constraint.constant = textView.getTextHeight(width: CGRectGetWidth(self.tableView.frame))
             }
           }
         }
@@ -87,7 +94,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     self.setContentSizeOfScrollView()
     
-    self.scrollview.setContentOffset(CGPoint(x: 0.0, y: currentPercent*self.scrollview.contentSize.height-self.scrollview.contentInset.top), animated: true)
+    self.tableView.setContentOffset(CGPoint(x: 0.0, y: currentPercent*self.tableView.contentSize.height-self.tableView.contentInset.top), animated: true)
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -96,11 +103,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
       case UISwipeGestureRecognizerDirection.Right:
         galleryIndex--
         self.loadImage()
-        self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
       case UISwipeGestureRecognizerDirection.Left:
         galleryIndex++
         self.loadImage()
-        self.scrollview.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
       default:
         break
       }
@@ -108,7 +115,30 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   }
   
   private func loadImage() {
-    if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
+    if let item = currentGalleryItem {
+      self.title = item.title
+      self.colorFromVote(item)
+      
+      // http://stackoverflow.com/questions/19896447/ios-7-navigation-bar-height
+      /*UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+      self.navigationController!.navigationBar.bounds = CGRectMake(0, 0, self.navigationController!.navigationBar.frame.size.width, 100)
+      }, completion: { (done) -> Void in
+      
+      })*/
+      if let galleryImage = item as? GalleryImage {
+        tableView.reloadData()
+      } else if let galleryAlbum = item as? GalleryAlbum {
+        if galleryAlbum.images.count == 0 {
+          galleryAlbum.getAlbum(onCompletion: { (album) -> () in
+            DataManager.sharedInstance.galleryItems[self.galleryIndex] = album
+            self.loadImage()
+          })
+        } else {
+          tableView.reloadData()
+        }
+      }
+    }
+    /*if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
       let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
       
       // remove existing image views
@@ -205,92 +235,35 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
           self.setContentSizeOfScrollView()
         }
       }
+    }*/
+  }
+  
+  // MARK: UITableViewDelegate
+  
+  // MARK: UITableViewDataSource
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if let item = currentGalleryItem {
+      return item.tableViewDataSourceArray.count
+    } else {
+      return 0
     }
   }
   
-  private func newTextView(#content:String, originY:CGFloat) -> UITextView {
-    var textView = UITextView(frame: CGRectMake(0, originY, CGRectGetWidth(self.scrollview.frame), 100))
-    textView.backgroundColor = UIColor.clearColor()
-    textView.textColor = UIColorEXT.TextColor()
-    textView.font = UIFont.systemFontOfSize(16)
-    textView.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.RGBColor(red: 51, green: 102, blue: 187)]
-    textView.selectable = true
-    textView.editable = false
-    textView.scrollEnabled = false
-    textView.userInteractionEnabled = true
-    textView.dataDetectorTypes = UIDataDetectorTypes.All
-    textView.text = content
-    textView.autoHeight()
-    return textView
-  }
-  
-  private func newTextView(#content:String) -> UITextView {
-    var textView = UITextView()
-    textView.backgroundColor = UIColor.clearColor()
-    textView.textColor = UIColorEXT.TextColor()
-    textView.font = UIFont.systemFontOfSize(16)
-    textView.linkTextAttributes = [NSForegroundColorAttributeName:UIColor.RGBColor(red: 51, green: 102, blue: 187)]
-    textView.selectable = true
-    textView.editable = false
-    textView.scrollEnabled = false
-    textView.userInteractionEnabled = true
-    textView.dataDetectorTypes = UIDataDetectorTypes.All
-    textView.text = content
-    return textView
-  }
-  
-  private func addFirstItemConstraints(#item:UIView, image:GalleryImage) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(image.height)/CGFloat(image.width), constant: 0)
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
-  }
-  
-  private func addFirstItemConstraints(#item:UIView, image:AlbumImage) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(image.height)/CGFloat(image.width), constant: 0)
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
-  }
-  
-  private func addItemConstraints(#item:UIImageView, lastItem:UIView, image:GalleryImage) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(image.height)/CGFloat(image.width), constant: 0)
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
-  }
-  
-  private func addItemConstraints(#item:UIImageView, lastItem:UIView, image:AlbumImage) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: item, attribute: .Width, multiplier: CGFloat(image.height)/CGFloat(image.width), constant: 0)
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
-  }
-  
-  private func addFirstItemConstraints(#item:UITextView) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: item.getTextHeight(width: CGRectGetWidth(self.scrollview.frame)))
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: self.scrollview, attribute: .Top, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
-  }
-  
-  private func addItemConstraints(#item:UITextView, lastItem:UIView) {
-    let width = NSLayoutConstraint(item: item, attribute: .Width, relatedBy: .Equal, toItem: self.scrollview, attribute: .Width, multiplier: 1.0, constant: 0)
-    let height = NSLayoutConstraint(item: item, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: item.getTextHeight(width: CGRectGetWidth(self.scrollview.frame)))
-    let top = NSLayoutConstraint(item: item, attribute: .Top, relatedBy: .Equal, toItem: lastItem, attribute: .Bottom, multiplier: 1.0, constant: 0)
-    let leading = NSLayoutConstraint(item: item, attribute: .Leading, relatedBy: .Equal, toItem: self.scrollview, attribute: .Leading, multiplier: 1.0, constant: 0)
-    self.scrollview.addConstraints([width, top, leading])
-    item.addConstraint(height)
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let item = currentGalleryItem!
+    
+    if item.tableViewDataSourceArray[indexPath.row].type == .Image {
+      var cell = tableView.dequeueReusableCellWithIdentifier("ImgurImageCellReuseIdentifier", forIndexPath: indexPath) as ImgurImageCell
+      SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
+      return cell
+    } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
+      var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
+      cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
+      return cell
+    } else {
+      return UITableViewCell()
+    }
   }
   
   private func colorFromVote(item:GalleryItem) {
@@ -312,22 +285,22 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
   }
   
   private func setContentSizeOfScrollView() {
-    let restoreHorizontal = self.scrollview.showsHorizontalScrollIndicator
-    let restoreVertical = self.scrollview.showsVerticalScrollIndicator
+    let restoreHorizontal = self.tableView.showsHorizontalScrollIndicator
+    let restoreVertical = self.tableView.showsVerticalScrollIndicator
     
     var contentRect = CGRectZero
-    for view in self.scrollview.subviews {
+    for view in self.tableView.subviews {
       contentRect = CGRectUnion(contentRect, view.frame)
     }
     contentRect.size.height += self.voteBar.frame.size.height
-    self.scrollview.contentSize = contentRect.size
-    if contentRect.size.height > self.scrollview.frame.size.height {
-      self.scrollview.scrollEnabled = true
+    self.tableView.contentSize = contentRect.size
+    if contentRect.size.height > self.tableView.frame.size.height {
+      self.tableView.scrollEnabled = true
     } else {
-      self.scrollview.scrollEnabled = false
+      self.tableView.scrollEnabled = false
     }
-    self.scrollview.showsHorizontalScrollIndicator = restoreHorizontal
-    self.scrollview.showsVerticalScrollIndicator = restoreVertical
+    self.tableView.showsHorizontalScrollIndicator = restoreHorizontal
+    self.tableView.showsVerticalScrollIndicator = restoreVertical
   }
   
   @IBAction func voteUp(sender: AnyObject) {

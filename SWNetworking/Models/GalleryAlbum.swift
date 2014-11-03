@@ -99,6 +99,21 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
       println(description)
     }
   }
+  
+  internal func setupTableViewDataSourceArray() {
+    tableViewDataSourceArray.removeAll(keepCapacity: false)
+    if images.count > 0 {
+      for image in images {
+        if let title = image.title {
+          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Title, text: title))
+        }
+        tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link))
+        if let description = image.description {
+          tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description))
+        }
+      }
+    }
+  }
 }
 
 public func checkForValidAlbumDictionary(dictionary:Dictionary<String, AnyObject>) -> Bool {

@@ -71,6 +71,8 @@ public class GalleryImage: GalleryItem, GalleryItemProtocol {
     favorite = dictionary["favorite"] as AnyObject! as Bool!
     vote = dictionary["vote"] as AnyObject? as? String
     nsfw = dictionary["nsfw"] as AnyObject? as? Bool
+    
+    self.setupTableViewDataSourceArray()
   }
   
   public func squareThumbnailURIForSize(size: CGSize) -> String {
@@ -80,6 +82,14 @@ public class GalleryImage: GalleryItem, GalleryItemProtocol {
       return self.appendLetterToLink("b")
     } else {
       return self.link
+    }
+  }
+  
+  internal func setupTableViewDataSourceArray() {
+    tableViewDataSourceArray.removeAll(keepCapacity: false)
+    tableViewDataSourceArray.append(GalleryItemTableItem(type: .Image, text: link))
+    if let description = description {
+      tableViewDataSourceArray.append(GalleryItemTableItem(type: .Description, text: description))
     }
   }
 }

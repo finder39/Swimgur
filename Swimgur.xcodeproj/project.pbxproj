@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D84551A11A06FD5200E02E0A /* ImgurImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */; };
+		D84551A31A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
+		D84551A41A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
 		D857066519986AA7009D906E /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D857066419986AA7009D906E /* GalleryViewController.swift */; };
 		D86CD79D19973BA600DD7489 /* SpringTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D86CD79C19973BA600DD7489 /* SpringTransition.swift */; };
+		D878E2AF1A06E4A50015C84E /* GalleryItemTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */; };
+		D878E2B11A06F6EA0015C84E /* ImgurImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */; };
 		D87FDFF019E1D1B500737BA0 /* UITextViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */; };
 		D87FDFF119E1D1B500737BA0 /* UITextViewExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */; };
 		D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */; };
@@ -168,8 +173,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurTextCell.swift; sourceTree = "<group>"; };
 		D857066419986AA7009D906E /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		D86CD79C19973BA600DD7489 /* SpringTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpringTransition.swift; path = Transitions/SpringTransition.swift; sourceTree = "<group>"; };
+		D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemTableItem.swift; sourceTree = "<group>"; };
+		D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurImageCell.swift; sourceTree = "<group>"; };
 		D87FDFEF19E1D1B500737BA0 /* UITextViewExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewExt.swift; sourceTree = "<group>"; };
 		D8846EED19997E4E00546285 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = Controllers/Cells/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		D888B40519948B5F00179D0C /* StringExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExt.swift; path = Extensions/StringExt.swift; sourceTree = "<group>"; };
@@ -465,6 +473,8 @@
 				D857066419986AA7009D906E /* GalleryViewController.swift */,
 				D8ABBD7319A3FAB200CECF9B /* ImageViewController.swift */,
 				D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */,
+				D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */,
+				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -560,6 +570,7 @@
 				D8E9D1D319D74BD500DB6A91 /* GalleryAlbum.swift */,
 				D8E9D1D419D74BD500DB6A91 /* GalleryImage.swift */,
 				D8E9D1D519D74BD500DB6A91 /* GalleryItem.swift */,
+				D878E2AE1A06E4A50015C84E /* GalleryItemTableItem.swift */,
 				D8E9D1D619D74BD500DB6A91 /* ImageUpload.swift */,
 				D8E9D1D719D74BD500DB6A91 /* Token.swift */,
 			);
@@ -792,8 +803,10 @@
 				D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */,
 				D8846EEE19997E4E00546285 /* GalleryCollectionViewCell.swift in Sources */,
 				D857066519986AA7009D906E /* GalleryViewController.swift in Sources */,
+				D84551A31A06FEB900E02E0A /* ImgurTextCell.swift in Sources */,
 				D89920C61991CC0E0064C50A /* UIColorExt.swift in Sources */,
 				D87FDFF019E1D1B500737BA0 /* UITextViewExt.swift in Sources */,
+				D878E2B11A06F6EA0015C84E /* ImgurImageCell.swift in Sources */,
 				D897759119D7687700595045 /* DataManager.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 				D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */,
@@ -806,10 +819,12 @@
 			files = (
 				D8F044BD19B0F1CF00F04FB5 /* ImgurLoginController.swift in Sources */,
 				D897759219D7687700595045 /* DataManager.swift in Sources */,
+				D84551A41A06FEB900E02E0A /* ImgurTextCell.swift in Sources */,
 				D8F044D019B0F20100F04FB5 /* Constants.swift in Sources */,
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
+				D84551A11A06FD5200E02E0A /* ImgurImageCell.swift in Sources */,
 				D87FDFF119E1D1B500737BA0 /* UITextViewExt.swift in Sources */,
 				D8F044D119B0F20100F04FB5 /* SpringTransition.swift in Sources */,
 				D8F044CC19B0F20100F04FB5 /* GalleryCollectionViewCell.swift in Sources */,
@@ -853,6 +868,7 @@
 				D8E9D1B619D745FD00DB6A91 /* AFURLRequestSerialization.m in Sources */,
 				D8E9D1E419D756D000DB6A91 /* SIUserDefaults.swift in Sources */,
 				D8AC10E019D88EA9008E7E4D /* MKAnnotationView+WebCache.m in Sources */,
+				D878E2AF1A06E4A50015C84E /* GalleryItemTableItem.swift in Sources */,
 				D8E9D1E219D754D700DB6A91 /* RestConfig.swift in Sources */,
 				D8AC10EA19D88EA9008E7E4D /* SDWebImageDownloader.m in Sources */,
 				D8AC10F319D88EA9008E7E4D /* UIButton+WebCache.m in Sources */,

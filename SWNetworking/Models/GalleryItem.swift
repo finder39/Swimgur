@@ -11,6 +11,8 @@ import UIKit
 
 protocol GalleryItemProtocol {
   func squareThumbnailURIForSize(size:CGSize) -> String
+  
+  func setupTableViewDataSourceArray()
 }
 
 public class GalleryItem {
@@ -29,6 +31,9 @@ public class GalleryItem {
   public var favorite: Bool = false
   public var vote: String?
   public var nsfw: Bool?
+  
+  // array to use in tableview datasource
+  public var tableViewDataSourceArray:[GalleryItemTableItem] = []
   
   init() {
     
