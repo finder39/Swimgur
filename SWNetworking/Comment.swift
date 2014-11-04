@@ -25,6 +25,10 @@ public class Comment {
   public var vote: String?
   public var children: [Comment] = []
   
+  // expansion management in table
+  public var expanded = false
+  public var depth = 0
+  
   public init(dictionary:Dictionary<String, AnyObject>) {
     id = dictionary["id"] as AnyObject! as Int!
     imageID = dictionary["image_id"] as AnyObject? as? String
@@ -42,8 +46,13 @@ public class Comment {
     vote = dictionary["vote"] as AnyObject? as? String
     if let children = (dictionary["children"] as AnyObject?) as? [Dictionary<String, AnyObject>] {
       for child in children {
-        self.children.append(Comment(dictionary: child))
+        self.children.append(Comment(dictionary: child, depth:depth+1))
       }
     }
+  }
+  
+  public convenience init(dictionary:Dictionary<String, AnyObject>, depth:Int) {
+    self.init(dictionary: dictionary)
+    self.depth = depth
   }
 }
