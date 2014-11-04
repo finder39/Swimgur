@@ -198,12 +198,8 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       
       var cell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier", forIndexPath: indexPath) as CommentCell
       cell.authorButton.setTitle(comment.author, forState: .Normal)
-      let authorSize = cell.authorButton.titleLabel?.sizeThatFits(CGSizeMake(CGFloat.max, cell.pointsLabel.frame.size.height))
-      if let authorSize = authorSize {
-        cell.authorWidth.constant = authorSize.width
-      } else {
-        cell.authorWidth.constant = 100
-      }
+      let authorSize = cell.authorButton.sizeThatFits(CGSizeMake(CGFloat.max, cell.authorButton.frame.size.height))
+      cell.authorWidth.constant = authorSize.width
       if let points = comment.points {
         cell.pointsLabel.text = "\(points) points"
       } else {
@@ -212,6 +208,9 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       let pointsSize = cell.pointsLabel.sizeThatFits(CGSizeMake(CGFloat.max, cell.pointsLabel.frame.size.height))
       cell.pointsWidth.constant = pointsSize.width
       cell.imgurText.text = comment.comment
+      if comment.children.count > 0 {
+        cell.expandButton.hidden = false
+      }
       return cell
     }
     return UITableViewCell()

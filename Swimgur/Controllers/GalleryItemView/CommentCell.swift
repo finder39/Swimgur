@@ -13,9 +13,11 @@ class CommentCell: UITableViewCell {
   @IBOutlet var authorButton:UIButton!
   @IBOutlet var pointsLabel:UILabel!
   @IBOutlet var imgurText:UITextView!
+  @IBOutlet var expandButton:UIButton!
   
   @IBOutlet var authorWidth:NSLayoutConstraint!
   @IBOutlet var pointsWidth:NSLayoutConstraint!
+  @IBOutlet var expandWidth:NSLayoutConstraint!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -34,5 +36,6 @@ class CommentCell: UITableViewCell {
     authorButton.setTitle(nil, forState: .Normal)
     pointsLabel.text = nil
     imgurText.text = nil
+    expandButton.hidden = true
   }
 }
