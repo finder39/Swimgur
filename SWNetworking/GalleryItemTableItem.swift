@@ -20,6 +20,7 @@ public class GalleryItemTableItem {
   public var text:String
   public weak var associatedGalleryImage:GalleryImage?
   public weak var associatedAlbumImage:AlbumImage?
+  public weak var associatedComment:Comment?
   
   public init(type:GalleryItemTableItemType, text:String, image:GalleryImage) {
     self.type = type
@@ -31,5 +32,15 @@ public class GalleryItemTableItem {
     self.type = type
     self.text = text
     self.associatedAlbumImage = image
+  }
+  
+  public init(comment:Comment) {
+    self.type = .Comment
+    if let commentText = comment.comment {
+      self.text = commentText
+    } else {
+      self.text = ""
+    }
+    self.associatedComment = comment
   }
 }

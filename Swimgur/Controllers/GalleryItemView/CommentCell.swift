@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SWNetworking
 
 class CommentCell: UITableViewCell {
   @IBOutlet var authorButton:UIButton!
@@ -19,9 +20,17 @@ class CommentCell: UITableViewCell {
   @IBOutlet var pointsWidth:NSLayoutConstraint!
   @IBOutlet var expandWidth:NSLayoutConstraint!
   
+  @IBOutlet var authorLeadingConstraint:NSLayoutConstraint!
+  @IBOutlet var commentLeadingConstraint:NSLayoutConstraint!
+  
+  weak var associatedGalleryItem:GalleryItem?
+  weak var associatedComment:Comment?
+  weak var parentTableView:UITableView?
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     setup()
+    self.indentationWidth = 10
   }
   
   func setup() {
@@ -37,5 +46,31 @@ class CommentCell: UITableViewCell {
     pointsLabel.text = nil
     imgurText.text = nil
     expandButton.hidden = true
+    associatedComment = nil
+    associatedGalleryItem = nil
+    parentTableView = nil
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    let indentPoints:CGFloat = CGFloat(self.indentationLevel) * self.indentationWidth
+    
+    authorLeadingConstraint.constant = 8 + indentPoints
+    commentLeadingConstraint.constant = 4 + indentPoints
+  }
+
+  // MARK: Actions
+
+  @IBAction func expand() {
+    if expandButton.titleForState(.Normal) == "Expand" {
+      associatedComment?.expanded = true
+      expandButton.setTitle("Collapse", forState: .Normal)
+    } else {
+      associatedComment?.expanded = false
+      expandButton.setTitle("Expand", forState: .Normal)
+    }
+    associatedGalleryItem?.updateTableViewDataSourceCommentsArray()
+    parentTableView?.reloadData()
   }
 }

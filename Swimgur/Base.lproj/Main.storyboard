@@ -244,11 +244,14 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="expand" destination="4uN-cr-SAl" eventType="touchUpInside" id="SXt-8N-JGv"/>
+                                                    </connections>
                                                 </button>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nk-j9-PFO">
                                                     <rect key="frame" x="4" y="24" width="312" height="60"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -282,7 +285,9 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="authorButton" destination="Gzb-Fj-CMp" id="4y5-dW-gGf"/>
+                                            <outlet property="authorLeadingConstraint" destination="GGj-7y-dwp" id="0x4-HE-a6X"/>
                                             <outlet property="authorWidth" destination="YGi-Op-x4m" id="CuB-Gm-AmX"/>
+                                            <outlet property="commentLeadingConstraint" destination="Nwn-ep-FuZ" id="9e3-UN-dOW"/>
                                             <outlet property="expandButton" destination="5Ev-09-Xjn" id="RiC-Gb-w1q"/>
                                             <outlet property="imgurText" destination="2Nk-j9-PFO" id="ayd-UY-QIk"/>
                                             <outlet property="pointsLabel" destination="xjm-Vr-INR" id="jqB-Oj-RBS"/>

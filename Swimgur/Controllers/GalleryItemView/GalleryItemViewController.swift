@@ -153,13 +153,25 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       }
     } else if indexPath.section == 1 {
       if let item = currentGalleryItem {
-        let comment = item.comments[indexPath.row]
+        let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
         commentCell.imgurText.text = comment.comment
         let size = commentCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
         return size.height+24
       }
     }
     return 60
+  }
+  
+  func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
+    if indexPath.section == 0 {
+      
+    } else if indexPath.section == 1 {
+      let item = currentGalleryItem!
+      let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
+      
+      return comment.depth
+    }
+    return 0
   }
   
   // MARK: UITableViewDataSource
@@ -173,7 +185,7 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       if section == 0 {
         return item.tableViewDataSourceArray.count
       } else if section == 1 {
-        return item.comments.count
+        return item.tableViewDataSourceCommentsArray.count
       }
     }
     return 0
@@ -194,7 +206,7 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       }
     } else if indexPath.section == 1 {
       let item = currentGalleryItem!
-      let comment = item.comments[indexPath.row]
+      let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
       
       var cell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier", forIndexPath: indexPath) as CommentCell
       cell.authorButton.setTitle(comment.author, forState: .Normal)
@@ -211,6 +223,14 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
       if comment.children.count > 0 {
         cell.expandButton.hidden = false
       }
+      
+      if comment.expanded {
+        cell.expandButton.setTitle("Collapse", forState: .Normal)
+      }
+      
+      cell.associatedComment = comment
+      cell.associatedGalleryItem = item
+      cell.parentTableView = tableView
       return cell
     }
     return UITableViewCell()

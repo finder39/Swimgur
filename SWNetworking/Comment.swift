@@ -29,7 +29,7 @@ public class Comment {
   public var expanded = false
   public var depth = 0
   
-  public init(dictionary:Dictionary<String, AnyObject>) {
+  public init(dictionary:Dictionary<String, AnyObject>, depth theDepth:Int) {
     id = dictionary["id"] as AnyObject! as Int!
     imageID = dictionary["image_id"] as AnyObject? as? String
     comment = dictionary["comment"] as AnyObject? as? String
@@ -44,6 +44,9 @@ public class Comment {
     parentID = dictionary["parent_id"] as AnyObject? as? String
     deleted = dictionary["deleted"] as AnyObject? as? Bool
     vote = dictionary["vote"] as AnyObject? as? String
+    
+    depth = theDepth
+    
     if let children = (dictionary["children"] as AnyObject?) as? [Dictionary<String, AnyObject>] {
       for child in children {
         self.children.append(Comment(dictionary: child, depth:depth+1))
@@ -51,8 +54,7 @@ public class Comment {
     }
   }
   
-  public convenience init(dictionary:Dictionary<String, AnyObject>, depth:Int) {
-    self.init(dictionary: dictionary)
-    self.depth = depth
+  public convenience init(dictionary:Dictionary<String, AnyObject>) {
+    self.init(dictionary: dictionary, depth:0)
   }
 }
