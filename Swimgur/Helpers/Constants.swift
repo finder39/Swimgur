@@ -22,3 +22,13 @@ struct Constants {
     return UIImage(data: data!)!
   }
 }
+
+// MARK: println addons
+
+func dprintln<T>(object: T, function: String = __FUNCTION__, file: String = __FILE__, line: Int = __LINE__, column: Int = __COLUMN__) {
+  println("<\(file.lastPathComponent):(\(line))> \(object)")
+}
+
+func dfprintln<T>(object: T, function: String = __FUNCTION__, file: String = __FILE__, line: Int = __LINE__, column: Int = __COLUMN__) {
+  println("<\(file.lastPathComponent):\(function):(\(line))> \(object)")
+}
