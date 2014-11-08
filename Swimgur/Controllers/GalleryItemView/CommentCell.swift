@@ -50,6 +50,28 @@ class CommentCell: UITableViewCell {
     associatedGalleryItem = nil
     parentTableView = nil
     expandButton.setTitle("Expand", forState: .Normal)
+    
+    // bug fix for text maintaining old links
+    var newImgurTextView = UITextView()
+    newImgurTextView.font = imgurText.font
+    newImgurTextView.backgroundColor = imgurText.backgroundColor
+    newImgurTextView.dataDetectorTypes = imgurText.dataDetectorTypes
+    newImgurTextView.selectable = imgurText.selectable
+    newImgurTextView.editable = imgurText.editable
+    newImgurTextView.scrollEnabled = imgurText.scrollEnabled
+    newImgurTextView.textColor = imgurText.textColor
+    newImgurTextView.linkTextAttributes = imgurText.linkTextAttributes
+    newImgurTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    
+    imgurText.removeFromSuperview()
+    self.addSubview(newImgurTextView)
+    imgurText = newImgurTextView
+    
+    let top = NSLayoutConstraint(item: newImgurTextView, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 24)
+    let bottom = NSLayoutConstraint(item: newImgurTextView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 0)
+    commentLeadingConstraint = NSLayoutConstraint(item: newImgurTextView, attribute: .Leading, relatedBy: .Equal, toItem: self, attribute: .Leading, multiplier: 1.0, constant: 4)
+    let trailing = NSLayoutConstraint(item: newImgurTextView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: 4)
+    self.addConstraints([top, bottom, commentLeadingConstraint, trailing])
   }
   
   override func layoutSubviews() {
