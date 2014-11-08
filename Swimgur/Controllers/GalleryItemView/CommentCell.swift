@@ -30,7 +30,7 @@ class CommentCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     setup()
-    self.indentationWidth = 10
+    self.indentationWidth = 15
   }
   
   func setup() {
@@ -49,6 +49,7 @@ class CommentCell: UITableViewCell {
     associatedComment = nil
     associatedGalleryItem = nil
     parentTableView = nil
+    expandButton.setTitle("Expand", forState: .Normal)
   }
   
   override func layoutSubviews() {
