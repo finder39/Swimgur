@@ -9,17 +9,20 @@
 import UIKit
 import SWNetworking
 
-class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-  @IBOutlet weak var tableView: UITableView!
+class GalleryItemViewController: UIViewController {
+  @IBOutlet weak var tableView: GalleryItemTableView!
+  @IBOutlet weak var scrollView: UIScrollView!
   
   @IBOutlet weak var downvoteButton: UIButton!
   @IBOutlet weak var upvoteButton: UIButton!
   @IBOutlet weak var voteBar: UIView!
   
+  var table1:GalleryItemTableView!
+  var table2:GalleryItemTableView!
+  var table3:GalleryItemTableView!
+  
   var textCell:ImgurTextCell!
   var commentCell:CommentCell!
-  
-  var imageViews:[UIView] = []
   
   var galleryIndex: Int = 0/* {
     didSet {
@@ -65,18 +68,44 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
     textCell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
     commentCell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier") as CommentCell
     
-    var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+    /*var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
     self.tableView.addGestureRecognizer(swipeLeft)
     var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
     swipeRight.direction = UISwipeGestureRecognizerDirection.Right
-    self.tableView.addGestureRecognizer(swipeRight)
+    self.tableView.addGestureRecognizer(swipeRight)*/
     
     self.tableView.canCancelContentTouches = true
     self.tableView.delaysContentTouches = true
     
     self.tableView.contentInset.bottom = self.voteBar.frame.size.height
     self.tableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
+    
+    // setup new table views for scrolling
+    table1 = createTableViewWithPageOffset(-1)
+    table2 = createTableViewWithPageOffset(0)
+    table3 = createTableViewWithPageOffset(1)
+    
+    self.scrollView.addSubview(table1)
+    self.scrollView.addSubview(table2)
+    self.scrollView.addSubview(table3)
+    
+    // remove tableview
+    self.tableView.removeFromSuperview()
+    
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3.0, self.view.frame.size.height)
+  }
+  
+  func createTableViewWithPageOffset(pageOffset:Int) -> GalleryItemTableView {
+    let offset = self.view.frame.size.width * CGFloat(pageOffset)
+    var newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
+    newTableView.canCancelContentTouches = true
+    newTableView.delaysContentTouches = true
+    newTableView.contentInset.bottom = self.voteBar.frame.size.height
+    newTableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
+    
+    newTableView.backgroundColor = UIColorEXT.BackgroundColor()
+    return newTableView
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -103,7 +132,10 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
   }
   
   private func loadImage() {
-    if let item = currentGalleryItem {
+    table1.galleryIndex = galleryIndex-1
+    table2.galleryIndex = galleryIndex
+    table3.galleryIndex = galleryIndex+1
+    /*if let item = currentGalleryItem {
       item.getComments({ (success) -> () in
         self.tableView.reloadData()
       })
@@ -129,112 +161,10 @@ class GalleryItemViewController: UIViewController, UITableViewDelegate, UITableV
           tableView.reloadData()
         }
       }
-    }
+    }*/
   }
   
-  // MARK: UITableViewDelegate
-  
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if indexPath.section == 0 {
-      if let item = currentGalleryItem {
-        if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-          if let image = item.tableViewDataSourceArray[indexPath.row].associatedGalleryImage {
-            let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
-            return height
-          } else if let image = item.tableViewDataSourceArray[indexPath.row].associatedAlbumImage {
-            let height:CGFloat = tableView.frame.width/CGFloat(image.width)*CGFloat(image.height)
-            return height
-          }
-        } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
-          textCell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
-          let size = textCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
-          return size.height
-        }
-      }
-    } else if indexPath.section == 1 {
-      if let item = currentGalleryItem {
-        let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
-        commentCell.imgurText.text = comment.comment
-        let size = commentCell.imgurText.sizeThatFits(CGSizeMake(tableView.frame.size.width, CGFloat.max))
-        return size.height+24
-      }
-    }
-    return 60
-  }
-  
-  func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
-    if indexPath.section == 0 {
-      
-    } else if indexPath.section == 1 {
-      let item = currentGalleryItem!
-      let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
-      
-      return comment.depth
-    }
-    return 0
-  }
-  
-  // MARK: UITableViewDataSource
-  
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 2
-  }
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let item = currentGalleryItem {
-      if section == 0 {
-        return item.tableViewDataSourceArray.count
-      } else if section == 1 {
-        return item.tableViewDataSourceCommentsArray.count
-      }
-    }
-    return 0
-  }
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if indexPath.section == 0 {
-      let item = currentGalleryItem!
-      
-      if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurImageCellReuseIdentifier", forIndexPath: indexPath) as ImgurImageCell
-        SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
-        return cell
-      } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
-        cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
-        return cell
-      }
-    } else if indexPath.section == 1 {
-      let item = currentGalleryItem!
-      let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
-      
-      var cell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier", forIndexPath: indexPath) as CommentCell
-      cell.authorButton.setTitle(comment.author, forState: .Normal)
-      let authorSize = cell.authorButton.sizeThatFits(CGSizeMake(CGFloat.max, cell.authorButton.frame.size.height))
-      cell.authorWidth.constant = authorSize.width
-      if let points = comment.points {
-        cell.pointsLabel.text = "\(points) points"
-      } else {
-        cell.pointsLabel.text = "0 points"
-      }
-      let pointsSize = cell.pointsLabel.sizeThatFits(CGSizeMake(CGFloat.max, cell.pointsLabel.frame.size.height))
-      cell.pointsWidth.constant = pointsSize.width
-      cell.imgurText.text = comment.comment
-      if comment.children.count > 0 {
-        cell.expandButton.hidden = false
-      }
-      
-      if comment.expanded {
-        cell.expandButton.setTitle("Collapse", forState: .Normal)
-      }
-      
-      cell.associatedComment = comment
-      cell.associatedGalleryItem = item
-      cell.parentTableView = tableView
-      return cell
-    }
-    return UITableViewCell()
-  }
+  // MARK: voting
   
   private func colorFromVote(item:GalleryItem) {
     if let vote = item.vote {

@@ -163,143 +163,71 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F5t-Cq-aro">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RT-uk-jGd">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImgurImageCellReuseIdentifier" id="svb-IU-XJI" customClass="ImgurImageCell" customModule="Swimgur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="svb-IU-XJI" id="f1v-HE-eNg">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8KE-kb-suh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="8KE-kb-suh" firstAttribute="leading" secondItem="f1v-HE-eNg" secondAttribute="leading" id="1j9-Ja-LwD"/>
-                                                <constraint firstAttribute="trailing" secondItem="8KE-kb-suh" secondAttribute="trailing" id="Tgt-fa-hnW"/>
-                                                <constraint firstItem="8KE-kb-suh" firstAttribute="top" secondItem="f1v-HE-eNg" secondAttribute="top" id="eGr-e7-V7z"/>
-                                                <constraint firstAttribute="bottom" secondItem="8KE-kb-suh" secondAttribute="bottom" id="oxd-6x-lLs"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F5t-Cq-aro" customClass="GalleryItemTableView" customModule="Swimgur" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="imgurImage" destination="8KE-kb-suh" id="stm-ZC-fCm"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImgurTextCellReuseIdentifier" id="ONE-3D-42c" customClass="ImgurTextCell" customModule="Swimgur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ONE-3D-42c" id="KMm-lK-xw2">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qK-lv-nUy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                </textView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="1qK-lv-nUy" secondAttribute="bottom" id="N6n-ky-9f4"/>
-                                                <constraint firstItem="1qK-lv-nUy" firstAttribute="leading" secondItem="KMm-lK-xw2" secondAttribute="leading" id="P5q-yq-pIN"/>
-                                                <constraint firstAttribute="trailing" secondItem="1qK-lv-nUy" secondAttribute="trailing" id="WAB-7b-ekN"/>
-                                                <constraint firstItem="1qK-lv-nUy" firstAttribute="top" secondItem="KMm-lK-xw2" secondAttribute="top" id="bbE-Va-0vV"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="imgurText" destination="1qK-lv-nUy" id="qtV-o3-DN4"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCellReuseIdentifier" rowHeight="84" id="4uN-cr-SAl" customClass="CommentCell" customModule="Swimgur" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4uN-cr-SAl" id="bt3-YQ-Rzh">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzb-Fj-CMp">
-                                                    <rect key="frame" x="8" y="2" width="136" height="30"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImgurImageCellReuseIdentifier" id="svb-IU-XJI" customClass="ImgurImageCell" customModule="Swimgur" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="svb-IU-XJI" id="f1v-HE-eNg">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8KE-kb-suh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" priority="750" constant="136" id="YGi-Op-x4m"/>
+                                                        <constraint firstItem="8KE-kb-suh" firstAttribute="leading" secondItem="f1v-HE-eNg" secondAttribute="leading" id="1j9-Ja-LwD"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8KE-kb-suh" secondAttribute="trailing" id="Tgt-fa-hnW"/>
+                                                        <constraint firstItem="8KE-kb-suh" firstAttribute="top" secondItem="f1v-HE-eNg" secondAttribute="top" id="eGr-e7-V7z"/>
+                                                        <constraint firstAttribute="bottom" secondItem="8KE-kb-suh" secondAttribute="bottom" id="oxd-6x-lLs"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <state key="normal" title="author">
-                                                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ev-09-Xjn">
-                                                    <rect key="frame" x="250" y="2" width="70" height="30"/>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="imgurImage" destination="8KE-kb-suh" id="stm-ZC-fCm"/>
+                                                </connections>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImgurTextCellReuseIdentifier" id="ONE-3D-42c" customClass="ImgurTextCell" customModule="Swimgur" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ONE-3D-42c" id="KMm-lK-xw2">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qK-lv-nUy">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                            <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                        </textView>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="70" id="Okq-mZ-BOF"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1qK-lv-nUy" secondAttribute="bottom" id="N6n-ky-9f4"/>
+                                                        <constraint firstItem="1qK-lv-nUy" firstAttribute="leading" secondItem="KMm-lK-xw2" secondAttribute="leading" id="P5q-yq-pIN"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1qK-lv-nUy" secondAttribute="trailing" id="WAB-7b-ekN"/>
+                                                        <constraint firstItem="1qK-lv-nUy" firstAttribute="top" secondItem="KMm-lK-xw2" secondAttribute="top" id="bbE-Va-0vV"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <state key="normal" title="Expand">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="expand" destination="4uN-cr-SAl" eventType="touchUpInside" id="SXt-8N-JGv"/>
-                                                    </connections>
-                                                </button>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Nk-j9-PFO">
-                                                    <rect key="frame" x="4" y="24" width="312" height="60"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                </textView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 points" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjm-Vr-INR">
-                                                    <rect key="frame" x="152" y="8" width="90" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="HGh-j7-Wno"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="5Ev-09-Xjn" secondAttribute="trailing" id="3Ny-iz-rlx"/>
-                                                <constraint firstItem="5Ev-09-Xjn" firstAttribute="leading" secondItem="xjm-Vr-INR" secondAttribute="trailing" constant="8" id="4E2-Bp-kKF"/>
-                                                <constraint firstItem="xjm-Vr-INR" firstAttribute="leading" secondItem="Gzb-Fj-CMp" secondAttribute="trailing" constant="8" id="AkL-DW-5nV"/>
-                                                <constraint firstItem="Gzb-Fj-CMp" firstAttribute="leading" secondItem="bt3-YQ-Rzh" secondAttribute="leading" constant="8" id="GGj-7y-dwp"/>
-                                                <constraint firstItem="2Nk-j9-PFO" firstAttribute="leading" secondItem="bt3-YQ-Rzh" secondAttribute="leading" constant="4" id="Nwn-ep-FuZ"/>
-                                                <constraint firstItem="2Nk-j9-PFO" firstAttribute="top" secondItem="bt3-YQ-Rzh" secondAttribute="top" constant="24" id="VF9-5j-MsR"/>
-                                                <constraint firstAttribute="trailing" secondItem="2Nk-j9-PFO" secondAttribute="trailing" constant="4" id="XNg-Re-gu0"/>
-                                                <constraint firstItem="Gzb-Fj-CMp" firstAttribute="top" secondItem="bt3-YQ-Rzh" secondAttribute="top" constant="2" id="ZbG-Bg-Oa8"/>
-                                                <constraint firstItem="5Ev-09-Xjn" firstAttribute="top" secondItem="bt3-YQ-Rzh" secondAttribute="top" constant="2" id="aeJ-g0-9Rg"/>
-                                                <constraint firstAttribute="bottom" secondItem="2Nk-j9-PFO" secondAttribute="bottom" id="q53-Ks-YkE"/>
-                                                <constraint firstItem="xjm-Vr-INR" firstAttribute="top" secondItem="bt3-YQ-Rzh" secondAttribute="top" constant="8" id="r2A-pk-iGM"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="imgurText" destination="1qK-lv-nUy" id="qtV-o3-DN4"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
                                         <connections>
-                                            <outlet property="authorButton" destination="Gzb-Fj-CMp" id="4y5-dW-gGf"/>
-                                            <outlet property="authorLeadingConstraint" destination="GGj-7y-dwp" id="0x4-HE-a6X"/>
-                                            <outlet property="authorWidth" destination="YGi-Op-x4m" id="CuB-Gm-AmX"/>
-                                            <outlet property="commentLeadingConstraint" destination="Nwn-ep-FuZ" id="9e3-UN-dOW"/>
-                                            <outlet property="expandButton" destination="5Ev-09-Xjn" id="RiC-Gb-w1q"/>
-                                            <outlet property="imgurText" destination="2Nk-j9-PFO" id="ayd-UY-QIk"/>
-                                            <outlet property="pointsLabel" destination="xjm-Vr-INR" id="jqB-Oj-RBS"/>
-                                            <outlet property="pointsWidth" destination="HGh-j7-Wno" id="YDv-73-Hnt"/>
+                                            <outlet property="dataSource" destination="Yhc-FI-MO3" id="vyr-GS-XpX"/>
+                                            <outlet property="delegate" destination="Yhc-FI-MO3" id="nMg-Al-LlY"/>
                                         </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Yhc-FI-MO3" id="vyr-GS-XpX"/>
-                                    <outlet property="delegate" destination="Yhc-FI-MO3" id="nMg-Al-LlY"/>
-                                </connections>
-                            </tableView>
+                                    </tableView>
+                                </subviews>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhv-bw-Kr5">
                                 <rect key="frame" x="0.0" y="528" width="320" height="40"/>
                                 <subviews>
@@ -338,18 +266,19 @@
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="F5t-Cq-aro" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="21c-FV-5uC"/>
-                            <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="F5t-Cq-aro" secondAttribute="bottom" id="3iE-Hd-Mcu"/>
                             <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="hhv-bw-Kr5" secondAttribute="bottom" id="6TL-ox-haI"/>
                             <constraint firstAttribute="trailing" secondItem="hhv-bw-Kr5" secondAttribute="trailing" id="8NW-sN-5Jt"/>
+                            <constraint firstItem="8RT-uk-jGd" firstAttribute="top" secondItem="4Si-V9-uFV" secondAttribute="top" id="EFa-g9-c8a"/>
+                            <constraint firstItem="G2C-5l-5Qn" firstAttribute="top" secondItem="8RT-uk-jGd" secondAttribute="bottom" id="KjG-FU-KhY"/>
                             <constraint firstItem="hhv-bw-Kr5" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="Nw9-8I-eVa"/>
-                            <constraint firstItem="F5t-Cq-aro" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="PqY-3o-srR"/>
-                            <constraint firstAttribute="trailing" secondItem="F5t-Cq-aro" secondAttribute="trailing" id="dcx-Fa-AHO"/>
+                            <constraint firstItem="8RT-uk-jGd" firstAttribute="leading" secondItem="4Si-V9-uFV" secondAttribute="leading" id="P67-U9-Dfx"/>
+                            <constraint firstAttribute="trailing" secondItem="8RT-uk-jGd" secondAttribute="trailing" id="Qxu-Nm-L0w"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wjd-CP-Jy9"/>
                     <connections>
                         <outlet property="downvoteButton" destination="4tw-C7-Ilj" id="mqD-pU-ogZ"/>
+                        <outlet property="scrollView" destination="8RT-uk-jGd" id="tjY-0Y-4EC"/>
                         <outlet property="tableView" destination="F5t-Cq-aro" id="Tb5-zX-Vrf"/>
                         <outlet property="upvoteButton" destination="nLT-oh-lND" id="4iT-fP-IVO"/>
                         <outlet property="voteBar" destination="hhv-bw-Kr5" id="P20-T0-5Y5"/>
@@ -357,7 +286,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7So-zr-XYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="899" y="470"/>
+            <point key="canvasLocation" x="1200" y="470"/>
         </scene>
     </scenes>
     <resources>
