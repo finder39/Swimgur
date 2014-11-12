@@ -103,6 +103,7 @@ class GalleryItemViewController: UIViewController {
     newTableView.delaysContentTouches = true
     newTableView.contentInset.bottom = self.voteBar.frame.size.height
     newTableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
+    newTableView.separatorStyle = .None
     
     newTableView.backgroundColor = UIColorEXT.BackgroundColor()
     return newTableView

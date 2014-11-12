@@ -118,6 +118,10 @@
 		D8F0E3CC1A105FA700E2AC25 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F0E3CB1A105FA700E2AC25 /* CommentCell.xib */; };
 		D8F0E3CD1A105FA700E2AC25 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F0E3CB1A105FA700E2AC25 /* CommentCell.xib */; };
 		D8F1FC9819B154D8008D38C1 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */; };
+		D8F994091A1305C600CC1422 /* ImgurTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F994081A1305C600CC1422 /* ImgurTextCell.xib */; };
+		D8F9940A1A13069A00CC1422 /* ImgurTextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F994081A1305C600CC1422 /* ImgurTextCell.xib */; };
+		D8F9940C1A13098C00CC1422 /* ImgurImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F9940B1A13098C00CC1422 /* ImgurImageCell.xib */; };
+		D8F9940D1A13098C00CC1422 /* ImgurImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8F9940B1A13098C00CC1422 /* ImgurImageCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,6 +285,8 @@
 		D8F0E3C81A10543E00E2AC25 /* GalleryItemTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemTableView.swift; sourceTree = "<group>"; };
 		D8F0E3CB1A105FA700E2AC25 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
+		D8F994081A1305C600CC1422 /* ImgurTextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImgurTextCell.xib; sourceTree = "<group>"; };
+		D8F9940B1A13098C00CC1422 /* ImgurImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImgurImageCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +492,8 @@
 				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
 				D852EA691A075B3200D21248 /* CommentCell.swift */,
 				D8F0E3CB1A105FA700E2AC25 /* CommentCell.xib */,
+				D8F994081A1305C600CC1422 /* ImgurTextCell.xib */,
+				D8F9940B1A13098C00CC1422 /* ImgurImageCell.xib */,
 			);
 			name = GalleryItemView;
 			path = Controllers/GalleryItemView;
@@ -793,9 +801,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F9940C1A13098C00CC1422 /* ImgurImageCell.xib in Resources */,
 				D8A787DE19FDC8C60099AC98 /* LaunchView.xib in Resources */,
 				D8AE2DB6199070470062E3E6 /* Main.storyboard in Resources */,
 				D8AE2DB8199070470062E3E6 /* Images.xcassets in Resources */,
+				D8F994091A1305C600CC1422 /* ImgurTextCell.xib in Resources */,
 				D8F0E3CC1A105FA700E2AC25 /* CommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -804,7 +814,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F9940D1A13098C00CC1422 /* ImgurImageCell.xib in Resources */,
 				D8F0E3CD1A105FA700E2AC25 /* CommentCell.xib in Resources */,
+				D8F9940A1A13069A00CC1422 /* ImgurTextCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

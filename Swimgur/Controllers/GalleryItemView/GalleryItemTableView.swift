@@ -54,9 +54,11 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   
   func setup() {
     // hacky hack hack
-    self.registerClass(ImgurTextCell.self, forCellReuseIdentifier: "ImgurTextCellReuseIdentifier")
+    //self.registerClass(ImgurTextCell.self, forCellReuseIdentifier: "ImgurTextCellReuseIdentifier")
     //self.registerClass(CommentCell.self, forCellReuseIdentifier: "CommentCellReuseIdentifier")
-    self.registerClass(ImgurImageCell.self, forCellReuseIdentifier: "ImgurImageCellReuseIdentifier")
+    //self.registerClass(ImgurImageCell.self, forCellReuseIdentifier: "ImgurImageCellReuseIdentifier")
+    self.registerNib(UINib(nibName: "ImgurImageCell", bundle: nil), forCellReuseIdentifier: "ImgurImageCellReuseIdentifier")
+    self.registerNib(UINib(nibName: "ImgurTextCell", bundle: nil), forCellReuseIdentifier: "ImgurTextCellReuseIdentifier")
     self.registerNib(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "CommentCellReuseIdentifier")
     
     textCell = self.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
