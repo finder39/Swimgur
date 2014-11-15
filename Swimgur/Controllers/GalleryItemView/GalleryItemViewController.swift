@@ -9,7 +9,12 @@
 import UIKit
 import SWNetworking
 
-class GalleryItemViewController: UIViewController {
+private enum Direction {
+  case Previous
+  case Next
+}
+
+class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
   @IBOutlet weak var tableView: GalleryItemTableView!
   @IBOutlet weak var scrollView: UIScrollView!
   
@@ -23,6 +28,8 @@ class GalleryItemViewController: UIViewController {
   
   var textCell:ImgurTextCell!
   var commentCell:CommentCell!
+  
+  var previousPage:Int = 0
   
   var galleryIndex: Int = 0/* {
     didSet {
@@ -60,6 +67,8 @@ class GalleryItemViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
+  // MARK: Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
@@ -96,6 +105,14 @@ class GalleryItemViewController: UIViewController {
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3.0, self.view.frame.size.height)
   }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    self.loadImage()
+    self.view.bringSubviewToFront(self.voteBar)
+  }
+  
+  // MARK: Helpers
+  
   func createTableViewWithPageOffset(pageOffset:Int) -> GalleryItemTableView {
     let offset = self.view.frame.size.width * CGFloat(pageOffset)
     var newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
@@ -109,10 +126,21 @@ class GalleryItemViewController: UIViewController {
     return newTableView
   }
   
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    self.loadImage()
-    self.view.bringSubviewToFront(self.voteBar)
+  private func moveTablesBasedOnPageChange(direction:Direction) {
+    // sorts tables in order by frame
+    let tableArray:[GalleryItemTableView] = [table1, table2, table3].sorted({ (first:GalleryItemTableView, second:GalleryItemTableView) -> Bool in
+      return CGRectGetMinX(first.frame) < CGRectGetMinX(second.frame)
+    })
+    
+    if direction == .Previous {
+      // move last item to being in front of the first
+      tableArray.last!.galleryIndex = tableArray.first!.galleryIndex - 1
+      tableArray.last!.frame.origin.x = tableArray.first!.frame.origin.x - tableArray.first!.frame.size.width
+    } else if direction == .Next {
+      // move front item to being in back of the last
+      tableArray.first!.galleryIndex = tableArray.last!.galleryIndex + 1
+      tableArray.first!.frame.origin.x = tableArray.last!.frame.origin.x + tableArray.last!.frame.size.width
+    }
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -163,6 +191,22 @@ class GalleryItemViewController: UIViewController {
         }
       }
     }*/
+  }
+  
+  // MARK: UIScrollViewDelegate
+  
+  func scrollViewDidScroll(scrollView: UIScrollView) {
+    let pageWidth = scrollView.frame.size.width
+    var fractionalPage = scrollView.contentOffset.x / pageWidth
+    let page = lround(Double(fractionalPage))
+    if previousPage != page {
+      if previousPage < page {
+        moveTablesBasedOnPageChange(.Next)
+      } else {
+        moveTablesBasedOnPageChange(.Previous)
+      }
+      previousPage = page
+    }
   }
   
   // MARK: voting
