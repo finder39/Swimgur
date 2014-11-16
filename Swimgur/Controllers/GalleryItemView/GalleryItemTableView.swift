@@ -71,6 +71,9 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   // galleryitem functions
   
   func loadImage() {
+    dispatch_async(dispatch_get_main_queue()) {
+      self.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
       if let item = self.currentGalleryItem {
         item.getComments({ (success) -> () in
