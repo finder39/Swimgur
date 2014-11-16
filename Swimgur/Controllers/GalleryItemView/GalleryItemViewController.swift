@@ -9,14 +9,9 @@
 import UIKit
 import SWNetworking
 
-private enum Direction {
-  case Previous
-  case Next
-}
-
-class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
+class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
   @IBOutlet weak var tableView: GalleryItemTableView!
-  @IBOutlet weak var scrollView: UIScrollView!
+  @IBOutlet weak var scrollView: InfiniteScrollView!
   
   @IBOutlet weak var downvoteButton: UIButton!
   @IBOutlet weak var upvoteButton: UIButton!
@@ -97,6 +92,8 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3.0, self.view.frame.size.height)
     //self.scrollView.contentOffset = CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y)
     self.scrollView.setContentOffset(CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y), animated: false)
+    
+    self.scrollView.infiniteScrollViewDelegate = self
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -121,28 +118,6 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     
     newTableView.backgroundColor = UIColorEXT.BackgroundColor()
     return newTableView
-  }
-  
-  private func moveTablesBasedOnPageChange(direction:Direction) {
-    // sorts tables in order by frame
-    let tableArray:[GalleryItemTableView] = [table1, table2, table3].sorted({ (first:GalleryItemTableView, second:GalleryItemTableView) -> Bool in
-      return CGRectGetMinX(first.frame) < CGRectGetMinX(second.frame)
-    })
-    
-    if direction == .Previous {
-      // move last item to being in front of the first
-      tableArray.last!.galleryIndex = tableArray.first!.galleryIndex - 1
-      tableArray.last!.frame.origin.x = tableArray.first!.frame.origin.x - tableArray.first!.frame.size.width
-    } else if direction == .Next {
-      // move front item to being in back of the last
-      tableArray.first!.galleryIndex = tableArray.last!.galleryIndex + 1
-      tableArray.first!.frame.origin.x = tableArray.last!.frame.origin.x + tableArray.last!.frame.size.width
-      
-      // center items
-      /*for theTable in tableArray {
-        theTable.frame.origin.x = theTable.frame.origin.x - theTable.frame.size.width
-      }*/
-    }
   }
   
   func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -195,19 +170,17 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     }*/
   }
   
-  // MARK: UIScrollViewDelegate
+  // MARK: InfiniteScrollViewDelegate
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
-    let pageWidth = scrollView.frame.size.width
-    var fractionalPage = scrollView.contentOffset.x / pageWidth
-    let page = lround(Double(fractionalPage))
-    if 1 != page {
-      if 1 > page {
-        moveTablesBasedOnPageChange(.Previous)
-      } else {
-        moveTablesBasedOnPageChange(.Next)
+  func movedView(movedView: UIView, direction: InfiniteScrollViewMoveDirection, nextToView: UIView) {
+    if let movedView = movedView as? GalleryItemTableView {
+      if let nextToView = nextToView as? GalleryItemTableView {
+        if direction == .ToBeginning {
+          movedView.galleryIndex = nextToView.galleryIndex - 1
+        } else if direction == .ToEnd {
+          movedView.galleryIndex = nextToView.galleryIndex + 1
+        }
       }
-      //previousPage = page
     }
   }
   

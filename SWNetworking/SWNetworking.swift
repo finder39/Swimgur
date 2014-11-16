@@ -244,14 +244,16 @@ public class SWNetworking: NSObject {
   public func getAlbum(#albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/album/\(albumId)")
     session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
-        })
-      } else {
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: NSError(), description: "No data was returned")
-        })
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+        if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
+          })
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: NSError(), description: "No data was returned")
+          })
+        }
       }
     }) { (operation, error) -> Void in
       dispatch_async(dispatch_get_main_queue(), {
@@ -277,18 +279,20 @@ public class SWNetworking: NSObject {
   public func getComments(#galleryItemId:String, onCompletion:SWCommentsBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/\(galleryItemId)/comments")
     session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      if let data = responseObject["data"] as? [AnyObject] {
-        var comments:[Comment] = []
-        for commentDict in data {
-          comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
+      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+        if let data = responseObject["data"] as? [AnyObject] {
+          var comments:[Comment] = []
+          for commentDict in data {
+            comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
+          }
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(comments: comments)
+          })
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: NSError(), description: "No data was returned")
+          })
         }
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(comments: comments)
-        })
-      } else {
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: NSError(), description: "No data was returned")
-        })
       }
     }) { (operation, error) -> Void in
       dispatch_async(dispatch_get_main_queue(), {

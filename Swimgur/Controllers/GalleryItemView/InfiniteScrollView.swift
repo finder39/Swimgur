@@ -9,7 +9,18 @@
 import Foundation
 import UIKit
 
+enum InfiniteScrollViewMoveDirection {
+  case ToBeginning
+  case ToEnd
+}
+
+protocol InfiniteScrollViewDelegate {
+  func movedView(movedView:UIView, direction:InfiniteScrollViewMoveDirection, nextToView:UIView)
+}
+
 class InfiniteScrollView: UIScrollView {
+  var infiniteScrollViewDelegate:InfiniteScrollViewDelegate?
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     
@@ -17,6 +28,10 @@ class InfiniteScrollView: UIScrollView {
     var fractionalPage = self.contentOffset.x / pageWidth
     let page = lround(Double(fractionalPage))
     if 1 != page {
+      let subviewsSorted:[UIView] = (self.subviews as [UIView]).sorted({ (first, second) -> Bool in
+        return CGRectGetMinX(first.frame) < CGRectGetMinX(second.frame)
+      })
+      
       if 1 < page {
         self.contentOffset = CGPointMake(self.contentOffset.x-(subviews.first! as UIView).frame.size.width, self.contentOffset.y)
         for view in subviews {
@@ -24,6 +39,12 @@ class InfiniteScrollView: UIScrollView {
             view.frame.origin.x = view.frame.origin.x - view.frame.size.width
           }
         }
+        // move front item to being in back of the last
+        //tableArray.first!.galleryIndex = tableArray.last!.galleryIndex + 1
+        if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
+          infiniteScrollViewDelegate.movedView(subviewsSorted.first!, direction: .ToEnd, nextToView: subviewsSorted.last!)
+        }
+        subviewsSorted.first!.frame.origin.x = subviewsSorted.last!.frame.origin.x + subviewsSorted.last!.frame.size.width
       } else {
         self.contentOffset = CGPointMake(self.contentOffset.x+(subviews.first! as UIView).frame.size.width, self.contentOffset.y)
         for view in subviews {
@@ -31,6 +52,12 @@ class InfiniteScrollView: UIScrollView {
             view.frame.origin.x = view.frame.origin.x + view.frame.size.width
           }
         }
+        // move last item to being in front of the first
+        //tableArray.last!.galleryIndex = tableArray.first!.galleryIndex - 1
+        if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
+          infiniteScrollViewDelegate.movedView(subviewsSorted.last!, direction: .ToBeginning, nextToView: subviewsSorted.first!)
+        }
+        subviewsSorted.last!.frame.origin.x = subviewsSorted.first!.frame.origin.x - subviewsSorted.first!.frame.size.width
       }
       //previousPage = page
     }

@@ -71,30 +71,38 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   // galleryitem functions
   
   func loadImage() {
-    if let item = currentGalleryItem {
-      item.getComments({ (success) -> () in
-        self.reloadData()
-      })
-      
-      //self.title = item.title
-      //self.colorFromVote(item)
-      
-      // http://stackoverflow.com/questions/19896447/ios-7-navigation-bar-height
-      /*UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
-      self.navigationController!.navigationBar.bounds = CGRectMake(0, 0, self.navigationController!.navigationBar.frame.size.width, 100)
-      }, completion: { (done) -> Void in
-      
-      })*/
-      if let galleryImage = item as? GalleryImage {
-        self.reloadData()
-      } else if let galleryAlbum = item as? GalleryAlbum {
-        if galleryAlbum.images.count == 0 {
-          galleryAlbum.getAlbum(onCompletion: { (album) -> () in
-            DataManager.sharedInstance.galleryItems[self.galleryIndex] = album
-            self.loadImage()
-          })
-        } else {
-          self.reloadData()
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+      if let item = self.currentGalleryItem {
+        item.getComments({ (success) -> () in
+          dispatch_async(dispatch_get_main_queue()) {
+            self.reloadData()
+          }
+        })
+        
+        //self.title = item.title
+        //self.colorFromVote(item)
+        
+        // http://stackoverflow.com/questions/19896447/ios-7-navigation-bar-height
+        /*UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+        self.navigationController!.navigationBar.bounds = CGRectMake(0, 0, self.navigationController!.navigationBar.frame.size.width, 100)
+        }, completion: { (done) -> Void in
+        
+        })*/
+        if let galleryImage = item as? GalleryImage {
+          dispatch_async(dispatch_get_main_queue()) {
+            self.reloadData()
+          }
+        } else if let galleryAlbum = item as? GalleryAlbum {
+          if galleryAlbum.images.count == 0 {
+            galleryAlbum.getAlbum(onCompletion: { (album) -> () in
+              DataManager.sharedInstance.galleryItems[self.galleryIndex] = album
+              self.loadImage()
+            })
+          } else {
+            dispatch_async(dispatch_get_main_queue()) {
+              self.reloadData()
+            }
+          }
         }
       }
     }
