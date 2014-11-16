@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D83A2C011A181D6D00854512 /* InfiniteScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A2C001A181D6D00854512 /* InfiniteScrollView.swift */; };
+		D83A2C021A181D6D00854512 /* InfiniteScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D83A2C001A181D6D00854512 /* InfiniteScrollView.swift */; };
 		D84551A11A06FD5200E02E0A /* ImgurImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */; };
 		D84551A31A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
 		D84551A41A06FEB900E02E0A /* ImgurTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */; };
@@ -184,6 +186,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D83A2C001A181D6D00854512 /* InfiniteScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollView.swift; sourceTree = "<group>"; };
 		D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurTextCell.swift; sourceTree = "<group>"; };
 		D852EA671A074DC300D21248 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		D852EA691A075B3200D21248 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
@@ -488,6 +491,7 @@
 			children = (
 				D8ABBD7319A3FAB200CECF9B /* GalleryItemViewController.swift */,
 				D8F0E3C81A10543E00E2AC25 /* GalleryItemTableView.swift */,
+				D83A2C001A181D6D00854512 /* InfiniteScrollView.swift */,
 				D878E2B01A06F6EA0015C84E /* ImgurImageCell.swift */,
 				D84551A21A06FEB900E02E0A /* ImgurTextCell.swift */,
 				D852EA691A075B3200D21248 /* CommentCell.swift */,
@@ -856,6 +860,7 @@
 				D897759119D7687700595045 /* DataManager.swift in Sources */,
 				D89920C21991B6530064C50A /* Constants.swift in Sources */,
 				D8F0E3C91A10543E00E2AC25 /* GalleryItemTableView.swift in Sources */,
+				D83A2C011A181D6D00854512 /* InfiniteScrollView.swift in Sources */,
 				D8A787DB19FD9FC00099AC98 /* ILTranslucentView.swift in Sources */,
 				D852EA6A1A075B3200D21248 /* CommentCell.swift in Sources */,
 			);
@@ -872,6 +877,7 @@
 				D8F044CD19B0F20100F04FB5 /* ViewController.swift in Sources */,
 				D852EA6B1A075B3200D21248 /* CommentCell.swift in Sources */,
 				D8F044BE19B0F20100F04FB5 /* UIColorExt.swift in Sources */,
+				D83A2C021A181D6D00854512 /* InfiniteScrollView.swift in Sources */,
 				D8F044BC19B0E84800F04FB5 /* ImgurLoginControllerTests.swift in Sources */,
 				D84551A11A06FD5200E02E0A /* ImgurImageCell.swift in Sources */,
 				D87FDFF119E1D1B500737BA0 /* UITextViewExt.swift in Sources */,

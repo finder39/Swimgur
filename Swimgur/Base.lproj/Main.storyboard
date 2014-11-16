@@ -154,7 +154,7 @@
         <!--Image-->
         <scene sceneID="TGi-UI-wOI">
             <objects>
-                <viewController title="Image" id="Yhc-FI-MO3" customClass="GalleryItemViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Image" automaticallyAdjustsScrollViewInsets="NO" id="Yhc-FI-MO3" customClass="GalleryItemViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F4w-S6-sj1"/>
                         <viewControllerLayoutGuide type="bottom" id="G2C-5l-5Qn"/>
@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RT-uk-jGd">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RT-uk-jGd" customClass="InfiniteScrollView" customModule="Swimgur" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="F5t-Cq-aro" customClass="GalleryItemTableView" customModule="Swimgur" customModuleProvider="target">

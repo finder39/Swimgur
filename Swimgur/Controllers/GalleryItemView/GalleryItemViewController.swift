@@ -29,8 +29,6 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
   var textCell:ImgurTextCell!
   var commentCell:CommentCell!
   
-  var previousPage:Int = 0
-  
   var galleryIndex: Int = 0/* {
     didSet {
       if let galleryIndex = galleryIndex {
@@ -84,16 +82,10 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     swipeRight.direction = UISwipeGestureRecognizerDirection.Right
     self.tableView.addGestureRecognizer(swipeRight)*/
     
-    self.tableView.canCancelContentTouches = true
-    self.tableView.delaysContentTouches = true
-    
-    self.tableView.contentInset.bottom = self.voteBar.frame.size.height
-    self.tableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
-    
     // setup new table views for scrolling
-    table1 = createTableViewWithPageOffset(-1)
-    table2 = createTableViewWithPageOffset(0)
-    table3 = createTableViewWithPageOffset(1)
+    table1 = createTableViewWithPageOffset(0)
+    table2 = createTableViewWithPageOffset(1)
+    table3 = createTableViewWithPageOffset(2)
     
     self.scrollView.addSubview(table1)
     self.scrollView.addSubview(table2)
@@ -103,6 +95,8 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     self.tableView.removeFromSuperview()
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3.0, self.view.frame.size.height)
+    //self.scrollView.contentOffset = CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y)
+    self.scrollView.setContentOffset(CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y), animated: false)
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -116,6 +110,9 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
   func createTableViewWithPageOffset(pageOffset:Int) -> GalleryItemTableView {
     let offset = self.view.frame.size.width * CGFloat(pageOffset)
     var newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
+    newTableView.contentInset.top = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height
+    newTableView.contentInset.bottom = self.voteBar.frame.size.height
+    newTableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
     newTableView.canCancelContentTouches = true
     newTableView.delaysContentTouches = true
     newTableView.contentInset.bottom = self.voteBar.frame.size.height
@@ -140,6 +137,11 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
       // move front item to being in back of the last
       tableArray.first!.galleryIndex = tableArray.last!.galleryIndex + 1
       tableArray.first!.frame.origin.x = tableArray.last!.frame.origin.x + tableArray.last!.frame.size.width
+      
+      // center items
+      /*for theTable in tableArray {
+        theTable.frame.origin.x = theTable.frame.origin.x - theTable.frame.size.width
+      }*/
     }
   }
   
@@ -199,13 +201,13 @@ class GalleryItemViewController: UIViewController, UIScrollViewDelegate {
     let pageWidth = scrollView.frame.size.width
     var fractionalPage = scrollView.contentOffset.x / pageWidth
     let page = lround(Double(fractionalPage))
-    if previousPage != page {
-      if previousPage < page {
-        moveTablesBasedOnPageChange(.Next)
-      } else {
+    if 1 != page {
+      if 1 > page {
         moveTablesBasedOnPageChange(.Previous)
+      } else {
+        moveTablesBasedOnPageChange(.Next)
       }
-      previousPage = page
+      //previousPage = page
     }
   }
   
