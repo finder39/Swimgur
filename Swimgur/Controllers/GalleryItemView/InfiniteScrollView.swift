@@ -16,6 +16,7 @@ enum InfiniteScrollViewMoveDirection {
 
 protocol InfiniteScrollViewDelegate {
   func movedView(movedView:UIView, direction:InfiniteScrollViewMoveDirection, nextToView:UIView)
+  func newCenterView(centerView:UIView)
 }
 
 class InfiniteScrollView: UIScrollView {
@@ -43,6 +44,7 @@ class InfiniteScrollView: UIScrollView {
         //tableArray.first!.galleryIndex = tableArray.last!.galleryIndex + 1
         if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
           infiniteScrollViewDelegate.movedView(subviewsSorted.first!, direction: .ToEnd, nextToView: subviewsSorted.last!)
+          infiniteScrollViewDelegate.newCenterView(subviewsSorted.last!)
         }
         subviewsSorted.first!.frame.origin.x = subviewsSorted.last!.frame.origin.x + subviewsSorted.last!.frame.size.width
       } else {
@@ -56,6 +58,7 @@ class InfiniteScrollView: UIScrollView {
         //tableArray.last!.galleryIndex = tableArray.first!.galleryIndex - 1
         if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
           infiniteScrollViewDelegate.movedView(subviewsSorted.last!, direction: .ToBeginning, nextToView: subviewsSorted.first!)
+          infiniteScrollViewDelegate.newCenterView(subviewsSorted.first!)
         }
         subviewsSorted.last!.frame.origin.x = subviewsSorted.first!.frame.origin.x - subviewsSorted.first!.frame.size.width
       }

@@ -24,20 +24,16 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
   var textCell:ImgurTextCell!
   var commentCell:CommentCell!
   
-  var galleryIndex: Int = 0/* {
+  var galleryIndex: Int = 0 {
     didSet {
-      if let galleryIndex = galleryIndex {
-        if DataManager.sharedInstance.galleryItems.count > galleryIndex {
-          let item:GalleryItem = DataManager.sharedInstance.galleryItems[galleryIndex]
-          if let galleryImage = item as? GalleryImage {
-            DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryImage.squareThumbnailURIForSize(imageView.frame.size))
-          } else if let galleryAlbum = item as? GalleryAlbum {
-            DataManager.sharedInstance.setImageView(self.imageView, withURL: galleryAlbum.squareThumbnailURIForSize(imageView.frame.size))
-          }
-        }
+      // have to check if nil because when moving from gallery collection the galleryIndex is set in the
+      // prepareForSegue function and that happens before the view is loaded, causing voteBar to be nil
+      // and to crash while setting color in colorFromVote
+      if voteBar != nil {
+        self.setupViewBasedOnGalleryItem()
       }
     }
-  }*/
+  }
   private var currentGalleryItem:GalleryItem? {
     if DataManager.sharedInstance.galleryItems.count > galleryIndex && galleryIndex >= 0 {
       return DataManager.sharedInstance.galleryItems[galleryIndex]
@@ -70,13 +66,6 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     textCell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
     commentCell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier") as CommentCell
     
-    /*var swipeLeft = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-    swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
-    self.tableView.addGestureRecognizer(swipeLeft)
-    var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
-    swipeRight.direction = UISwipeGestureRecognizerDirection.Right
-    self.tableView.addGestureRecognizer(swipeRight)*/
-    
     // setup new table views for scrolling
     table1 = createTableViewWithPageOffset(0)
     table2 = createTableViewWithPageOffset(1)
@@ -94,11 +83,14 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     self.scrollView.setContentOffset(CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y), animated: false)
     
     self.scrollView.infiniteScrollViewDelegate = self
+    self.loadImage()
+    
+    // setup initial title since doing so in the galleryIndex didSet won't work on selected gallery item for gallery collection view
+    self.setupViewBasedOnGalleryItem()
   }
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    self.loadImage()
     self.view.bringSubviewToFront(self.voteBar)
   }
   
@@ -118,23 +110,6 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     
     newTableView.backgroundColor = UIColorEXT.BackgroundColor()
     return newTableView
-  }
-  
-  func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-    if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-      switch swipeGesture.direction {
-      case UISwipeGestureRecognizerDirection.Right:
-        galleryIndex--
-        self.loadImage()
-        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
-      case UISwipeGestureRecognizerDirection.Left:
-        galleryIndex++
-        self.loadImage()
-        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 10, 10), animated: false)
-      default:
-        break
-      }
-    }
   }
   
   private func loadImage() {
@@ -170,6 +145,20 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     }*/
   }
   
+  func setupViewBasedOnGalleryItem() {
+    if let item = currentGalleryItem {
+      self.title = item.title
+      self.colorFromVote(item)
+      
+      // http://stackoverflow.com/questions/19896447/ios-7-navigation-bar-height
+      /*UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+      self.navigationController!.navigationBar.bounds = CGRectMake(0, 0, self.navigationController!.navigationBar.frame.size.width, 100)
+      }, completion: { (done) -> Void in
+      
+      })*/
+    }
+  }
+  
   // MARK: InfiniteScrollViewDelegate
   
   func movedView(movedView: UIView, direction: InfiniteScrollViewMoveDirection, nextToView: UIView) {
@@ -181,6 +170,12 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
           movedView.galleryIndex = nextToView.galleryIndex + 1
         }
       }
+    }
+  }
+  
+  func newCenterView(centerView: UIView) {
+    if let centerView = centerView as? GalleryItemTableView {
+      self.galleryIndex = centerView.galleryIndex
     }
   }
   
