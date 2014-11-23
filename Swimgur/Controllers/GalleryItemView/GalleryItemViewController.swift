@@ -63,8 +63,8 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     // Do any additional setup after loading the view, typically from a nib.
     
     // hacky hack hack
-    textCell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
-    commentCell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier") as CommentCell
+    textCell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
+    commentCell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
     
     // setup new table views for scrolling
     table1 = createTableViewWithPageOffset(0)

@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 import SWNetworking
 
-let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
-let GalleryCollectionViewLoadMoreCellReuseIdentifier = "GalleryCollectionViewLoadMoreCellReuseIdentifier"
-let SegueGalleryToGalleryItem = "SegueGalleryToGalleryItem"
-
 /************************
 // (320-(.5*6)-2)/3 = 105
 
@@ -34,7 +30,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCellReuseIdentifier)
+    self.collectionGallery.registerClass(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: Constants.ReuseIdentifier.GalleryCollectionViewCellReuseIdentifier)
     
     cellSize = collectionCellSizeFinder(deviceWidth: min(UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height), max: 135)
     
@@ -120,7 +116,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     if indexPath.section == 0 {
-      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
+      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.ReuseIdentifier.GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
       let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
       cell.gallery = galleryItem
       
@@ -131,14 +127,14 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
       
       return cell
     } else {
-      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(GalleryCollectionViewLoadMoreCellReuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
+      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.ReuseIdentifier.GalleryCollectionViewLoadMoreCellReuseIdentifier, forIndexPath: indexPath) as UICollectionViewCell
       return cell
     }
   }
   
   func collectionView(collectionView: UICollectionView!, didSelectItemAtIndexPath indexPath: NSIndexPath!) {
     if indexPath.section == 0 {
-      self.performSegueWithIdentifier(SegueGalleryToGalleryItem, sender: indexPath)
+      self.performSegueWithIdentifier(Constants.Segue.SegueGalleryToGalleryItem, sender: indexPath)
     } else {
       
     }

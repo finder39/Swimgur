@@ -57,12 +57,12 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
     //self.registerClass(ImgurTextCell.self, forCellReuseIdentifier: "ImgurTextCellReuseIdentifier")
     //self.registerClass(CommentCell.self, forCellReuseIdentifier: "CommentCellReuseIdentifier")
     //self.registerClass(ImgurImageCell.self, forCellReuseIdentifier: "ImgurImageCellReuseIdentifier")
-    self.registerNib(UINib(nibName: "ImgurImageCell", bundle: nil), forCellReuseIdentifier: "ImgurImageCellReuseIdentifier")
-    self.registerNib(UINib(nibName: "ImgurTextCell", bundle: nil), forCellReuseIdentifier: "ImgurTextCellReuseIdentifier")
-    self.registerNib(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "CommentCellReuseIdentifier")
+    self.registerNib(UINib(nibName: "ImgurImageCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.ImgurImageCellReuseIdentifier)
+    self.registerNib(UINib(nibName: "ImgurTextCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier)
+    self.registerNib(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.CommentCellReuseIdentifier)
     
-    textCell = self.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier") as ImgurTextCell
-    commentCell = self.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier") as CommentCell
+    textCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
+    commentCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
     
     self.delegate = self
     self.dataSource = self
@@ -175,11 +175,11 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
       let item = currentGalleryItem!
       
       if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurImageCellReuseIdentifier", forIndexPath: indexPath) as ImgurImageCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurImageCellReuseIdentifier, forIndexPath: indexPath) as ImgurImageCell
         SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
         return cell
       } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
-        var cell = tableView.dequeueReusableCellWithIdentifier("ImgurTextCellReuseIdentifier", forIndexPath: indexPath) as ImgurTextCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier, forIndexPath: indexPath) as ImgurTextCell
         cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
         return cell
       }
@@ -187,7 +187,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
       let item = currentGalleryItem!
       let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
       
-      var cell = tableView.dequeueReusableCellWithIdentifier("CommentCellReuseIdentifier", forIndexPath: indexPath) as CommentCell
+      var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier, forIndexPath: indexPath) as CommentCell
       cell.authorButton.setTitle(comment.author, forState: .Normal)
       let authorSize = cell.authorButton.sizeThatFits(CGSizeMake(CGFloat.max, cell.authorButton.frame.size.height))
       cell.authorWidth.constant = authorSize.width

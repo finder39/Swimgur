@@ -24,6 +24,27 @@ class ConstantsPrivate {
   let ImgurControllerConfigClientID = "541fb8cc243d820"
   let ImgurControllerConfigSecret = "57f58dd18f68946a6310e17d9cc3093740338676"
   
+  // MARK: Reuse Identifiers
+  
+  let ReuseIdentifier = ReuseIdentifierPrivate()
+  
+  class ReuseIdentifierPrivate {
+    let GalleryCollectionViewCellReuseIdentifier = "GalleryCollectionViewCellReuseIdentifier"
+    let GalleryCollectionViewLoadMoreCellReuseIdentifier = "GalleryCollectionViewLoadMoreCellReuseIdentifier"
+    let ImgurTextCellReuseIdentifier = "ImgurTextCellReuseIdentifier"
+    let CommentCellReuseIdentifier = "CommentCellReuseIdentifier"
+    let ImgurImageCellReuseIdentifier = "ImgurImageCellReuseIdentifier"
+  }
+  
+  // MARK: Segues
+  
+  let Segue = SeguePrivate()
+  
+  class SeguePrivate {
+    let SegueWelcomeToMaster = "SegueWelcomeToMaster"
+    let SegueGalleryToGalleryItem = "SegueGalleryToGalleryItem"
+  }
+  
   // MARK: Functions
   
   func encodeImageToBase64String(image:UIImage) -> String {
