@@ -37,16 +37,21 @@ class GalleryCollectionViewCell: UICollectionViewCell {
   
   override init() {
     super.init()
-    self.setup()
   }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.setup()
+    setup()
   }
   
   required init(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    setup()
+  }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    //setup() //  doesn't work because imageView is created in setup
   }
   
   override func drawRect(rect: CGRect) {
@@ -80,13 +85,11 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     self.layer.borderWidth = 1
   }
   
-  internal func resetCell() {
+  override func prepareForReuse() {
+    super.prepareForReuse()
     gallery = nil
-    //if let imageView = imageView {
-      imageView.image = nil
-    //}
+    imageView.image = nil
+    SWNetworking.sharedInstance.cancelImageviewLoad(imageView)
     self.layer.borderColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1).CGColor
   }
-  
-  
 }
