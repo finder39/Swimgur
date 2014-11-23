@@ -19,8 +19,12 @@ class ConstantsPrivate {
     return Static.instance
   }
   
+  // MARK: App ID
+  
   let ImgurControllerConfigClientID = "541fb8cc243d820"
   let ImgurControllerConfigSecret = "57f58dd18f68946a6310e17d9cc3093740338676"
+  
+  // MARK: Functions
   
   func encodeImageToBase64String(image:UIImage) -> String {
     return UIImagePNGRepresentation(image).base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
