@@ -194,7 +194,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     // Setup for upload
-    let imageB64 = Constants().encodeImageToBase64String(image)
+    let imageB64 = Constants.encodeImageToBase64String(image)
     
     SWNetworking.sharedInstance.uploadImage(ImageUpload(imageB64: imageB64)) { (success) -> () in
       

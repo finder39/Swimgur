@@ -33,7 +33,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     
     // https://api.imgur.com/oauth2/authorize?client_id=541fb8cc243d820&response_type=code&state=auth
     
-    let urlString = "\(SWNetworking.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(SWNetworking.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants().ImgurControllerConfigClientID)&response_type=\(authType.rawValue)&state=auth"
+    let urlString = "\(SWNetworking.sharedInstance.restConfig.serviceAuthorizeEndpoint)/\(SWNetworking.sharedInstance.restConfig.authorizeURI)?client_id=\(Constants.ImgurControllerConfigClientID)&response_type=\(authType.rawValue)&state=auth"
     
     webView.delegate = self
     webView.loadRequest(NSURLRequest(URL: NSURL(string: urlString)!))
@@ -84,8 +84,8 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   private func getTokensFromCode(code:String) {
     var form = CodeForm()
     form.code = code
-    form.clientID = Constants().ImgurControllerConfigClientID
-    form.clientSecret = Constants().ImgurControllerConfigSecret
+    form.clientID = Constants.ImgurControllerConfigClientID
+    form.clientSecret = Constants.ImgurControllerConfigSecret
     form.grantType = "authorization_code"
     SWNetworking.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       self.getAccount()
@@ -97,8 +97,8 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   private func getTokensFromRefresh(token:Token) {
     var form = RefreshTokenForm()
     form.refreshToken = token.refreshToken
-    form.clientID = Constants().ImgurControllerConfigClientID
-    form.clientSecret = Constants().ImgurControllerConfigSecret
+    form.clientID = Constants.ImgurControllerConfigClientID
+    form.clientSecret = Constants.ImgurControllerConfigSecret
     form.grantType = "refresh_token"
     SWNetworking.sharedInstance.getTokensWithForm(form, onCompletion: { (token) -> () in
       self.getAccount()

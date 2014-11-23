@@ -9,7 +9,16 @@
 import Foundation
 import UIKit
 
-struct Constants {
+let Constants = ConstantsPrivate()
+
+class ConstantsPrivate {
+  class var sharedInstance:ConstantsPrivate {
+    struct Static {
+      static let instance = ConstantsPrivate()
+    }
+    return Static.instance
+  }
+  
   let ImgurControllerConfigClientID = "541fb8cc243d820"
   let ImgurControllerConfigSecret = "57f58dd18f68946a6310e17d9cc3093740338676"
   
