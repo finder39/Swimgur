@@ -118,12 +118,14 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
   func createTableViewWithPageOffset(pageOffset:Int) -> GalleryItemTableView {
     let offset = self.view.frame.size.width * CGFloat(pageOffset)
     var newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
+    // TODO: status bar height will become 40 px and non-transparent during calls/navigation/hotspot. Need to detect/account and adjust for this.
     newTableView.contentInset.top = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height
     newTableView.contentInset.bottom = self.voteBar.frame.size.height
     newTableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
     newTableView.canCancelContentTouches = true
     newTableView.delaysContentTouches = true
     newTableView.contentInset.bottom = self.voteBar.frame.size.height
+    // TODO: Need to make an NSAutoLayotConstraint for height to heigth of scrollview to account for calls/navigation/hotspott status bar changes (and rotation)
     newTableView.scrollIndicatorInsets.bottom = self.voteBar.frame.size.height
     newTableView.separatorStyle = .None
     
