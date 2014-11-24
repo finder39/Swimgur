@@ -10,7 +10,6 @@ import UIKit
 import SWNetworking
 
 class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
-  @IBOutlet weak var tableView: GalleryItemTableView!
   @IBOutlet weak var scrollView: InfiniteScrollView!
   
   @IBOutlet weak var downvoteButton: UIButton!
@@ -62,10 +61,6 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-    // hacky hack hack
-    textCell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
-    commentCell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
-    
     // setup new table views for scrolling
     table1 = createTableViewWithPageOffset(0)
     table2 = createTableViewWithPageOffset(1)
@@ -75,8 +70,9 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     self.scrollView.addSubview(table2)
     self.scrollView.addSubview(table3)
     
-    // remove tableview
-    self.tableView.removeFromSuperview()
+    // hacky hack hack
+    textCell = table1.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
+    commentCell = table1.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width*3.0, self.view.frame.size.height)
     //self.scrollView.contentOffset = CGPointMake(self.view.frame.size.width, self.scrollView.contentOffset.y)
