@@ -17,10 +17,14 @@ enum InfiniteScrollViewMoveDirection {
 protocol InfiniteScrollViewDelegate {
   func movedView(movedView:UIView, direction:InfiniteScrollViewMoveDirection, nextToView:UIView)
   func newCenterView(centerView:UIView)
+  
+  // used to determine if is first or last page in infitite scroll
+  func currentPageIsSecondToFirstPage() -> Bool
+  func currentPageIsSecondToLastPage() -> Bool
 }
 
 class InfiniteScrollView: UIScrollView {
-  var infiniteScrollViewDelegate:InfiniteScrollViewDelegate?
+  var infiniteScrollViewDelegate:InfiniteScrollViewDelegate!
   
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -36,7 +40,7 @@ class InfiniteScrollView: UIScrollView {
         return CGRectGetMinX(first.frame) < CGRectGetMinX(second.frame)
       })
       
-      if page > 1 {
+      if page > 1 && !infiniteScrollViewDelegate.currentPageIsSecondToLastPage() {
         self.contentOffset = CGPointMake(self.contentOffset.x-(subviews.first! as UIView).frame.size.width, self.contentOffset.y)
         for view in subviews {
           // move each view left the width of a page
@@ -45,12 +49,11 @@ class InfiniteScrollView: UIScrollView {
           }
         }
         // move front item to being in back of the last
-        if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
-          infiniteScrollViewDelegate.movedView(subviewsSorted.first!, direction: .ToEnd, nextToView: subviewsSorted.last!)
-          infiniteScrollViewDelegate.newCenterView(subviewsSorted.last!)
-        }
+        infiniteScrollViewDelegate.movedView(subviewsSorted.first!, direction: .ToEnd, nextToView: subviewsSorted.last!)
+        infiniteScrollViewDelegate.newCenterView(subviewsSorted.last!)
+          
         subviewsSorted.first!.frame.origin.x = subviewsSorted.last!.frame.origin.x + subviewsSorted.last!.frame.size.width
-      } else {
+      } else if page < 1 && !infiniteScrollViewDelegate.currentPageIsSecondToFirstPage() {
         self.contentOffset = CGPointMake(self.contentOffset.x+(subviews.first! as UIView).frame.size.width, self.contentOffset.y)
         // move each view right the width of a page
         for view in subviews {
@@ -59,10 +62,9 @@ class InfiniteScrollView: UIScrollView {
           }
         }
         // move last item to being in front of the first
-        if let infiniteScrollViewDelegate = infiniteScrollViewDelegate {
-          infiniteScrollViewDelegate.movedView(subviewsSorted.last!, direction: .ToBeginning, nextToView: subviewsSorted.first!)
-          infiniteScrollViewDelegate.newCenterView(subviewsSorted.first!)
-        }
+        infiniteScrollViewDelegate.movedView(subviewsSorted.last!, direction: .ToBeginning, nextToView: subviewsSorted.first!)
+        infiniteScrollViewDelegate.newCenterView(subviewsSorted.first!)
+        
         subviewsSorted.last!.frame.origin.x = subviewsSorted.first!.frame.origin.x - subviewsSorted.first!.frame.size.width
       }
     }

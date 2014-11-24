@@ -179,6 +179,14 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     }
   }
   
+  func currentPageIsSecondToFirstPage() -> Bool {
+    return (self.galleryIndex == 1)
+  }
+  
+  func currentPageIsSecondToLastPage() -> Bool {
+    return (self.galleryIndex == DataManager.sharedInstance.galleryItems.count-2)
+  }
+  
   // MARK: voting
   
   private func colorFromVote(item:GalleryItem) {
