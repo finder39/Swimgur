@@ -26,8 +26,14 @@ protocol InfiniteScrollViewDelegate {
 class InfiniteScrollView: UIScrollView {
   var infiniteScrollViewDelegate:InfiniteScrollViewDelegate!
   
+  var currentPage = -1
+  
   override func layoutSubviews() {
     super.layoutSubviews()
+    
+    // hacky hack hack // shouldn't need this
+    // TODO: seperate moving view and new page notifications...if possible
+    var alreadyCalledNewCenterViewThisTime = false
     
     let pageWidth = self.frame.size.width
     var fractionalPage = self.contentOffset.x / pageWidth
@@ -35,7 +41,7 @@ class InfiniteScrollView: UIScrollView {
     
     // 1 is center page as there are only 3 item
     // page will not be 1 once it has beens scrolled 50% of a page left or right
-    if 1 != page {
+    if self.subviews.count >= 3 && 1 != page {
       let subviewsSorted:[UIView] = (self.subviews as [UIView]).sorted({ (first, second) -> Bool in
         return CGRectGetMinX(first.frame) < CGRectGetMinX(second.frame)
       })
@@ -51,6 +57,7 @@ class InfiniteScrollView: UIScrollView {
         // move front item to being in back of the last
         infiniteScrollViewDelegate.movedView(subviewsSorted.first!, direction: .ToEnd, nextToView: subviewsSorted.last!)
         infiniteScrollViewDelegate.newCenterView(subviewsSorted.last!)
+        alreadyCalledNewCenterViewThisTime = true
           
         subviewsSorted.first!.frame.origin.x = subviewsSorted.last!.frame.origin.x + subviewsSorted.last!.frame.size.width
       } else if page < 1 && !infiniteScrollViewDelegate.currentPageIsSecondToFirstPage() {
@@ -64,8 +71,21 @@ class InfiniteScrollView: UIScrollView {
         // move last item to being in front of the first
         infiniteScrollViewDelegate.movedView(subviewsSorted.last!, direction: .ToBeginning, nextToView: subviewsSorted.first!)
         infiniteScrollViewDelegate.newCenterView(subviewsSorted.first!)
+        alreadyCalledNewCenterViewThisTime = true
         
         subviewsSorted.last!.frame.origin.x = subviewsSorted.first!.frame.origin.x - subviewsSorted.first!.frame.size.width
+      }
+    }
+    
+    if currentPage != page && !alreadyCalledNewCenterViewThisTime {
+      currentPage = page
+      for view in subviews {
+        // move each view left the width of a page
+        if let view = view as? UIView {
+          if Int(view.frame.origin.x) == Int(page * Int(pageWidth)) {
+            infiniteScrollViewDelegate.newCenterView(view)
+          }
+        }
       }
     }
   }
