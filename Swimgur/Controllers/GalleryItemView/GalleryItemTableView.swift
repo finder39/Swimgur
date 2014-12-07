@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import SWNetworking
 
+private enum GalleryItemTableSection: Int {
+  case Images = 0
+  case Comments = 1
+}
+
 class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
   
   var galleryIndex:Int = -1 {
@@ -114,7 +119,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   // MARK: UITableViewDelegate
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if indexPath.section == 0 {
+    if indexPath.section == GalleryItemTableSection.Images.rawValue {
       if let item = currentGalleryItem {
         if item.tableViewDataSourceArray[indexPath.row].type == .Image {
           if let image = item.tableViewDataSourceArray[indexPath.row].associatedGalleryImage {
@@ -130,7 +135,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
           return size.height
         }
       }
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == GalleryItemTableSection.Comments.rawValue {
       if let item = currentGalleryItem {
         let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
         commentCell.imgurText.text = comment.comment
@@ -142,9 +147,9 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   }
   
   func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
-    if indexPath.section == 0 {
+    if indexPath.section == GalleryItemTableSection.Images.rawValue {
       
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == GalleryItemTableSection.Comments.rawValue {
       let item = currentGalleryItem!
       let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
       
@@ -161,9 +166,9 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let item = currentGalleryItem {
-      if section == 0 {
+      if section == GalleryItemTableSection.Images.rawValue {
         return item.tableViewDataSourceArray.count
-      } else if section == 1 {
+      } else if section == GalleryItemTableSection.Comments.rawValue {
         return item.tableViewDataSourceCommentsArray.count
       }
     }
@@ -171,7 +176,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    if indexPath.section == 0 {
+    if indexPath.section == GalleryItemTableSection.Images.rawValue {
       let item = currentGalleryItem!
       
       if item.tableViewDataSourceArray[indexPath.row].type == .Image {
@@ -183,7 +188,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
         cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
         return cell
       }
-    } else if indexPath.section == 1 {
+    } else if indexPath.section == GalleryItemTableSection.Comments.rawValue {
       let item = currentGalleryItem!
       let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
       
