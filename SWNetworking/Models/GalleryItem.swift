@@ -35,7 +35,7 @@ public class GalleryItem {
   public var comments: [Comment] = []
   
   // used to prevent loading twice
-  private var loadingComments = false
+  public var loadingComments = false
   
   // array to use in tableview datasource
   public var tableViewDataSourceArray:[GalleryItemTableItem] = []

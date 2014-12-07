@@ -34,6 +34,7 @@ class ConstantsPrivate {
     let ImgurTextCellReuseIdentifier = "ImgurTextCellReuseIdentifier"
     let CommentCellReuseIdentifier = "CommentCellReuseIdentifier"
     let ImgurImageCellReuseIdentifier = "ImgurImageCellReuseIdentifier"
+    let GalleryItemInfoCellReuseIdentifier = "GalleryItemInfoCellReuseIdentifier"
   }
   
   // MARK: Segues

@@ -12,7 +12,8 @@ import SWNetworking
 
 private enum GalleryItemTableSection: Int {
   case Images = 0
-  case Comments = 1
+  case GalleryItemInfo = 1
+  case Comments = 2
 }
 
 class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
@@ -65,6 +66,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
     self.registerNib(UINib(nibName: "ImgurImageCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.ImgurImageCellReuseIdentifier)
     self.registerNib(UINib(nibName: "ImgurTextCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier)
     self.registerNib(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.CommentCellReuseIdentifier)
+    self.registerNib(UINib(nibName: "GalleryItemInfoCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.GalleryItemInfoCellReuseIdentifier)
     
     textCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
     commentCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
@@ -143,7 +145,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
         return size.height+24
       }
     }
-    return 60
+    return 40
   }
   
   func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
@@ -161,7 +163,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   // MARK: UITableViewDataSource
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 2
+    return 3
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,6 +172,8 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
         return item.tableViewDataSourceArray.count
       } else if section == GalleryItemTableSection.Comments.rawValue {
         return item.tableViewDataSourceCommentsArray.count
+      } else if section == GalleryItemTableSection.GalleryItemInfo.rawValue {
+        return 1
       }
     }
     return 0
@@ -215,6 +219,24 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
       cell.associatedComment = comment
       cell.associatedGalleryItem = item
       cell.parentTableView = tableView
+      return cell
+    } else if indexPath.section == GalleryItemTableSection.GalleryItemInfo.rawValue {
+      let item = currentGalleryItem!
+      
+      var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.GalleryItemInfoCellReuseIdentifier, forIndexPath: indexPath) as GalleryItemInfoCell
+      
+      if item.loadingComments == true {
+        cell.commentsInfoLabel.text = "Loading comments..."
+      } else {
+        var levelZeroComments = 0
+        for theComment in item.comments {
+          if theComment.depth == 0 {
+            levelZeroComments++
+          }
+        }
+        cell.commentsInfoLabel.text = "\(levelZeroComments) comments by Popularity"
+      }
+      
       return cell
     }
     return UITableViewCell()
