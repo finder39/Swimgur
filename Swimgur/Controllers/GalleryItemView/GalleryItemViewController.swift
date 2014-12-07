@@ -186,7 +186,6 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
   }
   
   func currentPageIsSecondToLastPage() -> Bool {
-    dprintln("index: \(self.galleryIndex) --- count: \(DataManager.sharedInstance.galleryItems.count)")
     return (self.galleryIndex == DataManager.sharedInstance.galleryItems.count-2 || self.galleryIndex == DataManager.sharedInstance.galleryItems.count-1)
   }
   
