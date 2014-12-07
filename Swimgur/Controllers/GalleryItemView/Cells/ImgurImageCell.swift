@@ -25,6 +25,6 @@ class ImgurImageCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     SWNetworking.sharedInstance.cancelImageviewLoad(imageView)
-    imageView.image = nil
+    imgurImage.image = nil
   }
 }
