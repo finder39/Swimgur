@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="yFb-t6-UE8">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -73,7 +73,7 @@
         <!--Gallery-->
         <scene sceneID="Cnw-Hr-lRH">
             <objects>
-                <viewController id="s5C-xn-xsm" customClass="GalleryViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="s5C-xn-xsm" customClass="GalleryViewController" customModule="Swimgur" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="q73-0A-Qy0"/>
                         <viewControllerLayoutGuide type="bottom" id="2Mt-Rr-OUr"/>
@@ -85,6 +85,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-7H-jCs">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="A86-HP-uvf">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -126,13 +127,35 @@
                                     <outlet property="delegate" destination="s5C-xn-xsm" id="jm7-fN-ckb"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhG-rQ-c3a">
+                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="uXs-SZ-dSN">
+                                        <rect key="frame" x="0.0" y="6" width="320" height="29"/>
+                                        <segments>
+                                            <segment title="Newest"/>
+                                            <segment title="Popular"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="sortTypeChanged:" destination="s5C-xn-xsm" eventType="valueChanged" id="BsZ-Jh-x6T"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" red="0.16862745100000001" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9p3-TO-7tR"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.094117647060000004" blue="0.090196078430000007" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hgT-7H-jCs" firstAttribute="top" secondItem="1iy-UC-BWK" secondAttribute="topMargin" id="G2J-ih-MDR"/>
                             <constraint firstItem="2Mt-Rr-OUr" firstAttribute="top" secondItem="hgT-7H-jCs" secondAttribute="bottom" id="KMb-1l-gcn"/>
+                            <constraint firstItem="jhG-rQ-c3a" firstAttribute="top" secondItem="q73-0A-Qy0" secondAttribute="bottom" id="UI7-ab-3yw"/>
                             <constraint firstItem="hgT-7H-jCs" firstAttribute="leading" secondItem="1iy-UC-BWK" secondAttribute="leading" id="X76-YF-8c8"/>
+                            <constraint firstAttribute="trailing" secondItem="jhG-rQ-c3a" secondAttribute="trailing" id="bFh-bM-d3J"/>
                             <constraint firstAttribute="trailing" secondItem="hgT-7H-jCs" secondAttribute="trailing" id="vAd-sQ-fgS"/>
+                            <constraint firstItem="jhG-rQ-c3a" firstAttribute="leading" secondItem="1iy-UC-BWK" secondAttribute="leading" id="vcX-Hh-l6R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Gallery" id="j70-T4-gqz">
@@ -144,6 +167,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionGallery" destination="hgT-7H-jCs" id="lAr-SH-a1U"/>
+                        <outlet property="sortSegment" destination="uXs-SZ-dSN" id="AvC-Vd-ggJ"/>
+                        <outlet property="sortView" destination="jhG-rQ-c3a" id="N8Y-j1-e5N"/>
                         <segue destination="Yhc-FI-MO3" kind="push" identifier="SegueGalleryToGalleryItem" id="ILi-Us-OCb"/>
                     </connections>
                 </viewController>

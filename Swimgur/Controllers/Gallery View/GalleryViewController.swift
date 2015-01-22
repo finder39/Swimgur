@@ -18,6 +18,9 @@ import SWNetworking
 
 class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   @IBOutlet var collectionGallery: UICollectionView!
+  @IBOutlet var sortView: UIView!
+  @IBOutlet var sortSegment: UISegmentedControl!
+  
   var refreshControl:UIRefreshControl = UIRefreshControl()
   
   var imagePicker:UIImagePickerController = UIImagePickerController()
@@ -25,6 +28,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   var hasAppeared = false
   var loadingMore = false
   var cellSize:CGFloat = 0
+  
+  var sortType: ImgurSort = .Viral
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,6 +41,8 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     
     refreshControl.addTarget(self, action: Selector("loadFirstPage"), forControlEvents: .ValueChanged)
     collectionGallery.addSubview(refreshControl)
+    
+    collectionGallery.contentInset.top = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height + CGRectGetHeight(sortView.frame)
   }
   
   func collectionCellSizeFinder(deviceWidth size:CGFloat, max:CGFloat) -> CGFloat {
@@ -74,7 +81,14 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func loadFirstPage() {
     loadingMore = true
-    SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
+    // clear old data
+    DataManager.sharedInstance.galleryItems.removeAll(keepCapacity: false)
+    self.collectionGallery.reloadData()
+    dispatch_async(dispatch_get_main_queue()) {
+      self.collectionGallery.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
+    }
+    // load new data
+    SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: self.sortType, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
       println("Refreshing collectionGallery")
       DataManager.sharedInstance.galleryItems
         = newGalleryItems
@@ -210,6 +224,20 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     imagePicker.delegate = self
     self.presentViewController(imagePicker, animated: true) { () -> Void in
       
+    }
+  }
+  
+  @IBAction func sortTypeChanged(sender: UISegmentedControl) {
+    var newSortType: ImgurSort!
+    if sender.selectedSegmentIndex == 0 {
+      newSortType = .Time
+    } else if sender.selectedSegmentIndex == 1 {
+      newSortType = .Viral
+    }
+    
+    if self.sortType != newSortType {
+      self.sortType = newSortType
+      self.loadFirstPage()
     }
   }
 }
