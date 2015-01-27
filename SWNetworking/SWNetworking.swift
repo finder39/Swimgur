@@ -280,7 +280,7 @@ public class SWNetworking: NSObject {
     let url = self.createQueryEndpointFor("gallery/\(galleryItemId)/comments")
     session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        if let data = responseObject["data"] as? [AnyObject] {
+        if let data = responseObject?["data"] as? [AnyObject] {
           var comments:[Comment] = []
           for commentDict in data {
             comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
