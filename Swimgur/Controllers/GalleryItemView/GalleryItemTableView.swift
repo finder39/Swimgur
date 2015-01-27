@@ -78,14 +78,17 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   // galleryitem functions
   
   func loadImage() {
+    let indexToLoad = galleryIndex
     dispatch_async(dispatch_get_main_queue()) {
       self.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: false)
     }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
       if let item = self.currentGalleryItem {
         item.getComments({ (success) -> () in
-          dispatch_async(dispatch_get_main_queue()) {
-            self.reloadData()
+          if indexToLoad == self.galleryIndex {
+            dispatch_async(dispatch_get_main_queue()) {
+              self.reloadData()
+            }
           }
         })
         
@@ -99,8 +102,10 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
         
         })*/
         if let galleryImage = item as? GalleryImage {
-          dispatch_async(dispatch_get_main_queue()) {
-            self.reloadData()
+          if indexToLoad == self.galleryIndex {
+            dispatch_async(dispatch_get_main_queue()) {
+              self.reloadData()
+            }
           }
         } else if let galleryAlbum = item as? GalleryAlbum {
           if galleryAlbum.images.count == 0 {
@@ -109,8 +114,10 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
               self.loadImage()
             })
           } else {
-            dispatch_async(dispatch_get_main_queue()) {
-              self.reloadData()
+            if indexToLoad == self.galleryIndex {
+              dispatch_async(dispatch_get_main_queue()) {
+                self.reloadData()
+              }
             }
           }
         }
