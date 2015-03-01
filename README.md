@@ -6,9 +6,8 @@ Swimgur
 #### Goals
 * Support iPad
 * Support rotation
-* Change AFNetworking to Alamofire
 * Add proper Gifv support
-* Seperate networking into it's own repo for public use
+* Separate networking into it's own repo for public use
 
 #### Comments
 
