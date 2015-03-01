@@ -47,8 +47,8 @@ public class SWNetworking: NSObject {
   
   public var restConfig = RestConfig()
   var configuration:NSURLSessionConfiguration!
-  var session:AFHTTPSessionManager!
-  var sessionUpload:AFURLSessionManager!
+  internal var alamofireManager: Manager! // Alamofire manager
+  //var sessionUpload:AFURLSessionManager!
   
   var lastPageLoaded = -1
   
@@ -66,19 +66,30 @@ public class SWNetworking: NSObject {
     
     configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
     
-    session = AFHTTPSessionManager(sessionConfiguration: configuration)
-    session.requestSerializer = AFJSONRequestSerializer() as AFHTTPRequestSerializer
-    session.responseSerializer = AFJSONResponseSerializer() as AFHTTPResponseSerializer
+    alamofireManager = Manager(configuration: configuration)
+    //session = AFHTTPSessionManager(sessionConfiguration: configuration)
     self.updateSessionConfigurationToken()
     
-    sessionUpload = AFURLSessionManager(sessionConfiguration: configuration)
+    //sessionUpload = AFURLSessionManager(sessionConfiguration: configuration)
   }
   
   func updateSessionConfigurationToken() {
     if let token = SIUserDefaults().token?.accessToken {
-      session.requestSerializer.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+      var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+      defaultHeaders["Authorization"] = "Bearer \(token)"
+      
+      let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+      configuration.HTTPAdditionalHeaders = defaultHeaders
+      
+      alamofireManager = Manager(configuration: configuration)
     } else {
-      session.requestSerializer.setValue(nil, forHTTPHeaderField: "Authorization")
+      var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+      defaultHeaders["Authorization"] = nil
+      
+      let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+      configuration.HTTPAdditionalHeaders = defaultHeaders
+      
+      alamofireManager = Manager(configuration: configuration)
     }
   }
   
@@ -138,50 +149,56 @@ public class SWNetworking: NSObject {
   
   public func getTokensWithForm(form:CodeForm, onCompletion:SWTokenBlock, onError:SWErrorStringBlock) {
     let url = self.createAuthenticationEndpointFor(self.restConfig.tokenURI)
-    session.POST(url, parameters: form.httpParametersDictionary(), success: { (operation, responseObject) -> Void in
-      if let responseObject = responseObject as? Dictionary<String, AnyObject> {
-        SIUserDefaults().token = Token(dictionary: responseObject)
-        self.updateSessionConfigurationToken()
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(token: Token(dictionary: responseObject))
-        })
-      }
-    }) { (operation, error) -> Void in
-      
+    
+    alamofireManager.request(.POST, url, parameters: form.httpParametersDictionary(), encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          
+        } else if let responseObject = getDictionary(data) {
+          SIUserDefaults().token = Token(dictionary: responseObject)
+          self.updateSessionConfigurationToken()
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(token: Token(dictionary: responseObject))
+          })
+        }
     }
   }
   
   public func getTokensWithForm(form:RefreshTokenForm, onCompletion:SWTokenBlock, onError:SWErrorStringBlock) {
     let url = self.createAuthenticationEndpointFor(self.restConfig.tokenURI)
-    session.POST(url, parameters: form.httpParametersDictionary(), success: { (operation, responseObject) -> Void in
-      if let responseObject = responseObject as? Dictionary<String, AnyObject> {
-        SIUserDefaults().token = Token(dictionary: responseObject)
-        self.updateSessionConfigurationToken()
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(token: Token(dictionary: responseObject))
-        })
-      }
-      }) { (operation, error) -> Void in
-        
+    
+    alamofireManager.request(.POST, url, parameters: form.httpParametersDictionary(), encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          
+        } else if let responseObject = data as? Dictionary<String, AnyObject> {
+          SIUserDefaults().token = Token(dictionary: responseObject)
+          self.updateSessionConfigurationToken()
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(token: Token(dictionary: responseObject))
+          })
+        }
     }
   }
   
   public func getAccountWithCompletion(onCompletion:SWAccountBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor(self.restConfig.accountMeURI)
-    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(account: Account(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
-        })
-      } else {
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: NSError(), description: "No data was returned")
-        })
-      }
-    }) { (operation, error) -> Void in
-      dispatch_async(dispatch_get_main_queue(), {
-        onError(error: error, description: error.description)
-      })
+    
+    alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error, description: error.description)
+          })
+        } else if let data = getDictionary(getDictionary(data)?["data"]) {
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(account: Account(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
+          })
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: NSError(), description: "No data was returned")
+          })
+        }
     }
   }
   
@@ -196,32 +213,34 @@ public class SWNetworking: NSObject {
   
   public func getGalleryImagesWithSection(section:ImgurSection, sort:ImgurSort, window:ImgurWindow, page:Int, showViral:Bool, onCompletion:SWGalleryItemArrayBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("\(self.restConfig.galleryURI)/\(section.rawValue)/\(sort.rawValue)/\(window.rawValue)/\(page)?showViral=\(showViral)")
-    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      if let data = responseObject["data"] as? [AnyObject] {
-        var galleryItems:[GalleryItem] = []
-        for galleryDict in data {
-          if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
-            let theDict = galleryDict as Dictionary<String, AnyObject>
-            if checkForValidAlbumDictionary(theDict) {
-              galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+    
+    alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error, description: error.description)
+          })
+        } else if let data = getArray(getDictionary(data)?["data"]) {
+          var galleryItems:[GalleryItem] = []
+          for galleryDict in data {
+            if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
+              let theDict = galleryDict as Dictionary<String, AnyObject>
+              if checkForValidAlbumDictionary(theDict) {
+                galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+              }
+            } else {
+              galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
             }
-          } else {
-            galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
           }
+          self.lastPageLoaded = page
+          dispatch_async(dispatch_get_main_queue(), {
+            onCompletion(galleryItems: galleryItems)
+          })
+        } else {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: NSError(), description: "No data was returned")
+          })
         }
-        self.lastPageLoaded = page
-        dispatch_async(dispatch_get_main_queue(), {
-          onCompletion(galleryItems: galleryItems)
-        })
-      } else {
-        dispatch_async(dispatch_get_main_queue(), {
-          onError(error: NSError(), description: "No data was returned")
-        })
-      }
-    }) { (operation, error) -> Void in
-      dispatch_async(dispatch_get_main_queue(), {
-        onError(error: error, description: error.description)
-      })
     }
   }
   
@@ -231,9 +250,14 @@ public class SWNetworking: NSObject {
   
   public func getAlbum(#albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/album/\(albumId)")
-    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        if let data = responseObject["data"] as? Dictionary<String, AnyObject> {
+    
+    alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          dispatch_async(dispatch_get_main_queue(), {
+            onError(error: error, description: error.description)
+          })
+        } else if let data = getArray(getDictionary(data)?["data"]) {
           dispatch_async(dispatch_get_main_queue(), {
             onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
           })
@@ -242,23 +266,21 @@ public class SWNetworking: NSObject {
             onError(error: NSError(), description: "No data was returned")
           })
         }
-      }
-    }) { (operation, error) -> Void in
-      dispatch_async(dispatch_get_main_queue(), {
-        onError(error: error, description: error.description)
-      })
     }
   }
   
   public func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:SWBoolBlock?) {
     let url = self.createQueryEndpointFor("gallery/image/\(galleryItemId)/vote/\(vote.rawValue)")
-    session.POST(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      if let onCompletion = onCompletion {
-        // need to check for 200 status in response
-        onCompletion(success: true)
-      }
-    }) { (operation, error) -> Void in
-      
+    
+    alamofireManager.request(.POST, url, parameters: nil, encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
+          dispatch_async(dispatch_get_main_queue(), {
+            //onError(error: error, description: error.description)
+          })
+        } else {// need to check for 200 status in response
+          onCompletion?(success: true)
+        }
     }
   }
   
@@ -266,33 +288,35 @@ public class SWNetworking: NSObject {
   
   public func getComments(#galleryItemId:String, onCompletion:SWCommentsBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/\(galleryItemId)/comments")
-    session.GET(url, parameters: nil, success: { (operation, responseObject) -> Void in
-      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-        if let data = responseObject?["data"] as? [AnyObject] {
-          var comments:[Comment] = []
-          for commentDict in data {
-            comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
-          }
+    
+    alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
+      .responseJSON { (request, response, data, error) in
+        if let error = error {
           dispatch_async(dispatch_get_main_queue(), {
-            onCompletion(comments: comments)
+            onError(error: error, description: error.description)
+          })
+        } else if let data = getArray(getDictionary(data)?["data"]) {
+          dispatch_async(dispatch_get_main_queue(), {
+            var comments:[Comment] = []
+            for commentDict in data {
+              comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+              onCompletion(comments: comments)
+            })
           })
         } else {
           dispatch_async(dispatch_get_main_queue(), {
             onError(error: NSError(), description: "No data was returned")
           })
         }
-      }
-    }) { (operation, error) -> Void in
-      dispatch_async(dispatch_get_main_queue(), {
-        onError(error: NSError(), description: "No data was returned")
-      })
     }
   }
   
   // MARK: Upload
   
   public func uploadImage(toUpload:ImageUpload, onCompletion:SWBoolBlock) {
-    let urlSetup = "upload"
+    /*let urlSetup = "upload"
     let url = NSURL(string: self.createQueryEndpointFor(urlSetup))
     var request = NSMutableURLRequest(URL: url!)
     request.HTTPMethod = Method.POST.rawValue
@@ -318,6 +342,6 @@ public class SWNetworking: NSObject {
       uploadTask.resume()
     } else {
       onCompletion(success: false)
-    }
+    }*/
   }
 }

@@ -71,6 +71,8 @@
 		D8AC10FD19D88EA9008E7E4D /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10DC19D88EA9008E7E4D /* UIImageView+WebCache.m */; };
 		D8AC10FE19D88EA9008E7E4D /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D8AC10DD19D88EA9008E7E4D /* UIView+WebCacheOperation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8AC10FF19D88EA9008E7E4D /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AC10DE19D88EA9008E7E4D /* UIView+WebCacheOperation.m */; };
+		D8AD433B1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD433A1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift */; };
+		D8AD433C1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AD433A1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift */; };
 		D8AE2DB1199070470062E3E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB0199070470062E3E6 /* AppDelegate.swift */; };
 		D8AE2DB3199070470062E3E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AE2DB2199070470062E3E6 /* ViewController.swift */; };
 		D8AE2DB6199070470062E3E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8AE2DB4199070470062E3E6 /* Main.storyboard */; };
@@ -228,6 +230,7 @@
 		D8AC10DC19D88EA9008E7E4D /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		D8AC10DD19D88EA9008E7E4D /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		D8AC10DE19D88EA9008E7E4D /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		D8AD433A1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jsonDictionaryHelpers.swift; sourceTree = "<group>"; };
 		D8AE2DAB199070470062E3E6 /* Swimgur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swimgur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AE2DAF199070470062E3E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8AE2DB0199070470062E3E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -568,6 +571,7 @@
 		D8E9D1CE19D7469F00DB6A91 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				D8AD433A1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -892,6 +896,7 @@
 				D8E9D1E219D754D700DB6A91 /* RestConfig.swift in Sources */,
 				D8AC10EA19D88EA9008E7E4D /* SDWebImageDownloader.m in Sources */,
 				D8AC10F319D88EA9008E7E4D /* UIButton+WebCache.m in Sources */,
+				D8AD433B1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */,
 				D8E9D1D919D74BD500DB6A91 /* AlbumImage.swift in Sources */,
 				D8AC10E219D88EA9008E7E4D /* NSData+ImageContentType.m in Sources */,
 				D852EA681A074DC300D21248 /* Comment.swift in Sources */,
@@ -907,6 +912,7 @@
 			files = (
 				D8D3AD0F1AA3B85C00861A56 /* Alamofire.swift in Sources */,
 				D8E9D17319D745D300DB6A91 /* SWNetworkingTests.swift in Sources */,
+				D8AD433C1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
