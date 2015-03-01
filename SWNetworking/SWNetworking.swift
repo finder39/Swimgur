@@ -19,18 +19,6 @@ public typealias SWCommentsBlock = (comments:[Comment])->()
 public typealias SWErrorStringBlock = (error:NSError, description:String)->()
 public typealias SWTokenBlock = (token:Token)->()
 
-public enum Method: String {
-  case OPTIONS = "OPTIONS"
-  case GET = "GET"
-  case HEAD = "HEAD"
-  case POST = "POST"
-  case PUT = "PUT"
-  case PATCH = "PATCH"
-  case DELETE = "DELETE"
-  case TRACE = "TRACE"
-  case CONNECT = "CONNECT"
-}
-
 public enum ImgurSection: String {
   case Hot = "hot"
   case Top = "top"

@@ -80,6 +80,9 @@
 		D8B01BE11A34FB1A00117F14 /* GalleryItemInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B01BDF1A34FB1000117F14 /* GalleryItemInfoCell.xib */; };
 		D8B01BE31A34FB3A00117F14 /* GalleryItemInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */; };
 		D8B01BE41A34FB3A00117F14 /* GalleryItemInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */; };
+		D8D3AD0D1AA3B85C00861A56 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */; };
+		D8D3AD0E1AA3B85C00861A56 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */; };
+		D8D3AD0F1AA3B85C00861A56 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */; };
 		D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */; };
 		D8E9D16719D745D300DB6A91 /* SWNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D8E9D16619D745D300DB6A91 /* SWNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8E9D17319D745D300DB6A91 /* SWNetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D17219D745D300DB6A91 /* SWNetworkingTests.swift */; };
@@ -255,6 +258,8 @@
 		D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimgurTests.swift; sourceTree = "<group>"; };
 		D8B01BDF1A34FB1000117F14 /* GalleryItemInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryItemInfoCell.xib; sourceTree = "<group>"; };
 		D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemInfoCell.swift; sourceTree = "<group>"; };
+		D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
+		D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgurLoginController.swift; path = Controllers/ImgurLoginController.swift; sourceTree = "<group>"; };
 		D8E9D16219D745D300DB6A91 /* SWNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SWNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E9D16519D745D300DB6A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -508,6 +513,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D8D3AD0A1AA3B84C00861A56 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */,
+				D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */,
+			);
+			path = Alamofire;
+			sourceTree = "<group>";
+		};
 		D8D43B961A07477E003E4331 /* GalleryItemView */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +597,7 @@
 		D8E9D18119D745FD00DB6A91 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D8D3AD0A1AA3B84C00861A56 /* Alamofire */,
 				D8E9D18219D745FD00DB6A91 /* AFNetworking */,
 				D8AC10BD19D88EA9008E7E4D /* SDWebImage */,
 			);
@@ -678,6 +693,7 @@
 				D8AC10EF19D88EA9008E7E4D /* SDWebImageOperation.h in Headers */,
 				D8AC10E519D88EA9008E7E4D /* SDWebImageCompat.h in Headers */,
 				D8AC10F619D88EA9008E7E4D /* UIImage+MultiFormat.h in Headers */,
+				D8D3AD0D1AA3B85C00861A56 /* Alamofire.h in Headers */,
 				D8AC10E919D88EA9008E7E4D /* SDWebImageDownloader.h in Headers */,
 				D8AC10FA19D88EA9008E7E4D /* UIImageView+HighlightedWebCache.h in Headers */,
 				D8E9D16719D745D300DB6A91 /* SWNetworking.h in Headers */,
@@ -952,6 +968,7 @@
 				D8E9D1E919D767E900DB6A91 /* RefreshTokenForm.swift in Sources */,
 				D8E9D1B619D745FD00DB6A91 /* AFURLRequestSerialization.m in Sources */,
 				D8E9D1E419D756D000DB6A91 /* SIUserDefaults.swift in Sources */,
+				D8D3AD0E1AA3B85C00861A56 /* Alamofire.swift in Sources */,
 				D8AC10E019D88EA9008E7E4D /* MKAnnotationView+WebCache.m in Sources */,
 				D878E2AF1A06E4A50015C84E /* GalleryItemTableItem.swift in Sources */,
 				D8E9D1E219D754D700DB6A91 /* RestConfig.swift in Sources */,
@@ -972,6 +989,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D3AD0F1AA3B85C00861A56 /* Alamofire.swift in Sources */,
 				D8E9D17319D745D300DB6A91 /* SWNetworkingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
