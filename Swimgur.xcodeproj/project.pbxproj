@@ -128,10 +128,6 @@
 		D8F0E3C91A10543E00E2AC25 /* GalleryItemTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0E3C81A10543E00E2AC25 /* GalleryItemTableView.swift */; };
 		D8F0E3CA1A10552B00E2AC25 /* GalleryItemTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0E3C81A10543E00E2AC25 /* GalleryItemTableView.swift */; };
 		D8F1FC9819B154D8008D38C1 /* DataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */; };
-		D8F66ED11A7240F6005C0FEF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F66ECF1A7240F6005C0FEF /* Crashlytics.framework */; };
-		D8F66ED21A7240F6005C0FEF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F66ED01A7240F6005C0FEF /* Fabric.framework */; };
-		D8F66ED31A724158005C0FEF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F66ECF1A7240F6005C0FEF /* Crashlytics.framework */; };
-		D8F66ED41A72415C005C0FEF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8F66ED01A7240F6005C0FEF /* Fabric.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -300,8 +296,6 @@
 		D8F044BB19B0E84800F04FB5 /* ImgurLoginControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurLoginControllerTests.swift; sourceTree = "<group>"; };
 		D8F0E3C81A10543E00E2AC25 /* GalleryItemTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemTableView.swift; sourceTree = "<group>"; };
 		D8F1FC9719B154D8008D38C1 /* DataManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManagerTests.swift; sourceTree = "<group>"; };
-		D8F66ECF1A7240F6005C0FEF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		D8F66ED01A7240F6005C0FEF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,9 +303,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8F66ED11A7240F6005C0FEF /* Crashlytics.framework in Frameworks */,
 				D8E9D17619D745D300DB6A91 /* SWNetworking.framework in Frameworks */,
-				D8F66ED21A7240F6005C0FEF /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,8 +311,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8F66ED31A724158005C0FEF /* Crashlytics.framework in Frameworks */,
-				D8F66ED41A72415C005C0FEF /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,8 +657,6 @@
 		D8F66ECE1A7240F0005C0FEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D8F66ECF1A7240F6005C0FEF /* Crashlytics.framework */,
-				D8F66ED01A7240F6005C0FEF /* Fabric.framework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
@@ -722,7 +710,6 @@
 				D8AE2DA8199070470062E3E6 /* Frameworks */,
 				D8AE2DA9199070470062E3E6 /* Resources */,
 				D8E9D17719D745D300DB6A91 /* Embed Frameworks */,
-				D8F66ECD1A7240B4005C0FEF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -879,22 +866,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		D8F66ECD1A7240B4005C0FEF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 2de431134e3351efac0abfc4b811b5ba0908b265 f397e2e2067f9a5bd950f1c157b9c726e79dc164084c6e149b6b4a0861abc6a8";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D8AE2DA7199070470062E3E6 /* Sources */ = {
