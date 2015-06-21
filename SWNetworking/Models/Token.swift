@@ -24,12 +24,12 @@ public class Token {
   public var tokenType: String?
   
   public init(dictionary:Dictionary<String, AnyObject>) {
-    accessToken = dictionary[tokenAccessTokenKey] as AnyObject? as String?
-    accountUsername = dictionary[tokenAccountUsernameKey] as AnyObject? as String?
-    expiresIn = dictionary[tokenExpiresInKey] as AnyObject? as UInt?
-    refreshToken = dictionary[tokenRefreshTokenKey] as AnyObject? as String?
+    accessToken = dictionary[tokenAccessTokenKey] as AnyObject? as! String?
+    accountUsername = dictionary[tokenAccountUsernameKey] as AnyObject? as! String?
+    expiresIn = dictionary[tokenExpiresInKey] as AnyObject? as! UInt?
+    refreshToken = dictionary[tokenRefreshTokenKey] as AnyObject? as! String?
     scope = dictionary[tokenScopeKey] as AnyObject? as? String
-    tokenType = dictionary[tokenTokenTypeKey] as AnyObject? as String?
+    tokenType = dictionary[tokenTokenTypeKey] as AnyObject? as! String?
   }
   
   public func asDictionary() -> Dictionary<String, AnyObject> {

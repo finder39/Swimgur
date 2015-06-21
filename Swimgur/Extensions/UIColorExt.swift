@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIColor {
-  public class func RGBColor(#red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
+  public class func RGBColor(red red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
     return UIColor(red: red/255.0, green: green/255.0, blue: blue/255.0, alpha: 1.0)
   }
 }

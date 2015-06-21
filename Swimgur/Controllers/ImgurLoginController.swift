@@ -45,10 +45,10 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   // TODO: verifyStoredAccountWithCompletionBlock
   
-  func verifyStoredAccount(#onCompletion:SWBoolBlock) {
+  func verifyStoredAccount(onCompletion onCompletion:SWBoolBlock) {
     self.authorizationClosure = onCompletion
     
-    var token:Token? = SIUserDefaults().token
+    let token:Token? = SIUserDefaults().token
     //if code == "" { code = nil }
     if let token = token {
       self.getTokensFromRefresh(token)
@@ -82,7 +82,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   }
   
   private func getTokensFromCode(code:String) {
-    var form = CodeForm()
+    let form = CodeForm()
     form.code = code
     form.clientID = Constants.ImgurControllerConfigClientID
     form.clientSecret = Constants.ImgurControllerConfigSecret
@@ -95,7 +95,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   }
   
   private func getTokensFromRefresh(token:Token) {
-    var form = RefreshTokenForm()
+    let form = RefreshTokenForm()
     form.refreshToken = token.refreshToken
     form.clientID = Constants.ImgurControllerConfigClientID
     form.clientSecret = Constants.ImgurControllerConfigSecret
@@ -120,7 +120,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
         self.authorizationSucceeded(false)
       }*/
     }, onError: { (error, description) -> () in
-      println("Failed to retrieve account information")
+      print("Failed to retrieve account information")
       self.authorizationSucceeded(false)
     })
   }
@@ -134,12 +134,12 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
   
   // MARK: UIWebViewDelegate
   
-  func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType) -> Bool {
+  func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
     // Once user logs in we will get their goodies in the ridirect URL. Example:
     // https://imgur.com/?state=auth&code=860381d0651a8c24079aa13c8732567d8a3f7bab
-    let redirectedURLString = request.URL.absoluteString!.URLDecodedString() // explicit unwrap new for beta 6
-    if redirectedURLString.rangeOfString("code=")?.startIndex != nil {
-      self.webView(webView, didAuthenticateWithRedirectURLString: redirectedURLString)
+    let redirectedURLString  = request.URL?.absoluteString.URLDecodedString()
+    if redirectedURLString?.rangeOfString("code=")?.startIndex != nil {
+      self.webView(webView, didAuthenticateWithRedirectURLString: redirectedURLString!)
       webView.stopLoading()
       imgurLoginViewController.dismissViewControllerAnimated(true, completion: { () -> Void in
         
@@ -148,7 +148,7 @@ class ImgurLoginController : NSObject, UIWebViewDelegate {
     return true
   }
   
-  func webView(webView: UIWebView!, didFailLoadWithError error: NSError!) {
+  @objc func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
     // self.authorizationSucceeded(false) // causing failure of login
   }
 }

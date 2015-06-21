@@ -14,16 +14,16 @@ class ImgurLoginControllerTests: XCTestCase {
   
   func test1Login() {
     SWNetworking.sharedInstance.logout()
-    var tilc = TestableImgurLoginController()
+    let tilc = TestableImgurLoginController()
     XCTAssertNotNil(tilc, "TestableImgurLoginController not loaded")
     
-    var expectation = self.expectationWithDescription("Login")
+    let expectation = self.expectationWithDescription("Login")
     
     tilc.authorizeWithViewController(UIViewController()) { (success) -> () in
       XCTAssertTrue(success, "Login failed")
-      XCTAssertNotNil(SIUserDefaults().code?, "Code does not exist")
+      XCTAssertNotNil(SIUserDefaults().code, "Code does not exist")
       XCTAssertNotNil(SIUserDefaults().token?.accessToken, "Token does not exist")
-      XCTAssertNotNil(SIUserDefaults().account?, "Account does not exist")
+      XCTAssertNotNil(SIUserDefaults().account, "Account does not exist")
       if let username = SIUserDefaults().account?.username {
         XCTAssertEqual(username, "testthewest", "Username is incorrect")
       } else {
@@ -36,7 +36,7 @@ class ImgurLoginControllerTests: XCTestCase {
   }
   
   func testGetGallery() {
-    var expectation = self.expectationWithDescription("Get gallery")
+    let expectation = self.expectationWithDescription("Get gallery")
     
     SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
       XCTAssertGreaterThan(newGalleryItems.count, 0, "None returned")
@@ -50,7 +50,7 @@ class ImgurLoginControllerTests: XCTestCase {
   }
   
   func testGetAlbum() {
-    var expectation = self.expectationWithDescription("Get album")
+    let expectation = self.expectationWithDescription("Get album")
     
     SWNetworking.sharedInstance.getAlbum(albumId: "TxQjM", onCompletion: { (album) -> () in
       XCTAssertEqual(album.images.count, 10, "Album image count incorrect")

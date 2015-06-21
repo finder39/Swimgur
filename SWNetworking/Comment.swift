@@ -30,7 +30,7 @@ public class Comment {
   public var depth = 0
   
   public init(dictionary:Dictionary<String, AnyObject>, depth theDepth:Int) {
-    id = dictionary["id"] as AnyObject! as Int!
+    id = dictionary["id"] as AnyObject! as! Int!
     imageID = dictionary["image_id"] as AnyObject? as? String
     comment = dictionary["comment"] as AnyObject? as? String
     author = dictionary["author"] as AnyObject? as? String
@@ -40,7 +40,7 @@ public class Comment {
     ups = dictionary["ups"] as AnyObject? as? Int
     downs = dictionary["downs"] as AnyObject? as? Int
     points = dictionary["points"] as AnyObject? as? Int
-    datetime = dictionary["datetime"] as AnyObject! as Int!
+    datetime = dictionary["datetime"] as AnyObject! as! Int!
     parentID = dictionary["parent_id"] as AnyObject? as? String
     deleted = dictionary["deleted"] as AnyObject? as? Bool
     vote = dictionary["vote"] as AnyObject? as? String

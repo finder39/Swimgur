@@ -101,9 +101,14 @@ public class SWNetworking: NSObject {
     return "\(self.restConfig.serviceAuthorizeEndpoint)/\(uri)"
   }
   
-  private func imgurResponseParser(#data:NSData, completionHandler:((data:AnyObject, error:NSError?, errorDescription:String?) -> ())) {
+  private func imgurResponseParser(data data:NSData, completionHandler:((data:AnyObject, error:NSError?, errorDescription:String?) -> ())) {
     var err: NSError?
-    var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as? Dictionary<String, AnyObject>
+    let jsonResult: Dictionary<String, AnyObject>?
+    do {
+        jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? Dictionary<String, AnyObject>
+    } catch {
+        jsonResult = nil
+    }
     //println(NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err))
     if let err = err {
       completionHandler(data: "", error: err, errorDescription: err.localizedDescription)
@@ -113,12 +118,12 @@ public class SWNetworking: NSObject {
       var results: Dictionary = jsonResult as Dictionary
       if results["success"] as AnyObject? as? Int == 0 {
         let data: Dictionary<String, AnyObject>? = results["data"] as AnyObject? as? Dictionary<String, AnyObject>
-        let error = data!["error"] as AnyObject? as String?
+        let error = data!["error"] as AnyObject? as! String?
         if let error = error {
-          completionHandler(data: "", error: NSError(), errorDescription: error)
+          completionHandler(data: "", error: createError(), errorDescription: error)
         } else {
           dispatch_async(dispatch_get_main_queue(), {
-            completionHandler(data: "", error: NSError(), errorDescription: "error")
+            completionHandler(data: "", error: self.createError(), errorDescription: "error")
           })
         }
         return
@@ -127,10 +132,10 @@ public class SWNetworking: NSObject {
       if let data: AnyObject = data {
         completionHandler(data: data, error: nil, errorDescription: nil)
       } else {
-        completionHandler(data: "", error: NSError(), errorDescription: "data is nil")
+        completionHandler(data: "", error: createError(), errorDescription: "data is nil")
       }
     } else {
-      completionHandler(data: "", error: NSError(), errorDescription: "jsonResult is nil")
+      completionHandler(data: "", error: createError(), errorDescription: "jsonResult is nil")
     }
   }
   
@@ -192,11 +197,11 @@ public class SWNetworking: NSObject {
           })
         } else if let data = getDictionary(getDictionary(data)?["data"]) {
           dispatch_async(dispatch_get_main_queue(), {
-            onCompletion(account: Account(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
+            onCompletion(account: Account(dictionary: data as Dictionary<String, AnyObject>))
           })
         } else {
           dispatch_async(dispatch_get_main_queue(), {
-            onError(error: NSError(), description: "No data was returned")
+            onError(error: self.createError(), description: "No data was returned")
           })
         }
     }
@@ -223,13 +228,13 @@ public class SWNetworking: NSObject {
         } else if let data = getArray(getDictionary(data)?["data"]) {
           var galleryItems:[GalleryItem] = []
           for galleryDict in data {
-            if (galleryDict["is_album"] as AnyObject! as Int! == 1) {
-              let theDict = galleryDict as Dictionary<String, AnyObject>
-              if checkForValidAlbumDictionary(theDict) {
-                galleryItems.append(GalleryAlbum(dictionary: galleryDict as Dictionary<String, AnyObject>))
+            if (galleryDict["is_album"] as! Int == 1) {
+              let theDict = galleryDict as? Dictionary<String, AnyObject>
+              if checkForValidAlbumDictionary(theDict!) {
+                galleryItems.append(GalleryAlbum(dictionary: galleryDict as! Dictionary<String, AnyObject>))
               }
             } else {
-              galleryItems.append(GalleryImage(dictionary: galleryDict as Dictionary<String, AnyObject>))
+              galleryItems.append(GalleryImage(dictionary: galleryDict as! Dictionary<String, AnyObject>))
             }
           }
           self.lastPageLoaded = page
@@ -238,7 +243,7 @@ public class SWNetworking: NSObject {
           })
         } else {
           dispatch_async(dispatch_get_main_queue(), {
-            onError(error: NSError(), description: "No data was returned")
+            onError(error: self.createError(), description: "No data was returned")
           })
         }
     }
@@ -248,7 +253,7 @@ public class SWNetworking: NSObject {
     getGalleryImagesWithSection(section, sort: sort, window: window, page: self.lastPageLoaded+1, showViral: showViral, onCompletion: onCompletion, onError: onError)
   }
   
-  public func getAlbum(#albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
+  public func getAlbum(albumId albumId:String, onCompletion:SWAlbumBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/album/\(albumId)")
     
     alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
@@ -259,17 +264,17 @@ public class SWNetworking: NSObject {
           })
         } else if let data = getArray(getDictionary(data)?["data"]) {
           dispatch_async(dispatch_get_main_queue(), {
-            onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as Dictionary<String, AnyObject>))
+            onCompletion(album: GalleryAlbum(dictionary: data as AnyObject as! Dictionary<String, AnyObject>))
           })
         } else {
           dispatch_async(dispatch_get_main_queue(), {
-            onError(error: NSError(), description: "No data was returned")
+            onError(error: self.createError(), description: "No data was returned")
           })
         }
     }
   }
   
-  public func voteOnGalleryItem(#galleryItemId:String, vote:GalleryItemVote, onCompletion:SWBoolBlock?) {
+  public func voteOnGalleryItem(galleryItemId galleryItemId:String, vote:GalleryItemVote, onCompletion:SWBoolBlock?) {
     let url = self.createQueryEndpointFor("gallery/image/\(galleryItemId)/vote/\(vote.rawValue)")
     
     alamofireManager.request(.POST, url, parameters: nil, encoding: .JSON)
@@ -286,7 +291,7 @@ public class SWNetworking: NSObject {
   
   // MARK: comments
   
-  public func getComments(#galleryItemId:String, onCompletion:SWCommentsBlock, onError:SWErrorStringBlock) {
+  public func getComments(galleryItemId galleryItemId:String, onCompletion:SWCommentsBlock, onError:SWErrorStringBlock) {
     let url = self.createQueryEndpointFor("gallery/\(galleryItemId)/comments")
     
     alamofireManager.request(.GET, url, parameters: nil, encoding: .JSON)
@@ -299,7 +304,7 @@ public class SWNetworking: NSObject {
           dispatch_async(dispatch_get_main_queue(), {
             var comments:[Comment] = []
             for commentDict in data {
-              comments.append(Comment(dictionary: commentDict as Dictionary<String, AnyObject>))
+              comments.append(Comment(dictionary: commentDict as! Dictionary<String, AnyObject>))
             }
             dispatch_async(dispatch_get_main_queue(), {
               onCompletion(comments: comments)
@@ -307,7 +312,7 @@ public class SWNetworking: NSObject {
           })
         } else {
           dispatch_async(dispatch_get_main_queue(), {
-            onError(error: NSError(), description: "No data was returned")
+            onError(error: self.createError(), description: "No data was returned")
           })
         }
     }
@@ -343,5 +348,10 @@ public class SWNetworking: NSObject {
     } else {
       onCompletion(success: false)
     }*/
+  }
+  
+  // MARK: Error
+  func createError() -> NSError {
+    return NSError(domain: "meow", code: 101, userInfo: nil)
   }
 }

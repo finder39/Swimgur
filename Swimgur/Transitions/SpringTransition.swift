@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class SpringTransition: NSObject, UIViewControllerAnimatedTransitioning {
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
     return 0.5
   }
   
@@ -29,7 +29,9 @@ class SpringTransition: NSObject, UIViewControllerAnimatedTransitioning {
     toViewController!.view.frame = CGRectOffset(finalFrame, 0, screenBounds.size.height)
     
     // 4. add the view
-    containerView.addSubview(toViewController!.view)
+    if let containerView = containerView {
+        containerView.addSubview(toViewController!.view)
+    }
     
     let duration = self.transitionDuration(transitionContext)
     UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in

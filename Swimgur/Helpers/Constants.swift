@@ -49,7 +49,7 @@ class ConstantsPrivate {
   // MARK: Functions
   
   func encodeImageToBase64String(image:UIImage) -> String {
-    return UIImagePNGRepresentation(image).base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+    return UIImagePNGRepresentation(image)!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
   }
   
   func decodeBase64ToImage(strEncodeData:String) -> UIImage {
@@ -61,9 +61,9 @@ class ConstantsPrivate {
 // MARK: println addons
 
 func dprintln<T>(object: T, function: String = __FUNCTION__, file: String = __FILE__, line: Int = __LINE__, column: Int = __COLUMN__) {
-  println("<\(file.lastPathComponent):(\(line))> \(object)")
+  print("<\(file.lastPathComponent):(\(line))> \(object)")
 }
 
 func dfprintln<T>(object: T, function: String = __FUNCTION__, file: String = __FILE__, line: Int = __LINE__, column: Int = __COLUMN__) {
-  println("<\(file.lastPathComponent):\(function):(\(line))> \(object)")
+  print("<\(file.lastPathComponent):\(function):(\(line))> \(object)")
 }

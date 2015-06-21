@@ -62,7 +62,7 @@ class ViewController: UIViewController, UIViewControllerTransitioningDelegate, U
   
   // MARK: UIViewControllerTransitioningDelegate
   
-  func animationControllerForPresentedController(presented: UIViewController!, presentingController presenting: UIViewController!, sourceController source: UIViewController!) -> UIViewControllerAnimatedTransitioning! {
+  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return self.springAnimationController
   }
 }

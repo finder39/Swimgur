@@ -61,7 +61,7 @@ class CommentCell: UITableViewCell {
     newImgurTextView.scrollEnabled = imgurText.scrollEnabled
     newImgurTextView.textColor = imgurText.textColor
     newImgurTextView.linkTextAttributes = imgurText.linkTextAttributes
-    newImgurTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    newImgurTextView.translatesAutoresizingMaskIntoConstraints = false
     
     imgurText.removeFromSuperview()
     self.addSubview(newImgurTextView)

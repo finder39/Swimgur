@@ -82,15 +82,21 @@
 		D8B01BE11A34FB1A00117F14 /* GalleryItemInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B01BDF1A34FB1000117F14 /* GalleryItemInfoCell.xib */; };
 		D8B01BE31A34FB3A00117F14 /* GalleryItemInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */; };
 		D8B01BE41A34FB3A00117F14 /* GalleryItemInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */; };
-		D8D3AD0D1AA3B85C00861A56 /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */; };
-		D8D3AD0E1AA3B85C00861A56 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */; };
-		D8D3AD0F1AA3B85C00861A56 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */; };
+		D8CCC0D71B362CFE006EB29F /* SWNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0D51B362CFE006EB29F /* SWNetworking.swift */; };
+		D8CCC0D81B362CFE006EB29F /* SWNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CCC0D61B362CFE006EB29F /* SWNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8CCC0E21B362D17006EB29F /* Alamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CCC0D91B362D17006EB29F /* Alamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8CCC0E31B362D17006EB29F /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DA1B362D17006EB29F /* Alamofire.swift */; };
+		D8CCC0E41B362D17006EB29F /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DB1B362D17006EB29F /* Download.swift */; };
+		D8CCC0E51B362D17006EB29F /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DC1B362D17006EB29F /* Manager.swift */; };
+		D8CCC0E61B362D17006EB29F /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DD1B362D17006EB29F /* ParameterEncoding.swift */; };
+		D8CCC0E71B362D17006EB29F /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DE1B362D17006EB29F /* Request.swift */; };
+		D8CCC0E81B362D17006EB29F /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0DF1B362D17006EB29F /* ResponseSerialization.swift */; };
+		D8CCC0E91B362D17006EB29F /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0E01B362D17006EB29F /* Upload.swift */; };
+		D8CCC0EA1B362D17006EB29F /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CCC0E11B362D17006EB29F /* Validation.swift */; };
 		D8DF2A771991D23800397EE2 /* ImgurLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */; };
-		D8E9D16719D745D300DB6A91 /* SWNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = D8E9D16619D745D300DB6A91 /* SWNetworking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8E9D17319D745D300DB6A91 /* SWNetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D17219D745D300DB6A91 /* SWNetworkingTests.swift */; };
 		D8E9D17619D745D300DB6A91 /* SWNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E9D16219D745D300DB6A91 /* SWNetworking.framework */; };
 		D8E9D17819D745D300DB6A91 /* SWNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D8E9D16219D745D300DB6A91 /* SWNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D8E9D1CD19D7462C00DB6A91 /* SWNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D1CC19D7462C00DB6A91 /* SWNetworking.swift */; };
 		D8E9D1D819D74BD500DB6A91 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D1D119D74BD500DB6A91 /* Account.swift */; };
 		D8E9D1D919D74BD500DB6A91 /* AlbumImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D1D219D74BD500DB6A91 /* AlbumImage.swift */; };
 		D8E9D1DA19D74BD500DB6A91 /* GalleryAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E9D1D319D74BD500DB6A91 /* GalleryAlbum.swift */; };
@@ -242,16 +248,23 @@
 		D8AE2DC3199070470062E3E6 /* SwimgurTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimgurTests.swift; sourceTree = "<group>"; };
 		D8B01BDF1A34FB1000117F14 /* GalleryItemInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryItemInfoCell.xib; sourceTree = "<group>"; };
 		D8B01BE21A34FB3A00117F14 /* GalleryItemInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryItemInfoCell.swift; sourceTree = "<group>"; };
-		D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
-		D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		D8CCC0D51B362CFE006EB29F /* SWNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWNetworking.swift; sourceTree = "<group>"; };
+		D8CCC0D61B362CFE006EB29F /* SWNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWNetworking.h; sourceTree = "<group>"; };
+		D8CCC0D91B362D17006EB29F /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
+		D8CCC0DA1B362D17006EB29F /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		D8CCC0DB1B362D17006EB29F /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		D8CCC0DC1B362D17006EB29F /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+		D8CCC0DD1B362D17006EB29F /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		D8CCC0DE1B362D17006EB29F /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		D8CCC0DF1B362D17006EB29F /* ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
+		D8CCC0E01B362D17006EB29F /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
+		D8CCC0E11B362D17006EB29F /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		D8DF2A761991D23800397EE2 /* ImgurLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgurLoginController.swift; path = Controllers/ImgurLoginController.swift; sourceTree = "<group>"; };
 		D8E9D16219D745D300DB6A91 /* SWNetworking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SWNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E9D16519D745D300DB6A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8E9D16619D745D300DB6A91 /* SWNetworking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWNetworking.h; sourceTree = "<group>"; };
 		D8E9D16C19D745D300DB6A91 /* SWNetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SWNetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E9D17119D745D300DB6A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8E9D17219D745D300DB6A91 /* SWNetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNetworkingTests.swift; sourceTree = "<group>"; };
-		D8E9D1CC19D7462C00DB6A91 /* SWNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWNetworking.swift; sourceTree = "<group>"; };
 		D8E9D1D119D74BD500DB6A91 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Models/Account.swift; sourceTree = "<group>"; };
 		D8E9D1D219D74BD500DB6A91 /* AlbumImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumImage.swift; path = Models/AlbumImage.swift; sourceTree = "<group>"; };
 		D8E9D1D319D74BD500DB6A91 /* GalleryAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbum.swift; path = Models/GalleryAlbum.swift; sourceTree = "<group>"; };
@@ -481,8 +494,15 @@
 		D8D3AD0A1AA3B84C00861A56 /* Alamofire */ = {
 			isa = PBXGroup;
 			children = (
-				D8D3AD0B1AA3B85C00861A56 /* Alamofire.h */,
-				D8D3AD0C1AA3B85C00861A56 /* Alamofire.swift */,
+				D8CCC0D91B362D17006EB29F /* Alamofire.h */,
+				D8CCC0DA1B362D17006EB29F /* Alamofire.swift */,
+				D8CCC0DB1B362D17006EB29F /* Download.swift */,
+				D8CCC0DC1B362D17006EB29F /* Manager.swift */,
+				D8CCC0DD1B362D17006EB29F /* ParameterEncoding.swift */,
+				D8CCC0DE1B362D17006EB29F /* Request.swift */,
+				D8CCC0DF1B362D17006EB29F /* ResponseSerialization.swift */,
+				D8CCC0E01B362D17006EB29F /* Upload.swift */,
+				D8CCC0E11B362D17006EB29F /* Validation.swift */,
 			);
 			path = Alamofire;
 			sourceTree = "<group>";
@@ -521,8 +541,8 @@
 		D8E9D16319D745D300DB6A91 /* SWNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				D8E9D16619D745D300DB6A91 /* SWNetworking.h */,
-				D8E9D1CC19D7462C00DB6A91 /* SWNetworking.swift */,
+				D8CCC0D61B362CFE006EB29F /* SWNetworking.h */,
+				D8CCC0D51B362CFE006EB29F /* SWNetworking.swift */,
 				D8E9D1E319D756D000DB6A91 /* SIUserDefaults.swift */,
 				D8E9D1E119D754D700DB6A91 /* RestConfig.swift */,
 				D8E9D1E519D767B600DB6A91 /* Forms */,
@@ -628,12 +648,11 @@
 				D8AC10F019D88EA9008E7E4D /* SDWebImagePrefetcher.h in Headers */,
 				D8AC10E319D88EA9008E7E4D /* SDImageCache.h in Headers */,
 				D8AC10EF19D88EA9008E7E4D /* SDWebImageOperation.h in Headers */,
+				D8CCC0D81B362CFE006EB29F /* SWNetworking.h in Headers */,
 				D8AC10E519D88EA9008E7E4D /* SDWebImageCompat.h in Headers */,
 				D8AC10F619D88EA9008E7E4D /* UIImage+MultiFormat.h in Headers */,
-				D8D3AD0D1AA3B85C00861A56 /* Alamofire.h in Headers */,
 				D8AC10E919D88EA9008E7E4D /* SDWebImageDownloader.h in Headers */,
 				D8AC10FA19D88EA9008E7E4D /* UIImageView+HighlightedWebCache.h in Headers */,
-				D8E9D16719D745D300DB6A91 /* SWNetworking.h in Headers */,
 				D8AC10F219D88EA9008E7E4D /* UIButton+WebCache.h in Headers */,
 				D8AC10DF19D88EA9008E7E4D /* MKAnnotationView+WebCache.h in Headers */,
 				D8AC10E119D88EA9008E7E4D /* NSData+ImageContentType.h in Headers */,
@@ -641,6 +660,7 @@
 				D8AC10FC19D88EA9008E7E4D /* UIImageView+WebCache.h in Headers */,
 				D8AC10FE19D88EA9008E7E4D /* UIView+WebCacheOperation.h in Headers */,
 				D8AC10F419D88EA9008E7E4D /* UIImage+GIF.h in Headers */,
+				D8CCC0E21B362D17006EB29F /* Alamofire.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,7 +749,8 @@
 		D8AE2DA3199070470062E3E6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Joseph Neuman";
 				TargetAttributes = {
 					D8AE2DAA199070470062E3E6 = {
@@ -875,34 +896,41 @@
 				D8AC10FF19D88EA9008E7E4D /* UIView+WebCacheOperation.m in Sources */,
 				D8E9D1DE19D74BD500DB6A91 /* Token.swift in Sources */,
 				D8AC10EE19D88EA9008E7E4D /* SDWebImageManager.m in Sources */,
+				D8CCC0EA1B362D17006EB29F /* Validation.swift in Sources */,
 				D8E9D1DC19D74BD500DB6A91 /* GalleryItem.swift in Sources */,
 				D8AC10E619D88EA9008E7E4D /* SDWebImageCompat.m in Sources */,
 				D8AC10EC19D88EA9008E7E4D /* SDWebImageDownloaderOperation.m in Sources */,
+				D8CCC0E61B362D17006EB29F /* ParameterEncoding.swift in Sources */,
 				D8E9D1DB19D74BD500DB6A91 /* GalleryImage.swift in Sources */,
 				D8E9D1DD19D74BD500DB6A91 /* ImageUpload.swift in Sources */,
 				D8AC10FD19D88EA9008E7E4D /* UIImageView+WebCache.m in Sources */,
 				D8AC10FB19D88EA9008E7E4D /* UIImageView+HighlightedWebCache.m in Sources */,
 				D8E9D1E819D767E900DB6A91 /* CodeForm.swift in Sources */,
-				D8E9D1CD19D7462C00DB6A91 /* SWNetworking.swift in Sources */,
 				D8AC10F519D88EA9008E7E4D /* UIImage+GIF.m in Sources */,
 				D8AC10F719D88EA9008E7E4D /* UIImage+MultiFormat.m in Sources */,
 				D8AC10F919D88EA9008E7E4D /* UIImage+WebP.m in Sources */,
 				D8AC10F119D88EA9008E7E4D /* SDWebImagePrefetcher.m in Sources */,
 				D8E9D1E919D767E900DB6A91 /* RefreshTokenForm.swift in Sources */,
 				D8E9D1E419D756D000DB6A91 /* SIUserDefaults.swift in Sources */,
-				D8D3AD0E1AA3B85C00861A56 /* Alamofire.swift in Sources */,
+				D8CCC0E81B362D17006EB29F /* ResponseSerialization.swift in Sources */,
 				D8AC10E019D88EA9008E7E4D /* MKAnnotationView+WebCache.m in Sources */,
+				D8CCC0D71B362CFE006EB29F /* SWNetworking.swift in Sources */,
 				D878E2AF1A06E4A50015C84E /* GalleryItemTableItem.swift in Sources */,
 				D8E9D1E219D754D700DB6A91 /* RestConfig.swift in Sources */,
+				D8CCC0E91B362D17006EB29F /* Upload.swift in Sources */,
 				D8AC10EA19D88EA9008E7E4D /* SDWebImageDownloader.m in Sources */,
 				D8AC10F319D88EA9008E7E4D /* UIButton+WebCache.m in Sources */,
+				D8CCC0E71B362D17006EB29F /* Request.swift in Sources */,
+				D8CCC0E41B362D17006EB29F /* Download.swift in Sources */,
 				D8AD433B1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */,
 				D8E9D1D919D74BD500DB6A91 /* AlbumImage.swift in Sources */,
+				D8CCC0E31B362D17006EB29F /* Alamofire.swift in Sources */,
 				D8AC10E219D88EA9008E7E4D /* NSData+ImageContentType.m in Sources */,
 				D852EA681A074DC300D21248 /* Comment.swift in Sources */,
 				D8E9D1DA19D74BD500DB6A91 /* GalleryAlbum.swift in Sources */,
 				D8AC10E419D88EA9008E7E4D /* SDImageCache.m in Sources */,
 				D8E9D1D819D74BD500DB6A91 /* Account.swift in Sources */,
+				D8CCC0E51B362D17006EB29F /* Manager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -910,7 +938,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8D3AD0F1AA3B85C00861A56 /* Alamofire.swift in Sources */,
 				D8E9D17319D745D300DB6A91 /* SWNetworkingTests.swift in Sources */,
 				D8AD433C1AA3BC7500E68F37 /* jsonDictionaryHelpers.swift in Sources */,
 			);
@@ -983,6 +1010,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1051,6 +1079,7 @@
 				INFOPLIST_FILE = Swimgur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 			};
@@ -1067,6 +1096,7 @@
 				INFOPLIST_FILE = Swimgur/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 			};
@@ -1087,6 +1117,7 @@
 				);
 				INFOPLIST_FILE = SwimgurTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
@@ -1104,6 +1135,7 @@
 				);
 				INFOPLIST_FILE = SwimgurTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Swimgur/Swimgur-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
@@ -1126,6 +1158,7 @@
 				INFOPLIST_FILE = SWNetworking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1148,6 +1181,7 @@
 				INFOPLIST_FILE = SWNetworking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -1170,6 +1204,7 @@
 				);
 				INFOPLIST_FILE = SWNetworkingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
 			};
@@ -1184,6 +1219,7 @@
 				);
 				INFOPLIST_FILE = SWNetworkingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.josephneuman.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Swimgur.app/Swimgur";
 			};

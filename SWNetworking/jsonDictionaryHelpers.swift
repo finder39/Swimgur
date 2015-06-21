@@ -93,7 +93,7 @@ func getFloat(object:AnyObject?) -> Float? {
 }
 
 func getArray(object:AnyObject?) -> [AnyObject]? {
-  if let temp: [AnyObject] = object as [AnyObject]? {
+  if let temp: [AnyObject] = object as? [AnyObject] {
     return temp
   } else {
     return nil

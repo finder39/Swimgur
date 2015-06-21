@@ -89,7 +89,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     // load new data
     SWNetworking.sharedInstance.getGalleryImagesWithSection(ImgurSection.Hot, sort: self.sortType, window: ImgurWindow.Day, page: 0, showViral: true, onCompletion: { (newGalleryItems) -> () in
-      println("Refreshing collectionGallery")
+      print("Refreshing collectionGallery")
       DataManager.sharedInstance.galleryItems
         = newGalleryItems
       self.collectionGallery.reloadData()
@@ -104,7 +104,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   func loadMore() {
     if !loadingMore {
       SWNetworking.sharedInstance.getGalleryImagesWithSectionNextPage(ImgurSection.Hot, sort: ImgurSort.Viral, window: ImgurWindow.Day, showViral: true, onCompletion: { (newGalleryItems) -> () in
-        println("Loading more collectionGallery")
+        print("Loading more collectionGallery")
         DataManager.sharedInstance.galleryItems += newGalleryItems
         self.collectionGallery.reloadData()
         self.loadingMore = false
@@ -130,7 +130,7 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     if indexPath.section == 0 {
-      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.ReuseIdentifier.GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as GalleryCollectionViewCell
+      var cell = collectionView.dequeueReusableCellWithReuseIdentifier(Constants.ReuseIdentifier.GalleryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as! GalleryCollectionViewCell
       let galleryItem = DataManager.sharedInstance.galleryItems[indexPath.row]
       cell.gallery = galleryItem
       
@@ -179,25 +179,29 @@ class GalleryViewController: UIViewController, UICollectionViewDataSource, UICol
   // MARK: UICollectionViewDelegate
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-    let row = (sender as NSIndexPath).row
-    (segue.destinationViewController as GalleryItemViewController).galleryIndex = row
+    let row = (sender as! NSIndexPath).row
+    (segue.destinationViewController as! GalleryItemViewController).galleryIndex = row
   }
   
   // MARK: UIImagePickerControllerDelegate
   
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
     picker.dismissViewControllerAnimated(true, completion: { () -> Void in
       
     })
     
     // Access the original image from the info dictionary
-    let image = info["UIImagePickerControllerOriginalImage"] as UIImage
+    let image = info["UIImagePickerControllerOriginalImage"] as! UIImage
     
     // Capture the file name of the image
     let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
     let documentsDirectory = paths[0] as String
-    var error:NSError?
-    let dirContents = NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentsDirectory, error: &error)
+    let dirContents: [String]?
+    do {
+      try dirContents = NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentsDirectory)
+    } catch {
+      dirContents = nil
+    }
     if let dirContents = dirContents {
       let fileName = "photo_\(dirContents.count).png"
       let imagePath = documentsDirectory.stringByAppendingString(fileName)

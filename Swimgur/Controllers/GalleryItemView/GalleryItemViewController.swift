@@ -38,10 +38,6 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
     }
   }
   
-  override init() {
-    super.init()
-  }
-  
   required init(coder: NSCoder) {
     //fatalError("NSCoding not supported")
     super.init(coder: coder)
@@ -117,7 +113,7 @@ class GalleryItemViewController: UIViewController, InfiniteScrollViewDelegate {
   
   func createTableViewWithPageOffset(pageOffset:Int) -> GalleryItemTableView {
     let offset = self.view.frame.size.width * CGFloat(pageOffset)
-    var newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
+    let newTableView = GalleryItemTableView(frame: CGRectMake(self.view.frame.origin.x+offset, self.view.frame.origin.y, self.view.frame.size.width, self.view.frame.size.height))
     // TODO: status bar height will become 40 px and non-transparent during calls/navigation/hotspot. Need to detect/account and adjust for this.
     newTableView.contentInset.top = self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height
     newTableView.contentInset.bottom = self.voteBar.frame.size.height

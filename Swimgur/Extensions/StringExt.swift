@@ -10,12 +10,12 @@ import Foundation
 
 public extension String {
   func URLEncodingString() -> String {
-    var result:String = CFBridgingRetain(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, self as NSString as CFStringRef, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue)) as String
+    let result:String = CFBridgingRetain(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, self as NSString as CFStringRef, nil, "!*'();:@&=+$,/?%#[]", CFStringBuiltInEncodings.UTF8.rawValue)) as! String
     return result
   }
   
   func URLDecodedString() -> String {
-    var result:String = CFBridgingRetain(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (self as NSString) as CFStringRef, nil, CFStringBuiltInEncodings.UTF8.rawValue)) as String
+    let result:String = CFBridgingRetain(CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (self as NSString) as CFStringRef, nil, CFStringBuiltInEncodings.UTF8.rawValue)) as! String
     return result
   }
 }

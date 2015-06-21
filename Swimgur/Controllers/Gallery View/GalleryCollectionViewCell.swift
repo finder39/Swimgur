@@ -35,10 +35,6 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }
   }
   
-  override init() {
-    super.init()
-  }
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setup()
@@ -69,13 +65,13 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     fillColor.setFill()
     polygonPath.fill()
     
-    var shape = CAShapeLayer()
+    let shape = CAShapeLayer()
     shape.path = polygonPath.CGPath
     self.layer.addSublayer(shape)
   }
   
   private func setup() {
-    imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    imageView.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(imageView)
     let trailing = NSLayoutConstraint(item: imageView, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: -0.5)
     let bottom = NSLayoutConstraint(item: imageView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -0.5)

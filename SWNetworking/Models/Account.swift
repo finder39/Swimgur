@@ -17,11 +17,11 @@ public class Account {
   public var proExpiration: Int?
   
   public init(dictionary:Dictionary<String, AnyObject>) {
-    id = dictionary["id"] as AnyObject! as Int!
-    username = dictionary["url"] as AnyObject! as String!
+    id = dictionary["id"] as AnyObject! as! Int!
+    username = dictionary["url"] as AnyObject! as! String!
     bio = dictionary["bio"] as AnyObject? as? String
-    reputation = dictionary["reputation"] as AnyObject! as Int!
-    created = dictionary["created"] as AnyObject! as Int!
+    reputation = dictionary["reputation"] as AnyObject! as! Int!
+    created = dictionary["created"] as AnyObject! as! Int!
     proExpiration = dictionary["pro_expiration"] as AnyObject? as? Int
   }
   

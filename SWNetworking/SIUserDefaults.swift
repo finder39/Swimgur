@@ -21,9 +21,9 @@ public class SIUserDefaults {
   
   public var account: Account? {
     get {
-      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.rawValue) as AnyObject? as NSData?
+      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.AccountKey.rawValue) as AnyObject? as! NSData?
       if let outData = outData {
-        let accountDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as AnyObject? as Dictionary<String, AnyObject>?
+        let accountDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as? Dictionary<String, AnyObject>
         if let accountDict = accountDict {
           return Account(dictionary: accountDict)
         } else {
@@ -36,7 +36,7 @@ public class SIUserDefaults {
     set {
       let accountDict = newValue?.asDictionary()
       if let accountDict = accountDict {
-        var data = NSKeyedArchiver.archivedDataWithRootObject(accountDict)
+        let data = NSKeyedArchiver.archivedDataWithRootObject(accountDict)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: SIDefault.AccountKey.rawValue)
       } else {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.AccountKey.rawValue)
@@ -47,9 +47,9 @@ public class SIUserDefaults {
   
   public var token: Token? {
     get {
-      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.rawValue) as AnyObject? as NSData?
+      let outData = NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.TokenKey.rawValue) as AnyObject? as! NSData?
       if let outData = outData {
-        let tokenDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as AnyObject? as Dictionary<String, AnyObject>?
+        let tokenDict = NSKeyedUnarchiver.unarchiveObjectWithData(outData) as? Dictionary<String, AnyObject>
         if let tokenDict = tokenDict {
           return Token(dictionary: tokenDict)
         } else {
@@ -62,7 +62,7 @@ public class SIUserDefaults {
     set {
       let tokenDict = newValue?.asDictionary()
       if let tokenDict = tokenDict {
-        var data = NSKeyedArchiver.archivedDataWithRootObject(tokenDict)
+        let data = NSKeyedArchiver.archivedDataWithRootObject(tokenDict)
         NSUserDefaults.standardUserDefaults().setObject(data, forKey: SIDefault.TokenKey.rawValue)
       } else {
         NSUserDefaults.standardUserDefaults().removeObjectForKey(SIDefault.TokenKey.rawValue)
@@ -73,7 +73,7 @@ public class SIUserDefaults {
   
   public var code: String? {
     get {
-      return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.CodeKey.rawValue) as AnyObject? as String?
+      return NSUserDefaults.standardUserDefaults().objectForKey(SIDefault.CodeKey.rawValue) as AnyObject? as! String?
     }
     set {
       if let newValue = newValue {

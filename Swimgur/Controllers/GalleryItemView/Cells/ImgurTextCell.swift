@@ -27,7 +27,7 @@ class ImgurTextCell: UITableViewCell {
     imgurText.text = nil
     
     // bug fix for text maintaining old links
-    var newImgurTextView = UITextView()
+    let newImgurTextView = UITextView()
     newImgurTextView.font = imgurText.font
     newImgurTextView.backgroundColor = imgurText.backgroundColor
     newImgurTextView.dataDetectorTypes = imgurText.dataDetectorTypes
@@ -36,7 +36,7 @@ class ImgurTextCell: UITableViewCell {
     newImgurTextView.scrollEnabled = imgurText.scrollEnabled
     newImgurTextView.textColor = imgurText.textColor
     newImgurTextView.linkTextAttributes = imgurText.linkTextAttributes
-    newImgurTextView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    newImgurTextView.translatesAutoresizingMaskIntoConstraints = false
     
     imgurText.removeFromSuperview()
     self.addSubview(newImgurTextView)

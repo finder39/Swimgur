@@ -38,16 +38,6 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
   
   // lifecyle
   
-  override init() {
-    super.init()
-    setup()
-  }
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setup()
-  }
-  
   override init(frame: CGRect, style: UITableViewStyle) {
     super.init(frame: frame, style: style)
     setup()
@@ -68,8 +58,8 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
     self.registerNib(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.CommentCellReuseIdentifier)
     self.registerNib(UINib(nibName: "GalleryItemInfoCell", bundle: nil), forCellReuseIdentifier: Constants.ReuseIdentifier.GalleryItemInfoCellReuseIdentifier)
     
-    textCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as ImgurTextCell
-    commentCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as CommentCell
+    textCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier) as! ImgurTextCell
+    commentCell = self.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier) as! CommentCell
     
     self.delegate = self
     self.dataSource = self
@@ -184,11 +174,11 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
       let item = currentGalleryItem!
       
       if item.tableViewDataSourceArray[indexPath.row].type == .Image {
-        var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurImageCellReuseIdentifier, forIndexPath: indexPath) as ImgurImageCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurImageCellReuseIdentifier, forIndexPath: indexPath) as! ImgurImageCell
         SWNetworking.sharedInstance.setImageView(cell.imgurImage, withURL: item.tableViewDataSourceArray[indexPath.row].text)
         return cell
       } else if item.tableViewDataSourceArray[indexPath.row].type == .Title || item.tableViewDataSourceArray[indexPath.row].type == .Description {
-        var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier, forIndexPath: indexPath) as ImgurTextCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.ImgurTextCellReuseIdentifier, forIndexPath: indexPath) as! ImgurTextCell
         cell.imgurText.text = item.tableViewDataSourceArray[indexPath.row].text
         return cell
       }
@@ -196,7 +186,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
       let item = currentGalleryItem!
       let comment = item.tableViewDataSourceCommentsArray[indexPath.row].associatedComment!
       
-      var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier, forIndexPath: indexPath) as CommentCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.CommentCellReuseIdentifier, forIndexPath: indexPath) as! CommentCell
       cell.authorButton.setTitle(comment.author, forState: .Normal)
       let authorSize = cell.authorButton.sizeThatFits(CGSizeMake(CGFloat.max, cell.authorButton.frame.size.height))
       cell.authorWidth.constant = authorSize.width
@@ -223,7 +213,7 @@ class GalleryItemTableView: UITableView, UITableViewDelegate, UITableViewDataSou
     } else if indexPath.section == GalleryItemTableSection.GalleryItemInfo.rawValue {
       let item = currentGalleryItem!
       
-      var cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.GalleryItemInfoCellReuseIdentifier, forIndexPath: indexPath) as GalleryItemInfoCell
+      let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ReuseIdentifier.GalleryItemInfoCellReuseIdentifier, forIndexPath: indexPath) as! GalleryItemInfoCell
       
       if item.loadingComments == true {
         cell.commentsInfoLabel.text = "Loading comments..."

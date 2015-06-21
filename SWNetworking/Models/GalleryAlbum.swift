@@ -48,11 +48,11 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
   private var loadingAlbum = false
   
   public init(dictionary:Dictionary<String, AnyObject>) {
-    cover = dictionary["cover"] as AnyObject! as String!
-    coverWidth = dictionary["cover_width"] as AnyObject! as Int!
-    coverHeight = dictionary["cover_height"] as AnyObject! as Int!
-    privacy = dictionary["privacy"] as AnyObject! as String!
-    layout = dictionary["layout"] as AnyObject! as String!
+    cover = dictionary["cover"] as AnyObject! as! String!
+    coverWidth = dictionary["cover_width"] as AnyObject! as! Int!
+    coverHeight = dictionary["cover_height"] as AnyObject! as! Int!
+    privacy = dictionary["privacy"] as AnyObject! as! String!
+    layout = dictionary["layout"] as AnyObject! as! String!
     imagesCount = dictionary["images_count"] as AnyObject? as? Int
     if let albumImages = (dictionary["images"] as AnyObject?) as? [Dictionary<String, AnyObject>] {
       for image in albumImages {
@@ -60,19 +60,19 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
       }
     }
     super.init()
-    id = dictionary["id"] as AnyObject! as String!
-    title = dictionary["title"] as AnyObject! as String!
+    id = dictionary["id"] as AnyObject! as! String!
+    title = dictionary["title"] as AnyObject! as! String!
     description = dictionary["description"] as AnyObject? as? String
-    datetime = dictionary["datetime"] as AnyObject! as Int!
-    link = dictionary["link"] as AnyObject! as String!
+    datetime = dictionary["datetime"] as AnyObject! as! Int!
+    link = dictionary["link"] as AnyObject! as! String!
     accountURL = dictionary["account_url"] as AnyObject? as? String
     accountID = dictionary["account_id"] as AnyObject? as? Int
-    ups = dictionary["ups"] as AnyObject! as Int!
-    downs = dictionary["downs"] as AnyObject! as Int!
-    score = dictionary["score"] as AnyObject! as Int!
-    isAlbum = dictionary["is_album"] as AnyObject! as Bool!
-    views = dictionary["views"] as AnyObject! as Int!
-    favorite = dictionary["favorite"] as AnyObject! as Bool!
+    ups = dictionary["ups"] as AnyObject! as! Int!
+    downs = dictionary["downs"] as AnyObject! as! Int!
+    score = dictionary["score"] as AnyObject! as! Int!
+    isAlbum = dictionary["is_album"] as AnyObject! as! Bool!
+    views = dictionary["views"] as AnyObject! as! Int!
+    favorite = dictionary["favorite"] as AnyObject! as! Bool!
     vote = dictionary["vote"] as AnyObject? as? String
     nsfw = dictionary["nsfw"] as AnyObject? as? Bool
     
@@ -94,7 +94,7 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
     return coverLink.stringByReplacingOccurrencesOfString(".", withString: "\(letter).", options: NSStringCompareOptions.LiteralSearch, range: coverLink.rangeOfString(".", options: NSStringCompareOptions.BackwardsSearch))
   }
   
-  public func getAlbum(#onCompletion:SWAlbumBlock) {
+  public func getAlbum(onCompletion onCompletion:SWAlbumBlock) {
     if !loadingAlbum {
       loadingAlbum = true
       SWNetworking.sharedInstance.getAlbum(albumId: self.id, onCompletion: { (album) -> () in
@@ -104,8 +104,8 @@ public class GalleryAlbum: GalleryItem, GalleryItemProtocol {
         })
       }) { (error, description) -> () in
         self.loadingAlbum = false
-        println(error)
-        println(description)
+        print(error)
+        print(description)
       }
     }
   }

@@ -30,20 +30,20 @@ class DataManagerTests: XCTestCase {
   }
   
   func testSingletonReturnsSameSharedInstances() {
-    var s1 = getSharedInstance()
-    var s2 = getSharedInstance()
+    let s1 = getSharedInstance()
+    let s2 = getSharedInstance()
     XCTAssertEqual(s1, s2)
   }
   
   func testSingletonSharedInstanceSameAsUniqueInstance() {
-    var s1 = getSharedInstance()
-    var s2 = createUniqueInstance()
+    let s1 = getSharedInstance()
+    let s2 = createUniqueInstance()
     XCTAssertNotEqual(s1, s2)
   }
   
   func testSingletonReturnsSameUniqueInstances() {
-    var s1 = createUniqueInstance()
-    var s2 = createUniqueInstance()
+    let s1 = createUniqueInstance()
+    let s2 = createUniqueInstance()
     XCTAssertNotEqual(s1, s2)
   }
 }

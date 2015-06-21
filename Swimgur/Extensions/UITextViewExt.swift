@@ -16,7 +16,7 @@ public extension UITextView {
     return newSize.height
   }
   
-  public func getTextHeight(#width:CGFloat) -> CGFloat {
+  public func getTextHeight(width width:CGFloat) -> CGFloat {
     let newSize = self.sizeThatFits(CGSizeMake(width, CGFloat.max))
     return newSize.height
   }
